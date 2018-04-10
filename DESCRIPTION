@@ -10,7 +10,7 @@ Description: A set of functions to help users create shareable data sets from
 	     crosswalk files that list restricted variables, package functions
 	     warn users about possible violations of data usage agreement and
 	     prevent writing protected elements.    
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.1.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
