@@ -16,7 +16,7 @@ and prevent writing protected elements.
 Install the latest development version from Github with
 
 ```r
-devtools::install_github('btskinner/duawranglr)
+devtools::install_github('btskinner/duawranglr')
 ```
 
 ### Dependencies
