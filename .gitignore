@@ -1,6 +1,5 @@
 # R dot files
 
-*.Rbuildignore
 *.Rproj
 *.Rhistory
 *.Rapp.history

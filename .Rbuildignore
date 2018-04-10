@@ -1,0 +1,10 @@
+^.*\.Rproj$      
+^\.Rproj\.user$
+^\.Rhistory$
+^\.Rapp\.history$
+^README\.Rmd$
+^cran-comments\.md$
+^\.travis\.yml$
+^.git$
+^.gitignore$
+^.DS_Store$

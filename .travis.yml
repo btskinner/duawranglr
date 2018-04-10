@@ -1,4 +1,8 @@
-language: R
+language: r
+r:
+  - oldrel
+  - release
+  - devel
 sudo: false
 cache: packages
 
@@ -6,9 +10,3 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-matrix:
-  include:
-  - r: release
-  - r: oldrel
-  - r: devel
