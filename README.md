@@ -23,8 +23,8 @@ devtools::install_github('btskinner/duawranglr)
 
 This package relies on the following packages, available in CRAN:
 
-* digest
-* dplyr
-* haven
-* readr
-* readxl
+* [digest](http://cran.r-project.org/package=digest)
+* [dplyr](http://cran.r-project.org/package=dplyr)
+* [haven](http://cran.r-project.org/package=haven)
+* [readr](http://cran.r-project.org/package=readr)
+* [readxl](http://cran.r-project.org/package=readxl)
