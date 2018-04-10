@@ -1,0 +1,9 @@
+level_i,level_i_new,level_ii,level_ii_new,level_iii,level_iii_new
+student_id,id,student_id,id,student_id,id
+name,name,name,name,name,name
+dob,age,dob,age,NA,NA
+gender,female,zip_code,zip,NA,NA
+raceeth,raceethn,NA,NA,NA,NA
+teacher_id,teach_id,NA,NA,NA,NA
+teacher_name,teach_name,NA,NA,NA,NA
+zip_code,zip,NA,NA,NA,NA

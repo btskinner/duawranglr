@@ -1,0 +1,9 @@
+level_i|level_ii|level_iii
+student_id|student_id|student_id
+name|name|name
+dob|dob|NA
+gender|zip_code|NA
+raceeth|NA|NA
+teacher_id|NA|NA
+teacher_name|NA|NA
+zip_code|NA|NA

@@ -1,0 +1,173 @@
+## utils.R
+
+## global variables
+utils::globalVariables(c('.getSerializeVersion', 'dua_env'))
+
+## smart reader
+sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
+
+    ## check to make sure file exists
+    if (!file.exists(file)) {
+
+        stop('File not found. Please confirm file name and path.',
+             call. = FALSE)
+    }
+
+    ## get file ending, ignoring case
+    ext <- tolower(tools::file_ext(file))
+
+    ## read based on filetype
+    if (ext == 'xls' || ext == 'xlsx') {
+
+        ## excel
+        sheet <- ifelse(!is.null(sheet), sheet, 1)
+        df <- readxl::read_excel(file, sheet = sheet, col_types = 'text')
+
+    } else if (ext == 'rda' || ext == 'rdata' || ext == 'rds') {
+
+        ## R
+        if (ext == 'rds') { df <- readRDS(file) }
+        else { df <- get(load(file)) }
+
+    } else if (ext == 'dta') {
+
+        ## stata
+        df <- haven::read_stata(file)
+
+    } else if (ext == 'sas7bdat') {
+
+        ## SAS
+        df <- haven::read_sas(file)
+
+    } else {
+
+        ## csv
+        if (ext == 'csv' && is.null(delimiter)) { delim <- ',' }
+
+        ## tsv
+        else if (ext == 'tsv' && is.null(delimiter)) { delim <- '\t' }
+
+        ## user-supplied
+        else if (!is.null(delimiter)) { delim <- delimiter }
+
+        ## error
+        else {
+
+            stop('File type not recognized; please supply delimiter string.',
+                 call. = FALSE)
+        }
+
+        ## delimited
+        df <- readr::read_delim(file, delim = delim,
+                                col_types = readr::cols(.default = 'c'))
+
+    }
+
+    ## return
+    return(df)
+}
+
+## check for duplicates in column
+check_dups__ <- function(file, column) {
+
+    if (anyDuplicated(file[[column]], incomparables = c(NA, ''))) {
+
+        dups <- file[[column]][duplicated(file[[column]])]
+        stop(paste(c('The following values are duplicated in the',
+                     column,
+                     'column:\n\n',
+                     paste(dups, '\n'),
+                     '\n',
+                     'Please specify a 1:1 mapping.'),
+                   collapse = ' '),
+             call. = FALSE)
+
+    }
+}
+
+## hash mapper list
+assign_hash_list__ <- function(hash, df, remap_list = NULL) {
+
+    if (!is.null(remap_list)) {
+        cols <- names(remap_list)
+    } else {
+        cols <- colnames(df)
+    }
+
+    for (col in cols) {
+
+        ## check for duplicates
+        check_dups__(df, col)
+
+        ## create list of restricted variable names
+        varlist <- list(df[[col]])
+
+        ## if remapping names append new names too
+        if (!is.null(remap_list)) {
+            tmp <- list(df[[remap_list[[col]]]])
+            varlist <- list(c(unlist(varlist), unlist(tmp)))
+        }
+
+        ## remove NAs
+        varlist <- lapply(varlist, function(x) {
+            x[x == '' | x == ' '] <- NA
+            return(x[!is.na(x)])
+        })
+
+        ## add list to hash under level name
+        hash[[col]] <- varlist
+    }
+}
+
+
+## hash mapper wrapper
+hasher__ <- function(df, name, ignore_col = NULL, remap_list = NULL,
+                     assign_env = .GlobalEnv) {
+
+    ## get column names
+    cols <- colnames(df)
+
+    ## ...less remapped column and any ignored columns
+    if (!is.null(remap_list)) {
+        cols <- cols[!(cols %in% unlist(remap_list, use.names = FALSE))]
+    }
+    if (!is.null(ignore_col)) {
+        cols <- cols[!(cols %in% c(ignore_col))]
+    }
+
+    ## create hash environment
+    hash <- new.env(parent = emptyenv())
+
+    ## apply each remaining column value to clean value
+    assign_hash_list__(hash, df = df, remap_list = remap_list)
+
+    ## assign hash environment to name
+    assign(name, hash, envir = assign_env)
+
+}
+
+## vectorized digest::digest
+vdigest__ <- Vectorize(digest::digest)
+
+## messager
+messager__ <- function(text, var_vec = NULL,
+                       width = getOption('width')) {
+
+    pretext <- paste(c(rep('-', width), '\n', rep('-', width), '\n'),
+                     collapse = '')
+    posttext <- paste(c('\n', rep('-', width), '\n', rep('-', width)),
+                      collapse = '')
+    text <- paste(strwrap(text, width = width), collapse = '\n')
+
+    if (!is.null(var_vec)) {
+        message(pretext)
+        message(text)
+        message(' ')
+        for (v in var_vec) {
+            message('  ', v)
+        }
+        message(posttext)
+    } else {
+        message(c(pretext, text, posttext))
+    }
+}

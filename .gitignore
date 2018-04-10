@@ -1,0 +1,11 @@
+# R dot files
+
+*.Rbuildignore
+*.Rproj
+*.Rhistory
+*.Rapp.history
+
+# MacOS dot files
+*.DS_Store
+
+
