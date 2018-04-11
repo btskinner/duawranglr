@@ -2,7 +2,7 @@ context('dua_write')
 
 tmpdir <- tempdir()
 df <- read.csv('./testdata/admin_data.csv')
-dua_env <- new.env(parent = .GlobalEnv)
+dua_env <<- new.env(parent = .GlobalEnv)
 dua_env[['dua_set']] <- TRUE
 dua_env[['check_pass']] <- TRUE
 fn <- 'test'
