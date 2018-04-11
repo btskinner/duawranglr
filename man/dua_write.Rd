@@ -4,12 +4,22 @@
 \alias{dua_write}
 \title{Write securely cleaned data set}
 \usage{
-dua_write(df, ...)
+dua_write(df, file_name, path = ".", output_type = c("rds", "rdata", "csv",
+  "tsv", "delimited", "stata", "sas", "spss"), ...)
 }
 \arguments{
-\item{df}{Data frame}
+\item{df}{Data frame object to save.}
 
-\item{...}{Options to pass to base \code{write.table()} function.}
+\item{file_name}{Name for saved file.}
+
+\item{path}{Path for saved file; default is current directory.}
+
+\item{output_type}{Output data file type. Options include \code{rds}
+(DEFAULT), \code{rdata}, \code{csv}, \code{tsv}, \code{delimited},
+\code{stata}, and \code{sas}.}
+
+\item{...}{Arguments to pass to write function. Will change depending
+on selected \code{output_type}.}
 }
 \description{
 Write securely cleaned data set
