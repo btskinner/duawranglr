@@ -39,6 +39,11 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
         ## SAS
         df <- haven::read_sas(file)
 
+    } else if (ext == 'sav') {
+
+        ## SPSS
+        df <- haven::read_spss(file)
+
     } else {
 
         ## csv
