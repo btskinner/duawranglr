@@ -30,11 +30,17 @@ dua_write <- function(df,
 
     ## file extension list
     fe <- list('rds' = 'rds', 'rdata' = 'rdata', 'csv' = 'csv', 'tsv' = 'tsv',
-               'delimited' = 'txt', 'stata' = 'dta', 'sas' = 'sas7bdat')
+               'delimited' = 'txt', 'stata' = 'dta', 'sas' = 'sas7bdat',
+               'spss' = 'sav')
 
     ## check for file extension
     ext <- tolower(tools::file_ext(file_name))
-    if (ext == '') { paste(file_name, fe[[output_type]], sep = '.') }
+    if (ext == '') {
+        file_name <- paste(file_name, fe[[output_type]], sep = '.')
+    }
+
+    ## join name and path
+    f <- file.path(path, file_name)
 
     ## -----------------------
     ## write
@@ -45,14 +51,12 @@ dua_write <- function(df,
 
     ## RDS
     if (output_type == 'rds') {
-        do.call('saveRDS', c(list(df = df, file = file.path(path, file_name)),
-                             args))
+        do.call('saveRDS', c(list('object' = df, 'file' = f), args))
     }
 
     ## Rdata
     if (output_type == 'rdata') {
-        do.call('save', c(list(df, file = file.path(path, file_name)),
-                          args))
+        do.call('save', c(list('df', 'file' = f), args))
     }
 
     ## delimited files
@@ -65,25 +69,25 @@ dua_write <- function(df,
         if (output_type == 'csv') {
             if (!'sep' %in% names(args)) { args[['sep']] <- '\t' }
         }
-        do.call('write.table', c(list(df), arg))
+        do.call('write.table', c(list(df, 'file' = f), args))
     }
 
     ## Stata
     if (output_type == 'stata') {
-        do.call('haven::write_dta',
-                c(list(file = df, path = file.path(path, file_name)), args))
+        fun <- get('write_dta', asNamespace('haven'))
+        do.call(fun, c(list('data' = df, 'path' = f), args))
     }
 
     ## SAS
     if (output_type == 'sas') {
-        do.call('haven::write_sas',
-                c(list(file = df, path = file.path(path, file_name))))
+        fun <- get('write_sas', asNamespace('haven'))
+        do.call(fun, c(list('data' = df, 'path' = f)))
     }
 
     ## SPSS
     if (output_type == 'spss') {
-        do.call('haven::write_sav',
-                c(list(file = df, path = file.path(path, file_name))))
+        fun <- get('write_sav', asNamespace('haven'))
+        do.call(fun, c(list('data' = df, 'path' = f)))
     }
 
 }
