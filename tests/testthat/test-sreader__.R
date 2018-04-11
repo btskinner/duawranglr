@@ -74,6 +74,16 @@ test_that('Failed to read crosswalk file of type: SAS (sas7bdat)', {
 
 })
 
+## SPSS
+test_that('Failed to read crosswalk file of type: SPSS (sav)', {
+
+    dua_one <- sreader__('./testdata/dua_one.sav')
+    expect_is(dua_one, 'data.frame')
+    expect_identical(names(dua_one), colnames)
+    expect_identical(unlist(dua_one[colnames[1]], use.names = FALSE), values)
+
+})
+
 ## R (rdata)
 test_that('Failed to read crosswalk file of type: R (rdata)', {
 
