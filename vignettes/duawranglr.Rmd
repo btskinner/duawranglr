@@ -1,19 +1,133 @@
 ---
-title: 'duawranglr'
-subtitle: 'An R package to securely wrangle dataset according to data usage agreement'
-author: 'Benjamin Skinner'
-date: "`r format(Sys.Date(), '%d %B %Y')`"
-output: rmarkdown::html_vignette
+title: Data usage agreements and R
+output: 
+  rmdformats::html_clean:
+    self_contained: TRUE
+    highlight: kate
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Data usage agreements and R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+options(width = 90)
+
+knitr::opts_chunk$set(collapse = TRUE, comment = NA)
+
+```
+
+# Administrative data    
+```{r, eval = FALSE}
+library(tidyverse)
+library(duawranglr)
+
+## read in raw administrative data
+df <- read_csv('./admin_data.csv')
+df
+```
+
+```{r, echo = FALSE}
+library(tidyverse)
+library(duawranglr)
+
+## read in raw administrative data
+df <- read_csv('../tests/testthat/testdata/admin_data.csv',
+               col_types = cols(sid = col_character(),
+                                sname = col_character(),
+                                dob = col_character(),
+                                gender = col_integer(),
+                                raceeth = col_integer(),
+                                tid = col_integer(),
+                                tname = col_character(),
+                                zip = col_integer(),
+                                mathscr = col_integer(),
+                                readscr = col_integer()
+                                )
+               )
+df
+```	
+
+# Data usage agreement
+
+## Set DUA
+
+```{r, eval = FALSE}
+## set the DUA crosswalk
+set_dua('dua_cw.csv')
+```
+```{r, echo = FALSE}
+set_dua('../tests/testthat/testdata/dua_one.csv')
+```
+## Check DUA options
+
+```{r}
+## check levels in DUA agreement
+see_dua_options()
+```
+
+## Set DUA level
+```{r}
+## set DUA level
+set_dua_level('level_ii', deidentify_required = TRUE, id_column = 'sid')
+```
+
+## Check DUA level
+```{r}
+## see set DUA level 
+see_dua_level(show_restrictions = TRUE)
+```
+
+# Deidentify data
+```{r, echo = FALSE}
+## deidentify data
+tmpdir <- tempdir()
+deidentify(df, write_crosswalk = TRUE, id_length = 20,
+           crosswalk_name = 'tmp', crosswalk_path = tmpdir)
+```
+```{r, eval = FALSE}
+## deidentify data
+deidentify(df, write_crosswalk = TRUE, id_length = 20)
+```
+```{r, echo = FALSE}
+## show crosswalk
+cw <- read_csv(file.path(tmpdir, 'tmp.csv'), col_types = cols(.default = 'c'))
+cw
+rm(tmpdir)
+```
+```{r}
+## show data frame
+df
+```
+
+# Check data frame
+```{r}
+## write data to disk with one last check
+dua_write(df, 'cleaned_data.csv', output_type = 'csv')
+```
+```{r}
+## check
+check_protect(df)
+```
+```{r}
+df <- df %>% select(-dob)
+```
+```{r}
+## check again
+check_protect(df)
+```
+
+# Write cleaned data frame to disk
+```{r, eval = FALSE}
+## write data to disk with one last check
+dua_write(df, 'cleaned_data.csv', output_type = 'csv')
+```
+
+# Interactive template
+```{r, eval = FALSE}
+make_template('clean_data.R')
+```
+```{r, echo = FALSE}
+writeLines(readLines('../tests/testthat/testdata/template_example.R'))
 ```
 
