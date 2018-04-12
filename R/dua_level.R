@@ -30,9 +30,9 @@ set_dua_level <- function(level,
         } else {
             dua_env[['deidentify_required']] <- TRUE
             dua_env[['deidentify_column']] <- id_column
-            messager__(paste0('Unique IDs in ',
+            messager__(paste0('Unique IDs in [ ',
                               dua_env[['deidentify_column']],
-                              ' must be deidentified; use -deidentify()-.'))
+                              ' ] must be deidentified; use -deidentify()-.'))
         }
     }
 
@@ -90,9 +90,9 @@ see_dua_level <- function(show_restrictions = FALSE,
     } else {
         if (show_restrictions) {
             message(' ')
-            message(paste0('You have set restrictions at ',
+            message(paste0('You have set restrictions at [ ',
                            dua_env[['dua_level']],
-                           ' which includes: '))
+                           ' ] which includes: '))
             message(' ')
             vars <- unlist(dua_env[['restrictions']][[dua_env[['dua_level']]]])
             for (v in vars) {
