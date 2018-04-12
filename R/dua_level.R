@@ -32,7 +32,7 @@ set_dua_level <- function(level,
             dua_env[['deidentify_column']] <- id_column
             messager__(paste0('Unique IDs in ',
                               dua_env[['deidentify_column']],
-                              'must be deidentified; use -deidentify()-.'))
+                              ' must be deidentified; use -deidentify()-.'))
         }
     }
 
@@ -56,7 +56,7 @@ see_dua_options <- function(print_width = getOption('width')) {
 
     ## pretty print
     for (level in sort(names(dua_env[['restrictions']]))) {
-        message(rep('=', print_width))
+        message(rep('-', print_width))
         message(paste0('LEVEL NAME: ', level))
         message(rep('-', print_width))
         message('RESTRICTED VARIABLE NAMES:\n')
@@ -66,7 +66,7 @@ see_dua_options <- function(print_width = getOption('width')) {
         }
         message(' ')
     }
-    message(rep('=', print_width))
+    message(rep('-', print_width))
 }
 
 #' Show DUA current level setting
