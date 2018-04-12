@@ -62,7 +62,7 @@ see_dua_options <- function(print_width = getOption('width')) {
         message('RESTRICTED VARIABLE NAMES:\n')
         vars <- unlist(dua_env[['restrictions']][[level]])
         for (v in vars[!is.na(vars) & vars != '']) {
-            message(paste0('  ', v))
+            message(paste0(' - ', v))
         }
         message(' ')
     }
@@ -96,7 +96,7 @@ see_dua_level <- function(show_restrictions = FALSE,
             message(' ')
             vars <- unlist(dua_env[['restrictions']][[dua_env[['dua_level']]]])
             for (v in vars) {
-                message(paste0('  ', v))
+                message(paste0(' - ', v))
             }
             message(' ')
         } else {

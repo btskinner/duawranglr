@@ -169,7 +169,7 @@ messager__ <- function(text, var_vec = NULL,
         message(text)
         message(' ')
         for (v in var_vec) {
-            message('  ', v)
+            message(' - ', v)
         }
         message(posttext)
     } else {
