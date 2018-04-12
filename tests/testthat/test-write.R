@@ -32,23 +32,7 @@ test_that('Failed to write crosswalk file of type: delimited (TSV)', {
     expect_identical(md5[[1]], '629f8119e7a8aeab2796a1ea48b64296')
 })
 
-## rds
-test_that('Failed to write crosswalk file of type: rds', {
-
-    dua_write(df, file_name = fn, path = tmpdir, output_type = 'rds')
-    md5 <- tools::md5sum(file.path(tmpdir, paste0(fn, '.rds')))
-    expect_identical(md5[[1]], '9e1334c4b1605274de6f5ae487e6fe91')
-})
-
-## rdata
-test_that('Failed to write crosswalk file of type: rdata', {
-
-    dua_write(df, file_name = fn, path = tmpdir, output_type = 'rdata')
-    md5 <- tools::md5sum(file.path(tmpdir, paste0(fn, '.rdata')))
-    expect_identical(md5[[1]], 'b7973b410278780c442b24627674b440')
-})
-
-## NOTE: Can't use md5 sum check on haven saves
+## NOTE: Can't use md5 sum check on binary files
 
 rm(tmpdir)
 

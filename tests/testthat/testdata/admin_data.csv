@@ -1,4 +1,4 @@
-student_id,name,dob,gender,raceeth,teacher_id,teacher_name,zip_code,mathscr,readscr
+sid,sname,dob,gender,raceeth,tid,tname,zip,mathscr,readscr
 000-00-0001,Schaefer,19900114,0,2,1,Smith,22906,515,496
 000-00-0002,Hodges,19900225,0,1,1,Smith,22906,488,489
 000-00-0003,Kirby,19900305,0,4,1,Smith,22906,522,498
