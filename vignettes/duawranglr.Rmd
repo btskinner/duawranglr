@@ -19,7 +19,8 @@ knitr::opts_chunk$set(collapse = TRUE, comment = NA)
 
 # Administrative data    
 ```{r, eval = FALSE}
-library(tidyverse)
+library(dplyr)
+library(readr)
 library(duawranglr)
 
 ## read in raw administrative data
@@ -28,7 +29,8 @@ df
 ```
 
 ```{r, echo = FALSE}
-library(tidyverse)
+library(dplyr)
+library(readr)
 library(duawranglr)
 
 ## read in raw administrative data
