@@ -6,11 +6,11 @@
 #' only.
 
 #' @export
-check_protect <- function(df, remove_protected = FALSE) {
+check_dua_restrictions <- function(df, remove_protected = FALSE) {
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
-        stop('Must set DUA first with -set_dua()-.', call. = FALSE)
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
 
     ## check if already passed
@@ -27,12 +27,12 @@ check_protect <- function(df, remove_protected = FALSE) {
         if (!dua_env[['deidentified']] && dua_env[['deidentify_required']]) {
             if (is.null(dua_env[['deidentify_column']])) {
                 stop(paste0('ID column not set. Set using -set_dua_level()- ',
-                            'or with id_col argument in -deidentify()-.'),
+                            'or with id_col argument in -deid_dua()-.'),
                      call. = FALSE)
             } else {
                 stop(paste0('ID column ',
                             dua_env[['deidentify_column']],
-                            ' has not been deidentified. Use -deidentify()-.'),
+                            ' has not been deidentified. Use -deid_dua()-.'),
                      call. = FALSE)
             }
         }

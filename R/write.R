@@ -1,4 +1,4 @@
-#' Write securely cleaned data set
+#' Write DUA approved data set
 #'
 #' @param df Data frame object to save.
 #' @param file_name Name for saved file.
@@ -10,22 +10,23 @@
 #' on selected \code{output_type}.
 #'
 #' @export
-dua_write <- function(df,
-                      file_name,
-                      path = '.',
-                      output_type = c('rds', 'rdata', 'csv', 'tsv',
-                                      'delimited', 'stata', 'sas', 'spss'),
-                      ...) {
+write_dua_df <- function(df,
+                         file_name,
+                         path = '.',
+                         output_type = c('rds', 'rdata', 'csv', 'tsv',
+                                         'delimited', 'stata', 'sas',
+                                         'spss'),
+                         ...) {
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
-        stop('Must set DUA first with -set_dua()-.', call. = FALSE)
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
 
     ## check if already passed
     if (!dua_env[['check_pass']]) {
         messager__(paste0('Data set has not yet passed check. Run ',
-                          '-check_protect()- to check status.'))
+                          '-check_dua_restrictions()- to check status.'))
     }
 
     ## file extension list

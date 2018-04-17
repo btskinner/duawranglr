@@ -16,12 +16,12 @@
 #' \code{write_crosswalk == TRUE}. Defaults to current directory.
 #'
 #' @export
-deidentify <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
-                       write_crosswalk = FALSE,
-                       crosswalk_name = paste0('id_crosswalk_',
-                                               format(Sys.Date(),
-                                                      format='%Y%m%d')),
-                       crosswalk_path = '.') {
+deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
+                     write_crosswalk = FALSE,
+                     crosswalk_name = paste0('id_crosswalk_',
+                                             format(Sys.Date(),
+                                                    format='%Y%m%d')),
+                     crosswalk_path = '.') {
 
     ## get ID column if NULL or error
     if (is.null(id_col)) {

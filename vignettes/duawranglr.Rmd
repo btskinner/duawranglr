@@ -56,10 +56,10 @@ df
 
 ```{r, eval = FALSE}
 ## set the DUA crosswalk
-set_dua('dua_cw.csv')
+set_dua_cw('dua_cw.csv')
 ```
 ```{r, echo = FALSE}
-set_dua('../tests/testthat/testdata/dua_one.csv')
+set_dua_cw('../tests/testthat/testdata/dua_one.csv')
 ```
 ## Check DUA options
 
@@ -84,12 +84,12 @@ see_dua_level(show_restrictions = TRUE)
 ```{r, echo = FALSE}
 ## deidentify data
 tmpdir <- tempdir()
-deidentify(df, write_crosswalk = TRUE, id_length = 20,
-           crosswalk_name = 'tmp', crosswalk_path = tmpdir)
+deid_dua(df, write_crosswalk = TRUE, id_length = 20,
+         crosswalk_name = 'tmp', crosswalk_path = tmpdir)
 ```
 ```{r, eval = FALSE}
 ## deidentify data
-deidentify(df, write_crosswalk = TRUE, id_length = 20)
+deid_dua(df, write_crosswalk = TRUE, id_length = 20)
 ```
 ```{r, echo = FALSE}
 ## show crosswalk
@@ -105,31 +105,34 @@ df
 # Check data frame
 ```{r}
 ## write data to disk with one last check
-dua_write(df, 'cleaned_data.csv', output_type = 'csv')
+write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
 ```
 ```{r}
 ## check
-check_protect(df)
+check_dua_restrictions(df)
 ```
 ```{r}
 df <- df %>% select(-dob)
 ```
 ```{r}
 ## check again
-check_protect(df)
+check_dua_restrictions(df)
 ```
 
 # Write cleaned data frame to disk
 ```{r, eval = FALSE}
 ## write data to disk with one last check
-dua_write(df, 'cleaned_data.csv', output_type = 'csv')
+write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
 ```
 
 # Interactive template
 ```{r, eval = FALSE}
-make_template('clean_data.R')
+make_dua_template('clean_data.R')
 ```
 ```{r, echo = FALSE}
-writeLines(readLines('../tests/testthat/testdata/template_example.R'))
+tmpdir <- tempdir()
+make_dua_template('clean_data.R', tmpdir, answer_list = list('N','','N','',''))
+writeLines(readLines(file.path(tmpdir,'clean_data.R')))
+rm(tmpdir)
 ```
 
