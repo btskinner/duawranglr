@@ -39,6 +39,9 @@ set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
     ## hash to dua environment
     hasher__(df, 'restrictions', ignore_col = ignore_columns,
              remap_list = remap_list, assign_env = dua_env)
+
+    ## message to note set
+    messager__('DUA crosswalk has been set!')
 }
 
 #' Set data restriction level in system environment variable
@@ -75,7 +78,7 @@ set_dua_level <- function(level,
             dua_env[['deidentify_column']] <- id_column
             messager__(paste0('Unique IDs in [ ',
                               dua_env[['deidentify_column']],
-                              ' ] must be deidentified; use -deidentify()-.'))
+                              ' ] must be deidentified; use -deid_dua()-.'))
         }
     }
 
@@ -87,23 +90,40 @@ set_dua_level <- function(level,
 
 #' Show DUA options
 #'
-#' @param print_width Defaults to global option for screen width
+#' @param level String name or vector of string names of levels to show.
+#' @param print_width Defaults to global option for screen width.
 #'
 #' @export
-see_dua_options <- function(print_width = getOption('width')) {
+see_dua_options <- function(level = NULL,
+                            print_width = getOption('width')) {
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
-        stop('Must set DUA first with -set_dua()-.', call. = FALSE)
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
+    }
+
+    ## get levels and restrict if necessary
+    levels <- sort(names(dua_env[['restrictions']]))
+
+    if (!is.null(level)) {
+        for (lev in level) {
+            if (!(lev %in% levels)) {
+                stop(paste0('Level [ ',
+                            lev,
+                            ' ] not in DUA crosswalk. Pick another ',
+                            'or leave NULL for full list', call. = FALSE))
+            }
+        }
+        levels <- level
     }
 
     ## pretty print
-    for (level in sort(names(dua_env[['restrictions']]))) {
+    for (lev in levels) {
         message(rep('-', print_width))
-        message(paste0('LEVEL NAME: ', level))
+        message(paste0('LEVEL NAME: ', lev))
         message(rep('-', print_width))
-        message('RESTRICTED VARIABLE NAMES:\n')
-        vars <- unlist(dua_env[['restrictions']][[level]])
+        message('\nRESTRICTED VARIABLE NAMES:\n')
+        vars <- unlist(dua_env[['restrictions']][[lev]])
         for (v in vars[!is.na(vars) & vars != '']) {
             message(paste0(' - ', v))
         }
@@ -124,7 +144,7 @@ see_dua_level <- function(show_restrictions = FALSE,
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
-        stop('Must set DUA first with -set_dua()-.', call. = FALSE)
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
 
     ## check if DUA level has been set
@@ -132,16 +152,18 @@ see_dua_level <- function(show_restrictions = FALSE,
         messager__('You have not yet set a DUA level.')
     } else {
         if (show_restrictions) {
-            message(' ')
+            message(rep('-', print_width))
             message(paste0('You have set restrictions at [ ',
                            dua_env[['dua_level']],
-                           ' ] which includes: '))
-            message(' ')
+                           ' ]'))
+            message(rep('-', print_width))
+            message('\nRESTRICTED VARIABLE NAMES:\n')
             vars <- unlist(dua_env[['restrictions']][[dua_env[['dua_level']]]])
             for (v in vars) {
                 message(paste0(' - ', v))
             }
             message(' ')
+            message(rep('-', print_width))
         } else {
             messager__(paste0('You have set restrictions at ',
                               dua_env[['dua_level']], '.'))

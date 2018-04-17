@@ -4,10 +4,12 @@
 \alias{see_dua_options}
 \title{Show DUA options}
 \usage{
-see_dua_options(print_width = getOption("width"))
+see_dua_options(level = NULL, print_width = getOption("width"))
 }
 \arguments{
-\item{print_width}{Defaults to global option for screen width}
+\item{level}{String name or vector of string names of levels to show.}
+
+\item{print_width}{Defaults to global option for screen width.}
 }
 \description{
 Show DUA options
