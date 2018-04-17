@@ -1,8 +1,7 @@
 context('sreader__')
 
 colnames <- c('level_i','level_ii','level_iii')
-values <- c('student_id','name','dob','gender','raceeth','teacher_id',
-            'teacher_name','zip_code')
+values <- c('sid','sname','dob','gender','raceeth','tid','tname','zip')
 
 ## delimited (pipe)
 test_that('Failed to read crosswalk file of type: delimited (pipe)', {
