@@ -847,15 +847,7 @@ img {
 <a class="sourceLine" id="cb1-5" data-line-number="5">## read in raw administrative data</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">'./admin_data.csv'</span>)</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">df</a></code></pre></div>
-<pre><code>
-Attaching package: 'dplyr'
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-# A tibble: 9 x 10
+<pre><code># A tibble: 9 x 10
   sid         sname    dob      gender raceeth   tid tname   zip mathscr readscr
   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
 1 000-00-0001 Schaefer 19900114      0       2     1 Smith 22906     515     496
@@ -1101,6 +1093,7 @@ DUA crosswalk has been set!
 </div>
 <div id="check-data-frame" class="section level1">
 <h1>Check data frame</h1>
+<p>If we try to write the data frame using the <code>write_dua_df()</code> function, we get an error.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">## write data to disk with one last check</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">write_dua_df</span>(df, <span class="st">'cleaned_data.csv'</span>, <span class="dt">output_type =</span> <span class="st">'csv'</span>)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="op">------------------------------------------------------------------------------------------</span></a>
@@ -1108,6 +1101,7 @@ DUA crosswalk has been set!
 <a class="sourceLine" id="cb13-5" data-line-number="5">Data set has not yet passed check. Run <span class="op">-</span><span class="kw">check_dua_restrictions</span>()<span class="op">-</span><span class="st"> </span>to check status.</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="op">------------------------------------------------------------------------------------------</span></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="op">------------------------------------------------------------------------------------------</span></a></code></pre></div>
+<p>Right, we haven’t removed all the restricted data elements. Following the directions, we can check to see what still needs to be removed using the <code>check_dua_restrictions()</code> function.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">## check</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">check_dua_restrictions</span>(df)</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="op">------------------------------------------------------------------------------------------</span></a>
@@ -1122,29 +1116,46 @@ DUA crosswalk has been set!
 <a class="sourceLine" id="cb14-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb14-13" data-line-number="13"><span class="op">------------------------------------------------------------------------------------------</span></a>
 <a class="sourceLine" id="cb14-14" data-line-number="14"><span class="op">------------------------------------------------------------------------------------------</span></a></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>dob)</a></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">## check again</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">check_dua_restrictions</span>(df)</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="op">------------------------------------------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="op">------------------------------------------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">The following variables are not allowed at the current data usage <span class="kw">level</span> (level_ii) and</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6">STILL MUST be removed<span class="op">:</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="st"> </span><span class="op">-</span><span class="st"> </span>sname</a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"> <span class="op">-</span><span class="st"> </span>tname</a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"> <span class="op">-</span><span class="st"> </span>zip</a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="op">------------------------------------------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="op">------------------------------------------------------------------------------------------</span></a></code></pre></div>
+<p>We’ve successfully removed <code>sid</code> already (when we deidentified the data frame), but still have to remove the student’s last name, date of birth, teacher’s name, and zip code to meet level II restrictions. Once we remove those columns, we can check again.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">## remove restricted columns</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(sname, dob, tname, zip))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">## check again</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">check_dua_restrictions</span>(df)</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="op">------------------------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="op">------------------------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">Data set has passed check and may be saved.</a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="op">------------------------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="op">------------------------------------------------------------------------------------------</span></a></code></pre></div>
+<p>Success! And to be sure, here’s what our data frame looks like now:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">df</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co"># A tibble: 9 x 6</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">  id                   gender raceeth   tid mathscr readscr</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                 </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="dv">1</span> 187b33f8482af9d9adeb      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">515</span>     <span class="dv">496</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="dv">2</span> <span class="fl">46231e11</span>b4cdacb6cd69      <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">488</span>     <span class="dv">489</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="dv">3</span> 7a2cf7b4ae65bd6d06ee      <span class="dv">0</span>       <span class="dv">4</span>     <span class="dv">1</span>     <span class="dv">522</span>     <span class="dv">498</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="dv">4</span> d5d8bfce31a5f70e3ce9      <span class="dv">0</span>       <span class="dv">3</span>     <span class="dv">1</span>     <span class="dv">516</span>     <span class="dv">524</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="dv">5</span> a31445bd544ac80741bf      <span class="dv">1</span>       <span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">483</span>     <span class="dv">509</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="dv">6</span> <span class="fl">6e640</span>c0ff2331dbf0928      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">503</span>     <span class="dv">523</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="dv">7</span> b3414c249f048fb9c0a8      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">539</span>     <span class="dv">509</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="dv">8</span> 1c412145ce82079a9516      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">490</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="dv">9</span> a5bceb3abd7e63599411      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">493</span></a></code></pre></div>
 </div>
 <div id="write-cleaned-data-frame-to-disk" class="section level1">
 <h1>Write cleaned data frame to disk</h1>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">## write data to disk with one last check</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">write_dua_df</span>(df, <span class="st">'cleaned_data.csv'</span>, <span class="dt">output_type =</span> <span class="st">'csv'</span>)</a></code></pre></div>
+<p>Now that we’ve passed our check, we can write the level II secure data frame to disk. Just like the <code>set_dua_cw()</code> function, which automates reading in many types of files, <code>write_dua_df()</code> will write many types of files. See <code>?write_dua_df</code> for options.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">## write data to disk </a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">write_dua_df</span>(df, <span class="st">'cleaned_data_lev_ii.csv'</span>, <span class="dt">output_type =</span> <span class="st">'csv'</span>)</a></code></pre></div>
 </div>
 <div id="interactive-template" class="section level1">
 <h1>Interactive template</h1>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">make_dua_template</span>(<span class="st">'clean_data.R'</span>)</a></code></pre></div>
+<p>Particularly for the first few times you use this package, you may need help remembering the steps. To help the process, the interactive <code>make_dua_template()</code> function will help you make a template script that you can then modify to meet your data cleaning needs. When called, the function will ask you a few yes or no questions and, based on your answers, build a template script that pre-fills some function arguments.</p>
+<p>An example template script is printed below.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">## save template to disk</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">make_dua_template</span>(<span class="st">'clean_data.R'</span>)</a></code></pre></div>
+<div id="example" class="section level4">
+<h4>EXAMPLE</h4>
 <pre><code>################################################################################
 ##
 ## [ Proj ] &lt; general project name &gt;
@@ -1217,6 +1228,7 @@ write_dua_df(df = '&lt; data frame &gt;', output_type = '&lt; output file type &
 ## -----------------------------------------------------------------------------
 ## end script
 ################################################################################</code></pre>
+</div>
 </div>
 </div>
 
