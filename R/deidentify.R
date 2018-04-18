@@ -54,7 +54,9 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     dua_env[['deidentify_column']] <- id_col
 
     ## get new hashed values
-    new_hash <- vdigest__(df[[id_col]], algo = 'sha2')
+    salt <- vdigest__(stats::runif(length(df[[id_col]]), -100, 100), algo = 'md5')
+    old <- paste0(df[[id_col]], salt)
+    new_hash <- vdigest__(old, algo = 'sha2')
 
     ## shorten
     if (id_length < 12) {
