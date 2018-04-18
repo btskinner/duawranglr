@@ -2,7 +2,7 @@
 % Please edit documentation in R/template.R
 \name{make_dua_template}
 \alias{make_dua_template}
-\title{Interactive function to create template file.}
+\title{Interactive function to create template file}
 \usage{
 make_dua_template(file_name, path = ".", include_notes = TRUE,
   answer_list = NULL)
@@ -10,27 +10,52 @@ make_dua_template(file_name, path = ".", include_notes = TRUE,
 \arguments{
 \item{file_name}{Name of template script.}
 
-\item{path}{Path for template script; defaults to current directory.}
+\item{path}{Path for template script with default to working
+directory.}
 
-\item{include_notes}{If \code{TRUE}, will include notes with notes and
-suggestions for filling out the template file.}
+\item{include_notes}{If \code{TRUE}, the template file will include
+notes and suggestions for completing the script; default value
+is \code{TRUE}.}
 
 \item{answer_list}{List of answer strings to provide if you don't
-want to answer questions interactively. Answers must be provided for the
-following questions:
-
-1. Do you want to set the DUA crosswalk file? (Yes/No)
-1a. DUA crosswalk file (with path):
-2. Do the data need to be deidentified? (Yes/No)
-2a. Would like to select the ID column now?
-2b. ID column name:
-
-If answers to questions (1) and (2) are 'No', then strings for 1a, 2a, and
-2b can be left empty since they will be ignored. Default is \code{NULL},
-which means questions will be asked interactively.}
+want to answer questions interactively. See details for
+questions and expected input type. Leave as default \code{NULL}
+for interactive mode.}
 }
 \description{
-\bold{Note} that this function can only be run in interactive mode. Also,
-the saved template file is not meant to run as is, but is meant only to
-provide a starting structure for the cleaning script.
+Use this function to create a template script that puts package
+functions in order and, based on question answers, prepopulates
+some arguments.  By default, this function is run in interactive
+mode, meaning that it will not work in a script unless a list of
+answers is given to \code{answer_list} argument.  Note that the
+saved template file is not intended to be run as is, but only to
+provide a starting structure for a cleaning script.
+}
+\details{
+Questions to answer if using the \code{answer_list} argument:
+
+\enumerate{
+\item Do you want to set the DUA crosswalk file? \code{'Yes'} or \code{'No'}
+\enumerate{
+\item DUA crosswalk file (with path): '< file name with path >'
+}
+\item Do the data need to be deidentified? \code{'Yes'} or \code{'No'}
+\enumerate{
+\item Would like to select the ID column now? \code{'Yes'} or \code{'No'}
+\item ID column name: '< column name string >'
+}
+}
+
+If answers to questions (1) and (2) are \code{No}, then strings for 1(a),
+2(a), and 2(b) can be left empty since they will be ignored.
+}
+\examples{
+\dontrun{
+
+make_dua_template('data_clean.R')
+make_dua_template('data_clean.R', include_notes = FALSE)
+make_dua_template('data_clean.R', answer_list = list('No','','No','',''))
+
+}
+
 }

@@ -1,10 +1,22 @@
-#' Check that variables in data frame are not restricted.
+#' Check data frame columns against currently set restrictions
 #'
-#' @param df Data frame to check against set DUA restriction level
-#' @param remove_protected Will remove protected variables as determined by
-#' DUA restriction level if set to \code{TRUE}. Default behavior is to warn
-#' only.
-
+#' Once the DUA crosswalk and level have been set, a working data
+#' frame can be checked against active data element restrictions. The
+#' data frame must pass before it can be writen using
+#' \code{write_dua_df()}.
+#'
+#' @param df Data frame to check against set DUA restriction level.
+#' @param remove_protected Will remove protected variables as
+#'     determined by DUA restriction level if set to
+#'     \code{TRUE}; default behavior is to warn only.
+#' @examples
+#' \dontrun{
+#'
+#' check_dua_restrictions(df)
+#' check_dua_restrictions(df, remove_protected = TRUE)
+#'
+#' }
+#'
 #' @export
 check_dua_restrictions <- function(df, remove_protected = FALSE) {
 

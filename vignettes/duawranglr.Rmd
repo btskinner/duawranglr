@@ -1,9 +1,6 @@
 ---
 title: Data usage agreements and R
-output: 
-  rmdformats::html_clean:
-    self_contained: TRUE
-    highlight: kate
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Data usage agreements and R}
   %\VignetteEngine{knitr::rmarkdown}

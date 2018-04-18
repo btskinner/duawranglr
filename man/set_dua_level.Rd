@@ -2,19 +2,28 @@
 % Please edit documentation in R/dua.R
 \name{set_dua_level}
 \alias{set_dua_level}
-\title{Set data restriction level in system environment variable}
+\title{Set data restriction level}
 \usage{
 set_dua_level(level, deidentify_required = FALSE, id_column = NULL)
 }
 \arguments{
 \item{level}{String value of the data restriction level}
 
-\item{deidentify_required}{Set to \code{TRUE} if ID column must be changed
-to protect unique identifier}
+\item{deidentify_required}{Set to \code{TRUE} if ID column must be
+changed to protect unique identifier.}
 
 \item{id_column}{Column with unique IDs that must be identified if
-\code{deidentify_required == TRUE}}
+\code{deidentify_required == TRUE}.}
 }
 \description{
-Set data restriction level in system environment variable
+Set data restrictions to one of the levels in the DUA crosswalk.
+}
+\examples{
+\dontrun{
+
+set_dua_level('level_i')
+set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
+
+}
+
 }

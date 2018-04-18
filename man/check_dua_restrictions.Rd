@@ -2,17 +2,29 @@
 % Please edit documentation in R/check.R
 \name{check_dua_restrictions}
 \alias{check_dua_restrictions}
-\title{Check that variables in data frame are not restricted.}
+\title{Check data frame columns against currently set restrictions}
 \usage{
 check_dua_restrictions(df, remove_protected = FALSE)
 }
 \arguments{
-\item{df}{Data frame to check against set DUA restriction level}
+\item{df}{Data frame to check against set DUA restriction level.}
 
-\item{remove_protected}{Will remove protected variables as determined by
-DUA restriction level if set to \code{TRUE}. Default behavior is to warn
-only.}
+\item{remove_protected}{Will remove protected variables as
+determined by DUA restriction level if set to
+\code{TRUE}; default behavior is to warn only.}
 }
 \description{
-Check that variables in data frame are not restricted.
+Once the DUA crosswalk and level have been set, a working data
+frame can be checked against active data element restrictions. The
+data frame must pass before it can be writen using
+\code{write_dua_df()}.
+}
+\examples{
+\dontrun{
+
+check_dua_restrictions(df)
+check_dua_restrictions(df, remove_protected = TRUE)
+
+}
+
 }

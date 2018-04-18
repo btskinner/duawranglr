@@ -12,21 +12,53 @@ set_dua_cw(dua_cw, path = ".", delimiter = NULL, sheet = NULL,
 security levels (header equalling name of level) and rows in
 each column representing restricted variables}
 
-\item{path}{File path to DUA crosswalk file.}
+\item{path}{File path to DUA crosswalk file, with default to
+working directory.}
 
-\item{delimiter}{If reading in a delimited file that is neither a
-comma separated value (CSV) nor tab separated value (TSV), a
-string value of the delimiter is necessary.}
+\item{delimiter}{Set the delimiter if reading in a delimited file
+that is neither a comma separated value (CSV) nor tab separated
+value (TSV).}
 
-\item{sheet}{If reading in DUA from Excel file with values not on
-the first sheet, supply the sheet number or name}
+\item{sheet}{Set the sheet name or number if reading in a DUA
+crosswalk from Excel file with values not on the first sheet.}
 
-\item{ignore_columns}{Columns to ignore when reading in DUA crosswalk.}
+\item{ignore_columns}{\bold{(Experimental)} Columns to ignore when
+reading in DUA crosswalk.}
 
-\item{remap_list}{If raw variable names should be remapped to new names,
-provide list with mappings from old names column to new names column:
-\code{list('level_one_new' = 'level_one_old')}.}
+\item{remap_list}{\bold{(Experimental)} If raw variable names should
+be remapped to new names, provide list with mappings from old
+names column to new names column.}
 }
 \description{
-Function to set data usage agreement data crosswalk
+Initial function to read in and set the working DUA crosswalk.
+}
+\details{
+The crosswalk file can be in a variety of formats. It will be read
+automatically without additional arguments if it's in the following
+formats:
+
+\itemize{
+\item \bold{R}: \code{*.rdata}, \code{*.rda}, \code{*.rds}
+\item \bold{delimited}: if \code{*.csv} or \code{*.tsv}
+\item \bold{Stata}: \code{*.dta}
+\item \bold{SAS}: \code{*.sas7bdat}
+\item \bold{SPSS}: \code{*.sav}
+\item \bold{Excel}: \code{*.xls}, \code{*.xlsx} if on first sheet
+}
+
+If a \bold{delimited} file other than comma- or tab-separated
+values or an \code{Excel} file with information on a sheet other
+than the first, use the appropriate arguments to set that correct
+values.
+}
+\examples{
+\dontrun{
+
+set_dua_cw('dua_cw.csv')
+set_dua_cw('dua_cw.dta') # Stata version
+set_dua_cw('dua_cw.txt', delimiter = '|')
+set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
+
+}
+
 }

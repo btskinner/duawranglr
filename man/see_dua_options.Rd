@@ -2,15 +2,27 @@
 % Please edit documentation in R/dua.R
 \name{see_dua_options}
 \alias{see_dua_options}
-\title{Show DUA options}
+\title{Show DUA crosswalk options}
 \usage{
 see_dua_options(level = NULL, print_width = getOption("width"))
 }
 \arguments{
-\item{level}{String name or vector of string names of levels to show.}
+\item{level}{String name or vector of string names of levels to
+show.}
 
 \item{print_width}{Defaults to global option for screen width.}
 }
 \description{
-Show DUA options
+Once the DUA crosswalk has been loaded, show the available
+restriction levels with associated data element names.
+}
+\examples{
+\dontrun{
+
+see_dua_options(level = 'level_i')
+see_dua_options(level = c('level_i','level_ii')) # compare two levels
+see_dua_options() # show all
+
+}
+
 }

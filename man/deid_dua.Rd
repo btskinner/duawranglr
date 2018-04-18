@@ -11,25 +11,38 @@ deid_dua(df, id_col = NULL, new_id_name = "id", id_length = 64,
 \arguments{
 \item{df}{Data frame}
 
-\item{id_col}{String column name with IDs to be replaced. By default is
-\code{NULL} and use the value set by the \code{id_column} argument in
-\code{set_dua_level()} function.}
+\item{id_col}{Column name with IDs to be replaced. By default it is
+\code{NULL} and uses the value set by the \code{id_column}
+argument in \code{set_dua_level()} function.}
 
-\item{new_id_name}{New hashed ID column name}
+\item{new_id_name}{New hashed ID column name, which must be
+different from old name.}
 
-\item{id_length}{Length of new hashed ID. Cannot be fewer than 12
-characters.}
+\item{id_length}{Length of new hashed ID; cannot be fewer than 12
+characters (default is 64 characters).}
 
 \item{write_crosswalk}{Write crosswalk between old ID and new hash
-ID to output window (unless \code{crosswalk_path} is given
-value).}
+ID to console (unless \code{crosswalk_path} is given value).}
 
-\item{crosswalk_name}{Name of crosswalk file; defaults to generic name
-with current date (YYYYMMDD) appended.}
+\item{crosswalk_name}{Name of crosswalk file; defaults to generic
+name with current date (YYYYMMDD) appended.}
 
-\item{crosswalk_path}{Path to write crosswalk file (CSV). Only used if
-\code{write_crosswalk == TRUE}. Defaults to current directory.}
+\item{crosswalk_path}{Path to write crosswalk file (CSV), which is
+only used if \code{write_crosswalk == TRUE}; defaults to
+current directory.}
 }
 \description{
-Convert identifying variable to unique hash
+Convert a column of unique but restricted IDs into a set of new IDs
+using secure (SHA-2) hashing algorithm. Users have the option of
+saving a crosswalk between the old and new IDs in case observations
+need to reidentified at a later date.
+}
+\examples{
+\dontrun{
+
+deid_dua(df, id_col = 'sid', id_length = 20)
+deid_dua(df, write_crosswalk = TRUE)
+
+}
+
 }

@@ -1,18 +1,49 @@
 #' Function to set data usage agreement data crosswalk
 #'
+#' Initial function to read in and set the working DUA crosswalk.
+#'
+#' The crosswalk file can be in a variety of formats. It will be read
+#' automatically without additional arguments if it's in the following
+#' formats:
+#'
+#' \itemize{
+#' \item \bold{R}: \code{*.rdata}, \code{*.rda}, \code{*.rds}
+#' \item \bold{delimited}: if \code{*.csv} or \code{*.tsv}
+#' \item \bold{Stata}: \code{*.dta}
+#' \item \bold{SAS}: \code{*.sas7bdat}
+#' \item \bold{SPSS}: \code{*.sav}
+#' \item \bold{Excel}: \code{*.xls}, \code{*.xlsx} if on first sheet
+#' }
+#'
+#' If a \bold{delimited} file other than comma- or tab-separated
+#' values or an \code{Excel} file with information on a sheet other
+#' than the first, use the appropriate arguments to set that correct
+#' values.
+#'
 #' @param dua_cw Data frame object or file with columns representing
 #'     security levels (header equalling name of level) and rows in
 #'     each column representing restricted variables
-#' @param path File path to DUA crosswalk file.
-#' @param delimiter If reading in a delimited file that is neither a
-#'     comma separated value (CSV) nor tab separated value (TSV), a
-#'     string value of the delimiter is necessary.
-#' @param sheet If reading in DUA from Excel file with values not on
-#'     the first sheet, supply the sheet number or name
-#' @param ignore_columns Columns to ignore when reading in DUA crosswalk.
-#' @param remap_list If raw variable names should be remapped to new names,
-#'     provide list with mappings from old names column to new names column:
-#'     \code{list('level_one_new' = 'level_one_old')}.
+#' @param path File path to DUA crosswalk file, with default to
+#'     working directory.
+#' @param delimiter Set the delimiter if reading in a delimited file
+#'     that is neither a comma separated value (CSV) nor tab separated
+#'     value (TSV).
+#' @param sheet Set the sheet name or number if reading in a DUA
+#'     crosswalk from Excel file with values not on the first sheet.
+#' @param ignore_columns \bold{(Experimental)} Columns to ignore when
+#'     reading in DUA crosswalk.
+#' @param remap_list \bold{(Experimental)} If raw variable names should
+#'     be remapped to new names, provide list with mappings from old
+#'     names column to new names column.
+#' @examples
+#' \dontrun{
+#'
+#' set_dua_cw('dua_cw.csv')
+#' set_dua_cw('dua_cw.dta') # Stata version
+#' set_dua_cw('dua_cw.txt', delimiter = '|')
+#' set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
+#'
+#' }
 #'
 #' @export
 set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
@@ -44,13 +75,22 @@ set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
     messager__('DUA crosswalk has been set!')
 }
 
-#' Set data restriction level in system environment variable
+#' Set data restriction level
+#'
+#' Set data restrictions to one of the levels in the DUA crosswalk.
 #'
 #' @param level String value of the data restriction level
-#' @param deidentify_required Set to \code{TRUE} if ID column must be changed
-#' to protect unique identifier
+#' @param deidentify_required Set to \code{TRUE} if ID column must be
+#'     changed to protect unique identifier.
 #' @param id_column Column with unique IDs that must be identified if
-#' \code{deidentify_required == TRUE}
+#'     \code{deidentify_required == TRUE}.
+#' @examples
+#' \dontrun{
+#'
+#' set_dua_level('level_i')
+#' set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
+#'
+#' }
 #'
 #' @export
 set_dua_level <- function(level,
@@ -88,10 +128,22 @@ set_dua_level <- function(level,
 
 }
 
-#' Show DUA options
+#' Show DUA crosswalk options
 #'
-#' @param level String name or vector of string names of levels to show.
+#' Once the DUA crosswalk has been loaded, show the available
+#' restriction levels with associated data element names.
+#'
+#' @param level String name or vector of string names of levels to
+#'     show.
 #' @param print_width Defaults to global option for screen width.
+#' @examples
+#' \dontrun{
+#'
+#' see_dua_options(level = 'level_i')
+#' see_dua_options(level = c('level_i','level_ii')) # compare two levels
+#' see_dua_options() # show all
+#'
+#' }
 #'
 #' @export
 see_dua_options <- function(level = NULL,
@@ -132,11 +184,21 @@ see_dua_options <- function(level = NULL,
     message(rep('-', print_width))
 }
 
-#' Show DUA current level setting
+#' Show current DUA restriction level setting
 #'
-#' @param show_restrictions If \code{TRUE}, show the names of the variables
-#' that are restricted by the current level.
+#' After setting the DUA restriction level, check the setting and
+#' restricted data elements.
+#'
+#' @param show_restrictions Show the names of the variables that are
+#'     restricted by the current level if \code{TRUE}.
 #' @param print_width Defaults to global option for screen width.
+#' @examples
+#' \dontrun{
+#'
+#' see_dua_level() # show level name only
+#' see_dua_level(show_restrictions = TRUE) # show restricted elements
+#'
+#' }
 #'
 #' @export
 see_dua_level <- function(show_restrictions = FALSE,

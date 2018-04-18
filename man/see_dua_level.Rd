@@ -2,16 +2,26 @@
 % Please edit documentation in R/dua.R
 \name{see_dua_level}
 \alias{see_dua_level}
-\title{Show DUA current level setting}
+\title{Show current DUA restriction level setting}
 \usage{
 see_dua_level(show_restrictions = FALSE, print_width = getOption("width"))
 }
 \arguments{
-\item{show_restrictions}{If \code{TRUE}, show the names of the variables
-that are restricted by the current level.}
+\item{show_restrictions}{Show the names of the variables that are
+restricted by the current level if \code{TRUE}.}
 
 \item{print_width}{Defaults to global option for screen width.}
 }
 \description{
-Show DUA current level setting
+After setting the DUA restriction level, check the setting and
+restricted data elements.
+}
+\examples{
+\dontrun{
+
+see_dua_level() # show level name only
+see_dua_level(show_restrictions = TRUE) # show restricted elements
+
+}
+
 }
