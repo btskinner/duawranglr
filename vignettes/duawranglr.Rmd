@@ -270,32 +270,72 @@ df
 ```
 
 # Check data frame
+
+If we try to write the data frame using the `write_dua_df()` function,
+we get an error.
+
 ```{r}
 ## write data to disk with one last check
 write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
 ```
+
+Right, we haven't removed all the restricted data elements. Following
+the directions, we can check to see what still needs to be removed
+using the `check_dua_restrictions()` function.
+
 ```{r}
 ## check
 check_dua_restrictions(df)
 ```
+
+We've successfully removed `sid` already (when we deidentified the
+data frame), but still have to remove the student's last name, date of
+birth, teacher's name, and zip code to meet level II
+restrictions. Once we remove those columns, we can check again.
+
 ```{r}
-df <- df %>% select(-dob)
-```
-```{r}
+## remove restricted columns
+df <- df %>% select(-c(sname, dob, tname, zip))
+
 ## check again
 check_dua_restrictions(df)
 ```
+Success! And to be sure, here's what our data frame looks like now:
+
+```{r}
+df
+```
 
 # Write cleaned data frame to disk
+
+Now that we've passed our check, we can write the level II secure data
+frame to disk. Just like the `set_dua_cw()` function, which automates
+reading in many types of files, `write_dua_df()` will write many types
+of files. See `?write_dua_df` for options.
+
 ```{r, eval = FALSE}
-## write data to disk with one last check
-write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
+## write data to disk 
+write_dua_df(df, 'cleaned_data_lev_ii.csv', output_type = 'csv')
 ```
 
 # Interactive template
+
+Particularly for the first few times you use this package, you may
+need help remembering the steps. To help the process, the interactive
+`make_dua_template()` function will help you make a template script
+that you can then modify to meet your data cleaning needs. When
+called, the function will ask you a few yes or no questions and, based
+on your answers, build a template script that pre-fills some function
+arguments. 
+
+An example template script is printed below.
+
 ```{r, eval = FALSE}
+## save template to disk
 make_dua_template('clean_data.R')
 ```
+#### EXAMPLE
+
 ```{r, echo = FALSE}
 tmpdir <- tempdir()
 make_dua_template('clean_data.R', tmpdir, answer_list = list('N','','N','',''))
