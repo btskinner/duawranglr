@@ -3,6 +3,7 @@
 ^\.Rhistory$
 ^\.Rapp\.history$
 ^README\.Rmd$
+^README\.md$
 ^cran-comments\.md$
 ^\.travis\.yml$
 ^.git$
