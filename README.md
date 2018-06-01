@@ -1,5 +1,6 @@
 # duawranglr
 
+![](https://img.shields.io/badge/dev-beta-red.svg)
 [![Build
 Status](https://travis-ci.org/btskinner/duawranglr.svg?branch=master)](https://travis-ci.org/btskinner/duawranglr)
 [![GitHub
