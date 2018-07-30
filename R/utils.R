@@ -176,3 +176,8 @@ messager__ <- function(text, var_vec = NULL,
         message(c(pretext, text, posttext))
     }
 }
+
+## get file basename without extension
+get_basename <- function(file) {
+    tools::file_path_sans_ext(basename(file))
+}
