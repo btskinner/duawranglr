@@ -181,3 +181,9 @@ messager__ <- function(text, var_vec = NULL,
 get_basename <- function(file) {
     tools::file_path_sans_ext(basename(file))
 }
+
+make_new_ids <- function(old_ids) {
+    salt <- vdigest__(stats::runif(length(old_ids), -100, 100), algo = 'md5')
+    old_ids <- paste0(old_ids, salt)
+    return(vdigest__(old_ids, algo = 'sha2'))
+}

@@ -30,6 +30,7 @@
 #'
 #' deid_dua(df, id_col = 'sid', id_length = 20)
 #' deid_dua(df, write_crosswalk = TRUE)
+#' deid_dua(df, existing_crosswalk = './crosswalk/master_crosswalk.csv')
 #'
 #' }
 #'
@@ -40,7 +41,12 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
 
     ## read in existing crosswalk
     if (!is.null(existing_crosswalk)) {
-        cw__ <- utils::read.csv(exiting_crosswalk, header = TRUE,
+        if (!file.exists(existing_crosswalk)) {
+            stop(paste0('Crosswalk file given to -existing_crosswalk- argument ',
+                        'doesn\'t exist. Check file name and/or path.'),
+                 call. = FALSE)
+        }
+        cw__ <- utils::read.csv(existing_crosswalk, header = TRUE,
                               stringsAsFactors = FALSE)
         write_crosswalk <- TRUE
         crosswalk_name <- get_basename(existing_crosswalk)
@@ -49,7 +55,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                             value = TRUE, invert = TRUE)
         cw_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__), value = TRUE)
         ## get id length to match
-        id_length <- max(nchar(cw[[new_id_name]]))
+        id_length <- max(nchar(cw__[[new_id_name]]))
     }
 
     ## get ID column if NULL or error
@@ -77,18 +83,19 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         stop('New ID name must be different from old name', call. = FALSE)
     }
 
+    ## ids to be transformed
+    old_ids <- df[[id_col]]
+
     ## get existing ids and new ids from crosswalk
     if (exists('cw__')) {
-        exist_cw <- cw__ %>% filter(id_col %in% df[[id_col]])
+        exist_cw_df <- dplyr::filter(cw__, id_col %in% old_ids)
+        old_ids <- old_ids[!(old_ids %in% exist_cw_df[[id_col]])]
     }
 
-    ## create new ones if necessary
-
-
-    ## get new hashed values for ones that need it
-    salt <- vdigest__(stats::runif(length(df[[id_col]]), -100, 100), algo = 'md5')
-    old <- paste0(df[[id_col]], salt)
-    new_hash <- vdigest__(old, algo = 'sha2')
+    ## get new id values for ones that need it
+    if (length(old_ids) > 0) {
+        new_ids <- make_new_ids(old_ids)
+    }
 
     ## shorten
     if (id_length < 12) {
@@ -96,12 +103,18 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     }
 
     ## reduce size
-    new_hash <- substr(new_hash, 1, id_length)
+    new_ids <- substr(new_ids, 1, id_length)
+
+    ## append new to old if they exist
+    if (exists('exist_cw_df')) {
+        old_ids <- c(exist_cw_df[[id_col]], old_ids)
+        new_ids <- c(exist_cw_df[[new_id_name]], new_ids)
+    }
 
     ## write crosswalk if desired
     if (write_crosswalk) {
-        old <- names(new_hash)
-        new <- new_hash
+        old <- names(new_ids)
+        new <- new_ids
         tmp_df <- data.frame(old = old, new = new, stringsAsFactors = FALSE)
         colnames(tmp_df) <- c(id_col, new_id_name)
         if (is.null(crosswalk_name)) {
@@ -114,7 +127,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     }
 
     ## replace values with hashed values
-    df[[id_col]] <<- new_hash
+    df[[id_col]] <<- new_ids
 
     ## change name of id column
     names(df)[names(df) == id_col] <<- new_id_name
