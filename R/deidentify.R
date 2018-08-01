@@ -39,25 +39,6 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                      existing_crosswalk = NULL, write_crosswalk = FALSE,
                      crosswalk_name = NULL, crosswalk_path = '.') {
 
-    ## read in existing crosswalk
-    if (!is.null(existing_crosswalk)) {
-        if (!file.exists(existing_crosswalk)) {
-            stop(paste0('Crosswalk file given to -existing_crosswalk- argument ',
-                        'doesn\'t exist. Check file name and/or path.'),
-                 call. = FALSE)
-        }
-        cw__ <- utils::read.csv(existing_crosswalk, header = TRUE,
-                              stringsAsFactors = FALSE)
-        write_crosswalk <- TRUE
-        crosswalk_name <- get_basename(existing_crosswalk)
-        ## get new name from crosswalk (which is the one that's !id_col)
-        new_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__),
-                            value = TRUE, invert = TRUE)
-        cw_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__), value = TRUE)
-        ## get id length to match
-        id_length <- max(nchar(cw__[[new_id_name]]))
-    }
-
     ## get ID column if NULL or error
     if (is.null(id_col)) {
         id_col <- dua_env[['deidentify_column']]
@@ -68,6 +49,25 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     } else {
         ## set ID column
         dua_env[['deidentify_column']] <- id_col
+    }
+
+    ## read in existing crosswalk
+    if (!is.null(existing_crosswalk)) {
+        if (!file.exists(existing_crosswalk)) {
+            stop(paste0('Crosswalk file given to -existing_crosswalk- argument ',
+                        'doesn\'t exist. Check file name and/or path.'),
+                 call. = FALSE)
+        }
+        cw__ <- utils::read.csv(existing_crosswalk, header = TRUE,
+                                stringsAsFactors = FALSE)
+        write_crosswalk <- TRUE
+        crosswalk_name <- get_basename(existing_crosswalk)
+        ## get new name from crosswalk (which is the one that's !id_col)
+        new_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__),
+                            value = TRUE, invert = TRUE)
+        cw_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__), value = TRUE)
+        ## get id length to match
+        id_length <- max(nchar(cw__[[new_id_name]]))
     }
 
     ## check that id_col matches crosswalk
@@ -88,8 +88,9 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
 
     ## get existing ids and new ids from crosswalk
     if (exists('cw__')) {
-        exist_cw_df <- dplyr::filter(cw__, id_col %in% old_ids)
+        exist_cw_df <- cw__[cw__[[id_col]] %in% old_ids,]
         old_ids <- old_ids[!(old_ids %in% exist_cw_df[[id_col]])]
+        new_ids <- NULL
     }
 
     ## get new id values for ones that need it
@@ -113,7 +114,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
 
     ## write crosswalk if desired
     if (write_crosswalk) {
-        old <- names(new_ids)
+        old <- old_ids
         new <- new_ids
         tmp_df <- data.frame(old = old, new = new, stringsAsFactors = FALSE)
         colnames(tmp_df) <- c(id_col, new_id_name)
