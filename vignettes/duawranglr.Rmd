@@ -47,8 +47,7 @@ After loading some libraries, we'll first read in the raw
 administrative data file and take a look.
 
 ```{r, eval = FALSE}
-library(dplyr)
-library(readr)
+library(tidyverse)
 library(duawranglr)
 
 ## read in raw administrative data
@@ -57,8 +56,7 @@ df
 ```
 
 ```{r, echo = FALSE}
-library(dplyr)
-library(readr)
+suppressPackageStartupMessages(library(tidyverse))
 library(duawranglr)
 
 ## read in raw administrative data
@@ -214,12 +212,18 @@ see_dua_level(show_restrictions = TRUE)
 
 # Deidentify data
 
+## Single file or no existing crosswalk
+
 So far, we have set the DUA crosswalk as well as the restriction level
 we will abide by. But our underlying data has not changed at all:
 
 ```{r}
 ## show administrative data has not changed
 df
+```
+
+```{r, echo = FALSE}
+dff <- df
 ```
 
 We indicated that the data need to be deidentified, so a good first
@@ -268,6 +272,99 @@ And here now is the data frame:
 ## show data frame
 df
 ```
+
+## Links across multiple files with existing crosswalk
+
+```{r, echo = FALSE}
+df <- dff
+```
+
+If the deidentified data frame is built from multiple files (*e.g.*, a
+panel data set of observations across years), then we'll want to reuse
+an existing crosswalk. Otherwise, the same original ID will end up
+with multiple new IDs and we won't be able to link observations across
+data sets.
+
+Let's say we already have master crosswalk file that looks like this:
+
+```{r, echo = FALSE}
+tmpdir <- tempdir()
+cw2 <- read_csv('../tests/testthat/testdata/crosswalk_full.csv',
+               col_types = cols(.default = 'c'))
+write_csv(cw2, file.path(tmpdir, 'crosswalk_full.csv'))
+cw2
+```
+
+Rather than create new IDs, we can use the `existing_crosswalk`
+argument to read in and use the new IDs we've already made. Everything
+else works the same as before.    
+
+```r
+deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
+```
+
+```{r, echo = FALSE}
+deid_dua(df, existing_crosswalk = 'crosswalk_full.csv',
+         crosswalk_path = tmpdir)
+rm(tmpdir)
+```
+
+The new ID values now match those from the crosswalk.
+```{r}
+df
+```
+```{r, echo = FALSE}
+df <- dff
+```
+## Updates to existing crosswalk
+
+In our example, we have nine students in the current file. Let's say
+that though we have a crosswalk, it only has new IDs for the first
+five observations:
+
+```{r, echo = FALSE}
+tmpdir <- tempdir()
+cw3 <- read_csv('../tests/testthat/testdata/crosswalk_partial.csv',
+               col_types = cols(.default = 'c'))
+write_csv(cw3, file.path(tmpdir, 'crosswalk_partial.csv'))
+cw3
+```
+
+If the existing crosswalk doesn't have values for all observations,
+then `deid_dua()` will:  
+
+1. Match old IDs with new IDs that **do** exist in the crosswalk
+2. Generate new IDs for the old IDs that **don't** exist in the
+   crosswalk
+3. Update and save the crosswalk
+
+The command is the same for a partial crosswalk as for a complete crosswalk.
+
+```r
+deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
+```
+
+```{r, echo = FALSE}
+deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv',
+         crosswalk_path = tmpdir)
+
+```
+Notice that the new IDs for the first five observations match those
+that were already in the existing crosswalk. The last four are new.
+```{r}
+df
+```
+Looking at the partial crosswalk, we see that it now has four new rows
+with new IDs each for the observations it didn't have before. 
+```{r, echo = FALSE}
+read_csv(file.path(tmpdir, 'crosswalk_partial.csv'),
+         col_types = cols(.default = 'c'))
+rm(tmpdir)
+```
+
+Should we encounter those students in future files, `deid_dua()` will
+use the new IDs we just created.
+
 
 # Check data frame
 
