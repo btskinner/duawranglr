@@ -33,9 +33,9 @@ ID to console (unless \code{crosswalk_path} is given value).}
 \item{crosswalk_name}{Name of crosswalk file; defaults to generic
 name with current date (YYYYMMDD) appended.}
 
-\item{crosswalk_path}{Path to write crosswalk file (CSV), which is
-only used if \code{write_crosswalk == TRUE}; defaults to
-current directory.}
+\item{crosswalk_path}{Path to \code{existing_crosswalk} or to write
+new crosswalk file (CSV), which is only used if
+\code{write_crosswalk == TRUE}; defaults to current directory.}
 }
 \description{
 Convert a column of unique but restricted IDs into a set of new IDs
