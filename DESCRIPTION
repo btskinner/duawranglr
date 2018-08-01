@@ -15,10 +15,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: haven,
-    dplyr,
-    readr,
     readxl,
-    digest
+    digest,
+    tidyverse
 RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
