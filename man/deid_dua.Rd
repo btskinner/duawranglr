@@ -5,8 +5,8 @@
 \title{Convert identifying variable to unique hash}
 \usage{
 deid_dua(df, id_col = NULL, new_id_name = "id", id_length = 64,
-  write_crosswalk = FALSE, crosswalk_name = paste0("id_crosswalk_",
-  format(Sys.Date(), format = "\%Y\%m\%d")), crosswalk_path = ".")
+  existing_crosswalk = NULL, write_crosswalk = FALSE,
+  crosswalk_name = NULL, crosswalk_path = ".")
 }
 \arguments{
 \item{df}{Data frame}
@@ -21,15 +21,21 @@ different from old name.}
 \item{id_length}{Length of new hashed ID; cannot be fewer than 12
 characters (default is 64 characters).}
 
+\item{existing_crosswalk}{File name of existing crosswalk. If
+existing crosswalk is used, then \code{new_id_name},
+\code{id_length}, \code{id_length}, and \code{crosswalk_name}
+will be determined by the already existing crosswalk. Arguments
+given for these values will be ignored.}
+
 \item{write_crosswalk}{Write crosswalk between old ID and new hash
 ID to console (unless \code{crosswalk_path} is given value).}
 
 \item{crosswalk_name}{Name of crosswalk file; defaults to generic
 name with current date (YYYYMMDD) appended.}
 
-\item{crosswalk_path}{Path to write crosswalk file (CSV), which is
-only used if \code{write_crosswalk == TRUE}; defaults to
-current directory.}
+\item{crosswalk_path}{Path to \code{existing_crosswalk} or to write
+new crosswalk file (CSV), which is only used if
+\code{write_crosswalk == TRUE}; defaults to current directory.}
 }
 \description{
 Convert a column of unique but restricted IDs into a set of new IDs
@@ -42,6 +48,7 @@ need to reidentified at a later date.
 
 deid_dua(df, id_col = 'sid', id_length = 20)
 deid_dua(df, write_crosswalk = TRUE)
+deid_dua(df, existing_crosswalk = './crosswalk/master_crosswalk.csv')
 
 }
 
