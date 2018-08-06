@@ -51,28 +51,29 @@ library(tidyverse)
 library(duawranglr)
 
 ## read in raw administrative data
-df <- read_csv('./admin_data.csv')
+df <- readr::read_csv('./admin_data.csv')
 df
 ```
 
 ```{r, echo = FALSE}
-suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(readr))
 library(duawranglr)
 
 ## read in raw administrative data
-df <- read_csv('../tests/testthat/testdata/admin_data.csv',
-               col_types = cols(sid = col_character(),
-                                sname = col_character(),
-                                dob = col_character(),
-                                gender = col_integer(),
-                                raceeth = col_integer(),
-                                tid = col_integer(),
-                                tname = col_character(),
-                                zip = col_integer(),
-                                mathscr = col_integer(),
-                                readscr = col_integer()
-                                )
-               )
+df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
+                      col_types = cols(sid = col_character(),
+                                       sname = col_character(),
+                                       dob = col_character(),
+                                       gender = col_integer(),
+                                       raceeth = col_integer(),
+                                       tid = col_integer(),
+                                       tname = col_character(),
+                                       zip = col_integer(),
+                                       mathscr = col_integer(),
+                                       readscr = col_integer()
+                                       )
+                      )
 df
 ```	
 
@@ -262,7 +263,7 @@ Here's what the saved crosswalk looks like:
 
 ```{r, echo = FALSE}
 ## show crosswalk
-cw <- read_csv(file.path(tmpdir, 'tmp.csv'), col_types = cols(.default = 'c'))
+cw <- readr::read_csv(file.path(tmpdir, 'tmp.csv'), col_types = cols(.default = 'c'))
 cw
 rm(tmpdir)
 ```
@@ -289,9 +290,9 @@ Let's say we already have master crosswalk file that looks like this:
 
 ```{r, echo = FALSE}
 tmpdir <- tempdir()
-cw2 <- read_csv('../tests/testthat/testdata/crosswalk_full.csv',
-               col_types = cols(.default = 'c'))
-write_csv(cw2, file.path(tmpdir, 'crosswalk_full.csv'))
+cw2 <- readr::read_csv('../tests/testthat/testdata/crosswalk_full.csv',
+                       col_types = cols(.default = 'c'))
+readr::write_csv(cw2, file.path(tmpdir, 'crosswalk_full.csv'))
 cw2
 ```
 
@@ -324,9 +325,9 @@ five observations:
 
 ```{r, echo = FALSE}
 tmpdir <- tempdir()
-cw3 <- read_csv('../tests/testthat/testdata/crosswalk_partial.csv',
-               col_types = cols(.default = 'c'))
-write_csv(cw3, file.path(tmpdir, 'crosswalk_partial.csv'))
+cw3 <- readr::read_csv('../tests/testthat/testdata/crosswalk_partial.csv',
+                       col_types = cols(.default = 'c'))
+readr::write_csv(cw3, file.path(tmpdir, 'crosswalk_partial.csv'))
 cw3
 ```
 
@@ -357,9 +358,10 @@ df
 Looking at the partial crosswalk, we see that it now has four new rows
 with new IDs each for the observations it didn't have before. 
 ```{r, echo = FALSE}
-read_csv(file.path(tmpdir, 'crosswalk_partial.csv'),
-         col_types = cols(.default = 'c'))
+cw4 <- readr::read_csv(file.path(tmpdir, 'crosswalk_partial.csv'),
+                       col_types = cols(.default = 'c'))
 rm(tmpdir)
+cw4
 ```
 
 Should we encounter those students in future files, `deid_dua()` will

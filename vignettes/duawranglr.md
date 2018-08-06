@@ -33,7 +33,7 @@ data file and take a look.
     library(duawranglr)
 
     ## read in raw administrative data
-    df <- read_csv('./admin_data.csv')
+    df <- readr::read_csv('./admin_data.csv')
     df
 
     # A tibble: 9 x 10
@@ -349,15 +349,15 @@ Here’s what the saved crosswalk looks like:
     # A tibble: 9 x 2
       sid         id                  
       <chr>       <chr>               
-    1 000-00-0001 c24b01dd0fc87da6b940
-    2 000-00-0002 bc30d6d0f1a6dae29ee2
-    3 000-00-0003 236d9ae8ed05debae1c6
-    4 000-00-0004 232f596ec8b2dae06e24
-    5 000-00-0005 6d3ef5cce8d08490adb6
-    6 000-00-0006 94d94e9167b9455e864c
-    7 000-00-0007 917939b6bff0be48f8d5
-    8 000-00-0008 1aab9748953112e88456
-    9 000-00-0009 f4377e28dd1e188a6476
+    1 000-00-0001 f008e8e6179270fd5e2b
+    2 000-00-0002 d9a24845737fc64322d7
+    3 000-00-0003 a981e3c8c2bcee9b64b6
+    4 000-00-0004 76e8d38b59ee630ade91
+    5 000-00-0005 800b2aa9daa677d76c22
+    6 000-00-0006 897d9f571155e3812a09
+    7 000-00-0007 57b16064133a0dc87a6e
+    8 000-00-0008 d1b496d63877e708a4a9
+    9 000-00-0009 3099e70845e4d23b3881
 
 And here now is the data frame:
 
@@ -366,15 +366,15 @@ And here now is the data frame:
     # A tibble: 9 x 10
       id                   sname    dob      gender raceeth   tid tname   zip mathscr readscr
       <chr>                <chr>    <chr>     <int>   <int> <int> <chr> <int>   <int>   <int>
-    1 c24b01dd0fc87da6b940 Schaefer 19900114      0       2     1 Smith 22906     515     496
-    2 bc30d6d0f1a6dae29ee2 Hodges   19900225      0       1     1 Smith 22906     488     489
-    3 236d9ae8ed05debae1c6 Kirby    19900305      0       4     1 Smith 22906     522     498
-    4 232f596ec8b2dae06e24 Estrada  19900419      0       3     1 Smith 22906     516     524
-    5 6d3ef5cce8d08490adb6 Nielsen  19900530      1       2     1 Smith 22906     483     509
-    6 94d94e9167b9455e864c Dean     19900621      1       1     2 Brown 22906     503     523
-    7 917939b6bff0be48f8d5 Hickman  19900712      1       1     2 Brown 22906     539     509
-    8 1aab9748953112e88456 Bryant   19900826      0       2     2 Brown 22906     499     490
-    9 f4377e28dd1e188a6476 Lynch    19900902      1       3     2 Brown 22906     499     493
+    1 f008e8e6179270fd5e2b Schaefer 19900114      0       2     1 Smith 22906     515     496
+    2 d9a24845737fc64322d7 Hodges   19900225      0       1     1 Smith 22906     488     489
+    3 a981e3c8c2bcee9b64b6 Kirby    19900305      0       4     1 Smith 22906     522     498
+    4 76e8d38b59ee630ade91 Estrada  19900419      0       3     1 Smith 22906     516     524
+    5 800b2aa9daa677d76c22 Nielsen  19900530      1       2     1 Smith 22906     483     509
+    6 897d9f571155e3812a09 Dean     19900621      1       1     2 Brown 22906     503     523
+    7 57b16064133a0dc87a6e Hickman  19900712      1       1     2 Brown 22906     539     509
+    8 d1b496d63877e708a4a9 Bryant   19900826      0       2     2 Brown 22906     499     490
+    9 3099e70845e4d23b3881 Lynch    19900902      1       3     2 Brown 22906     499     493
 
 Links across multiple files with existing crosswalk
 ---------------------------------------------------
@@ -463,10 +463,10 @@ were already in the existing crosswalk. The last four are new.
     3 2c7f2f98f9ee0e3b69ba Kirby    19900305      0       4     1 Smith 22906     522     498
     4 ed7041ab2076a84fe611 Estrada  19900419      0       3     1 Smith 22906     516     524
     5 d4180e00af840a7a8e29 Nielsen  19900530      1       2     1 Smith 22906     483     509
-    6 a241ab3c50a19998bad3 Dean     19900621      1       1     2 Brown 22906     503     523
-    7 8ce8e668e4847c3834d5 Hickman  19900712      1       1     2 Brown 22906     539     509
-    8 73c7ebb500b552e7a2dc Bryant   19900826      0       2     2 Brown 22906     499     490
-    9 04a6a49cc5da4601eaca Lynch    19900902      1       3     2 Brown 22906     499     493
+    6 5144051905dad92bda7a Dean     19900621      1       1     2 Brown 22906     503     523
+    7 b21bce7a83b349b9db19 Hickman  19900712      1       1     2 Brown 22906     539     509
+    8 df5236bac822fb8b248f Bryant   19900826      0       2     2 Brown 22906     499     490
+    9 806f6319155814f87081 Lynch    19900902      1       3     2 Brown 22906     499     493
 
 Looking at the partial crosswalk, we see that it now has four new rows
 with new IDs each for the observations it didn’t have before.
@@ -479,10 +479,10 @@ with new IDs each for the observations it didn’t have before.
     3 000-00-0003 2c7f2f98f9ee0e3b69ba
     4 000-00-0004 ed7041ab2076a84fe611
     5 000-00-0005 d4180e00af840a7a8e29
-    6 000-00-0006 a241ab3c50a19998bad3
-    7 000-00-0007 8ce8e668e4847c3834d5
-    8 000-00-0008 73c7ebb500b552e7a2dc
-    9 000-00-0009 04a6a49cc5da4601eaca
+    6 000-00-0006 5144051905dad92bda7a
+    7 000-00-0007 b21bce7a83b349b9db19
+    8 000-00-0008 df5236bac822fb8b248f
+    9 000-00-0009 806f6319155814f87081
 
 Should we encounter those students in future files, `deid_dua()` will
 use the new IDs we just created.
@@ -547,10 +547,10 @@ Success! And to be sure, here’s what our data frame looks like now:
     3 2c7f2f98f9ee0e3b69ba      0       4     1     522     498
     4 ed7041ab2076a84fe611      0       3     1     516     524
     5 d4180e00af840a7a8e29      1       2     1     483     509
-    6 a241ab3c50a19998bad3      1       1     2     503     523
-    7 8ce8e668e4847c3834d5      1       1     2     539     509
-    8 73c7ebb500b552e7a2dc      0       2     2     499     490
-    9 04a6a49cc5da4601eaca      1       3     2     499     493
+    6 5144051905dad92bda7a      1       1     2     503     523
+    7 b21bce7a83b349b9db19      1       1     2     539     509
+    8 df5236bac822fb8b248f      0       2     2     499     490
+    9 806f6319155814f87081      1       3     2     499     493
 
 Write cleaned data frame to disk
 ================================
@@ -585,7 +585,7 @@ An example template script is printed below.
     ## [ Proj ] < general project name >
     ## [ File ] clean_data.R
     ## [ Auth ] < author name >
-    ## [ Init ] 01 August 2018
+    ## [ Init ] 06 August 2018
     ##
     ################################################################################
      
