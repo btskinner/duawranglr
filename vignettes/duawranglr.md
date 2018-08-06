@@ -1,3 +1,6 @@
+DUAs and `duawranglr`
+=====================
+
 The `duawranglr` package is designed with the idea that rather than
 setting a new data usage agreement (DUA) for each project in an ongoing
 collaboration between researchers and data partners, two things will
@@ -23,59 +26,8 @@ use* the package when attempting to secure restricted data. What this
 package does is offer a framework and a set of useful functions that,
 when followed, help users secure data in a clear and replicable manner.
 
-Administrative data
-===================
-
-After loading some libraries, we’ll first read in the raw administrative
-data file and take a look.
-
-    library(tidyverse)
-    library(duawranglr)
-
-    ## read in raw administrative data
-    df <- readr::read_csv('./admin_data.csv')
-    df
-
-    # A tibble: 9 x 10
-      sid         sname    dob      gender raceeth   tid tname   zip mathscr readscr
-      <chr>       <chr>    <chr>     <int>   <int> <int> <chr> <int>   <int>   <int>
-    1 000-00-0001 Schaefer 19900114      0       2     1 Smith 22906     515     496
-    2 000-00-0002 Hodges   19900225      0       1     1 Smith 22906     488     489
-    3 000-00-0003 Kirby    19900305      0       4     1 Smith 22906     522     498
-    4 000-00-0004 Estrada  19900419      0       3     1 Smith 22906     516     524
-    5 000-00-0005 Nielsen  19900530      1       2     1 Smith 22906     483     509
-    6 000-00-0006 Dean     19900621      1       1     2 Brown 22906     503     523
-    7 000-00-0007 Hickman  19900712      1       1     2 Brown 22906     539     509
-    8 000-00-0008 Bryant   19900826      0       2     2 Brown 22906     499     490
-    9 000-00-0009 Lynch    19900902      1       3     2 Brown 22906     499     493
-
-The `admin_data.csv` file contains observations for 9 students and has
-10 variables associated with each observation. Of these, 1 uniquely
-identifies each student, 6 are associated with the student’s personal
-characteristics, 2 with each student’s teacher, and 2 with the student’s
-test scores in reading and math.
-
-Though there is no codebook, it appears that the identifier for each
-student, `sid`, may be the student’s social security number. As
-researchers interested in test scores, we have no need for this highly
-protected data element other than for its ability to uniquely identify a
-student or allow linking to other records. Since we do not need to link
-to other records at the moment, any unique number or string will work
-for our purposes. Similarly, we don’t really need the student’s last
-name.
-
-Besides math (`mathscr`) and reading (`readscr`) scores, we may be
-interested in some of the other covariates. It’s likely that many of
-these data elements, however, also carry restrictions of varying
-severity. For example, the school may be able to share the student’s
-race/ethnicity and gender (provided the student is not otherwise
-identified) with most approved researchers, but can only share teachers’
-names (`tid`) under more tightly restricted scenarios.
-
-This is where our DUA crosswalk file comes in handy.
-
-Data usage agreement
-====================
+The DUA crosswalk
+-----------------
 
 The crosswalk file, `dua_cw.csv`, for the current DUA looks like this:
 
@@ -164,13 +116,16 @@ The benefit of this level-plus-crosswalk system is two-fold:
 Set DUA
 -------
 
-After reading in the administrative data, the next step is to set the
+Before reading in the administrative data, the first step is to set the
 DUA crosswalk file. The crosswalk file can be in many different formats
 and, in most cases, will be read in automatically no matter the type.
 (If using a delimited file that isn’t a comma- or tab-separated value
 format, give the `delimiter` argument the delimiter string; if using an
 Excel file with more than one sheet, give the `sheet` argument the sheet
 name or number.) If successful, you will get message telling you so.
+
+    library(tidyverse)
+    library(duawranglr)
 
     ## set the DUA crosswalk
     set_dua_cw('dua_cw.csv')
@@ -295,6 +250,54 @@ data element names it restricts using `see_dua_level()`.
      
     ------------------------------------------------------------------------------------------
 
+Administrative data
+===================
+
+After loading some libraries, we’ll first read in the raw administrative
+data file and take a look.
+
+    ## read in raw administrative data
+    df <- read_dua_file('./admin_data.csv')
+    df
+
+    # A tibble: 9 x 10
+      sid         sname    dob      gender raceeth   tid tname   zip mathscr readscr
+      <chr>       <chr>    <chr>     <int>   <int> <int> <chr> <int>   <int>   <int>
+    1 000-00-0001 Schaefer 19900114      0       2     1 Smith 22906     515     496
+    2 000-00-0002 Hodges   19900225      0       1     1 Smith 22906     488     489
+    3 000-00-0003 Kirby    19900305      0       4     1 Smith 22906     522     498
+    4 000-00-0004 Estrada  19900419      0       3     1 Smith 22906     516     524
+    5 000-00-0005 Nielsen  19900530      1       2     1 Smith 22906     483     509
+    6 000-00-0006 Dean     19900621      1       1     2 Brown 22906     503     523
+    7 000-00-0007 Hickman  19900712      1       1     2 Brown 22906     539     509
+    8 000-00-0008 Bryant   19900826      0       2     2 Brown 22906     499     490
+    9 000-00-0009 Lynch    19900902      1       3     2 Brown 22906     499     493
+
+The `admin_data.csv` file contains observations for 9 students and has
+10 variables associated with each observation. Of these, 1 uniquely
+identifies each student, 6 are associated with the student’s personal
+characteristics, 2 with each student’s teacher, and 2 with the student’s
+test scores in reading and math.
+
+Though there is no codebook, it appears that the identifier for each
+student, `sid`, may be the student’s social security number. As
+researchers interested in test scores, we have no need for this highly
+protected data element other than for its ability to uniquely identify a
+student or allow linking to other records. Since we do not need to link
+to other records at the moment, any unique number or string will work
+for our purposes. Similarly, we don’t really need the student’s last
+name.
+
+Besides math (`mathscr`) and reading (`readscr`) scores, we may be
+interested in some of the other covariates. It’s likely that many of
+these data elements, however, also carry restrictions of varying
+severity. For example, the school may be able to share the student’s
+race/ethnicity and gender (provided the student is not otherwise
+identified) with most approved researchers, but can only share teachers’
+names (`tid`) under more tightly restricted scenarios.
+
+This is where our DUA crosswalk file comes in handy.
+
 Deidentify data
 ===============
 
@@ -349,15 +352,15 @@ Here’s what the saved crosswalk looks like:
     # A tibble: 9 x 2
       sid         id                  
       <chr>       <chr>               
-    1 000-00-0001 f008e8e6179270fd5e2b
-    2 000-00-0002 d9a24845737fc64322d7
-    3 000-00-0003 a981e3c8c2bcee9b64b6
-    4 000-00-0004 76e8d38b59ee630ade91
-    5 000-00-0005 800b2aa9daa677d76c22
-    6 000-00-0006 897d9f571155e3812a09
-    7 000-00-0007 57b16064133a0dc87a6e
-    8 000-00-0008 d1b496d63877e708a4a9
-    9 000-00-0009 3099e70845e4d23b3881
+    1 000-00-0001 7b3216eebc758bdba5d8
+    2 000-00-0002 10e7fe78acbcc1affa4f
+    3 000-00-0003 8034b920bcfdeeb690d3
+    4 000-00-0004 08ac34118f883461683c
+    5 000-00-0005 86f8d9cf1f1d9557fc96
+    6 000-00-0006 2d74c3398da5e045d183
+    7 000-00-0007 53f957c278be9578ae74
+    8 000-00-0008 2a35ef00777f15ffcc20
+    9 000-00-0009 e8e9f949da5baa59dfdb
 
 And here now is the data frame:
 
@@ -366,15 +369,15 @@ And here now is the data frame:
     # A tibble: 9 x 10
       id                   sname    dob      gender raceeth   tid tname   zip mathscr readscr
       <chr>                <chr>    <chr>     <int>   <int> <int> <chr> <int>   <int>   <int>
-    1 f008e8e6179270fd5e2b Schaefer 19900114      0       2     1 Smith 22906     515     496
-    2 d9a24845737fc64322d7 Hodges   19900225      0       1     1 Smith 22906     488     489
-    3 a981e3c8c2bcee9b64b6 Kirby    19900305      0       4     1 Smith 22906     522     498
-    4 76e8d38b59ee630ade91 Estrada  19900419      0       3     1 Smith 22906     516     524
-    5 800b2aa9daa677d76c22 Nielsen  19900530      1       2     1 Smith 22906     483     509
-    6 897d9f571155e3812a09 Dean     19900621      1       1     2 Brown 22906     503     523
-    7 57b16064133a0dc87a6e Hickman  19900712      1       1     2 Brown 22906     539     509
-    8 d1b496d63877e708a4a9 Bryant   19900826      0       2     2 Brown 22906     499     490
-    9 3099e70845e4d23b3881 Lynch    19900902      1       3     2 Brown 22906     499     493
+    1 7b3216eebc758bdba5d8 Schaefer 19900114      0       2     1 Smith 22906     515     496
+    2 10e7fe78acbcc1affa4f Hodges   19900225      0       1     1 Smith 22906     488     489
+    3 8034b920bcfdeeb690d3 Kirby    19900305      0       4     1 Smith 22906     522     498
+    4 08ac34118f883461683c Estrada  19900419      0       3     1 Smith 22906     516     524
+    5 86f8d9cf1f1d9557fc96 Nielsen  19900530      1       2     1 Smith 22906     483     509
+    6 2d74c3398da5e045d183 Dean     19900621      1       1     2 Brown 22906     503     523
+    7 53f957c278be9578ae74 Hickman  19900712      1       1     2 Brown 22906     539     509
+    8 2a35ef00777f15ffcc20 Bryant   19900826      0       2     2 Brown 22906     499     490
+    9 e8e9f949da5baa59dfdb Lynch    19900902      1       3     2 Brown 22906     499     493
 
 Links across multiple files with existing crosswalk
 ---------------------------------------------------
@@ -463,10 +466,10 @@ were already in the existing crosswalk. The last four are new.
     3 2c7f2f98f9ee0e3b69ba Kirby    19900305      0       4     1 Smith 22906     522     498
     4 ed7041ab2076a84fe611 Estrada  19900419      0       3     1 Smith 22906     516     524
     5 d4180e00af840a7a8e29 Nielsen  19900530      1       2     1 Smith 22906     483     509
-    6 5144051905dad92bda7a Dean     19900621      1       1     2 Brown 22906     503     523
-    7 b21bce7a83b349b9db19 Hickman  19900712      1       1     2 Brown 22906     539     509
-    8 df5236bac822fb8b248f Bryant   19900826      0       2     2 Brown 22906     499     490
-    9 806f6319155814f87081 Lynch    19900902      1       3     2 Brown 22906     499     493
+    6 a50fd4b9c80d99d85ccc Dean     19900621      1       1     2 Brown 22906     503     523
+    7 a5df817772d311c91640 Hickman  19900712      1       1     2 Brown 22906     539     509
+    8 c614c6297ba978c24a48 Bryant   19900826      0       2     2 Brown 22906     499     490
+    9 804e2c115dc9e11be276 Lynch    19900902      1       3     2 Brown 22906     499     493
 
 Looking at the partial crosswalk, we see that it now has four new rows
 with new IDs each for the observations it didn’t have before.
@@ -479,10 +482,10 @@ with new IDs each for the observations it didn’t have before.
     3 000-00-0003 2c7f2f98f9ee0e3b69ba
     4 000-00-0004 ed7041ab2076a84fe611
     5 000-00-0005 d4180e00af840a7a8e29
-    6 000-00-0006 5144051905dad92bda7a
-    7 000-00-0007 b21bce7a83b349b9db19
-    8 000-00-0008 df5236bac822fb8b248f
-    9 000-00-0009 806f6319155814f87081
+    6 000-00-0006 a50fd4b9c80d99d85ccc
+    7 000-00-0007 a5df817772d311c91640
+    8 000-00-0008 c614c6297ba978c24a48
+    9 000-00-0009 804e2c115dc9e11be276
 
 Should we encounter those students in future files, `deid_dua()` will
 use the new IDs we just created.
@@ -547,10 +550,10 @@ Success! And to be sure, here’s what our data frame looks like now:
     3 2c7f2f98f9ee0e3b69ba      0       4     1     522     498
     4 ed7041ab2076a84fe611      0       3     1     516     524
     5 d4180e00af840a7a8e29      1       2     1     483     509
-    6 5144051905dad92bda7a      1       1     2     503     523
-    7 b21bce7a83b349b9db19      1       1     2     539     509
-    8 df5236bac822fb8b248f      0       2     2     499     490
-    9 806f6319155814f87081      1       3     2     499     493
+    6 a50fd4b9c80d99d85ccc      1       1     2     503     523
+    7 a5df817772d311c91640      1       1     2     539     509
+    8 c614c6297ba978c24a48      0       2     2     499     490
+    9 804e2c115dc9e11be276      1       3     2     499     493
 
 Write cleaned data frame to disk
 ================================

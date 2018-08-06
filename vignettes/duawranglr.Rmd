@@ -14,6 +14,8 @@ knitr::opts_chunk$set(collapse = TRUE, comment = NA)
 
 ```
 
+# DUAs and `duawranglr`
+
 The `duawranglr` package is designed with the idea that rather than
 setting a new data usage agreement (DUA) for each project in an
 ongoing collaboration between researchers and data partners, two
@@ -41,68 +43,7 @@ package does is offer a framework and a set of useful functions that,
 when followed, help users secure data in a clear and replicable
 manner.
 
-# Administrative data
-
-After loading some libraries, we'll first read in the raw
-administrative data file and take a look.
-
-```{r, eval = FALSE}
-library(tidyverse)
-library(duawranglr)
-
-## read in raw administrative data
-df <- readr::read_csv('./admin_data.csv')
-df
-```
-
-```{r, echo = FALSE}
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(readr))
-library(duawranglr)
-
-## read in raw administrative data
-df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
-                      col_types = cols(sid = col_character(),
-                                       sname = col_character(),
-                                       dob = col_character(),
-                                       gender = col_integer(),
-                                       raceeth = col_integer(),
-                                       tid = col_integer(),
-                                       tname = col_character(),
-                                       zip = col_integer(),
-                                       mathscr = col_integer(),
-                                       readscr = col_integer()
-                                       )
-                      )
-df
-```	
-
-The `admin_data.csv` file contains observations for 9 students and has 10
-variables associated with each observation. Of these, 1 uniquely
-identifies each student, 6 are associated with the student's personal
-characteristics, 2 with each student's teacher, and 2 with the
-student's test scores in reading and math. 
-
-Though there is no codebook, it appears that the identifier for each
-student, `sid`, may be the student's social security number. As
-researchers interested in test scores, we have no need for this highly
-protected data element other than for its ability to uniquely identify
-a student or allow linking to other records. Since we do not need to
-link to other records at the moment, any unique number or string will
-work for our purposes. Similarly, we don't really need the student's
-last name.
-
-Besides math (`mathscr`) and reading (`readscr`) scores, we may be
-interested in some of the other covariates. It's likely that many of
-these data elements, however, also carry restrictions of varying
-severity. For example, the school may be able to share the student's
-race/ethnicity and gender (provided the student is not otherwise
-identified) with most approved researchers, but can only share
-teachers' names (`tid`) under more tightly restricted scenarios.
-
-This is where our DUA crosswalk file comes in handy.
-
-# Data usage agreement
+## The DUA crosswalk
 
 The crosswalk file, `dua_cw.csv`, for the current DUA looks like this:
 
@@ -149,7 +90,7 @@ The benefit of this level-plus-crosswalk system is two-fold:
 
 ## Set DUA
 
-After reading in the administrative data, the next step is to set the
+Before reading in the administrative data, the first step is to set the
 DUA crosswalk file. The crosswalk file can be in many different
 formats and, in most cases, will be read in automatically no matter
 the type. (If using a delimited file that isn't a comma- or
@@ -159,10 +100,16 @@ string; if using an Excel file with more than one sheet, give the
 message telling you so.
 
 ```{r, eval = FALSE}
+library(tidyverse)
+library(duawranglr)
+
 ## set the DUA crosswalk
 set_dua_cw('dua_cw.csv')
 ```
 ```{r, echo = FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(readr))
+library(duawranglr)
 set_dua_cw('../tests/testthat/testdata/dua_one.csv')
 ```
 ## Check DUA options
@@ -210,6 +157,61 @@ the data element names it restricts using `see_dua_level()`.
 ## see set DUA level 
 see_dua_level(show_restrictions = TRUE)
 ```
+
+# Administrative data
+
+After loading some libraries, we'll first read in the raw
+administrative data file and take a look.
+
+```{r, eval = FALSE}
+## read in raw administrative data
+df <- read_dua_file('./admin_data.csv')
+df
+```
+
+```{r, echo = FALSE}
+## read in raw administrative data
+df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
+                      col_types = cols(sid = col_character(),
+                                       sname = col_character(),
+                                       dob = col_character(),
+                                       gender = col_integer(),
+                                       raceeth = col_integer(),
+                                       tid = col_integer(),
+                                       tname = col_character(),
+                                       zip = col_integer(),
+                                       mathscr = col_integer(),
+                                       readscr = col_integer()
+                                       )
+                      )
+df
+```	
+
+The `admin_data.csv` file contains observations for 9 students and has 10
+variables associated with each observation. Of these, 1 uniquely
+identifies each student, 6 are associated with the student's personal
+characteristics, 2 with each student's teacher, and 2 with the
+student's test scores in reading and math. 
+
+Though there is no codebook, it appears that the identifier for each
+student, `sid`, may be the student's social security number. As
+researchers interested in test scores, we have no need for this highly
+protected data element other than for its ability to uniquely identify
+a student or allow linking to other records. Since we do not need to
+link to other records at the moment, any unique number or string will
+work for our purposes. Similarly, we don't really need the student's
+last name.
+
+Besides math (`mathscr`) and reading (`readscr`) scores, we may be
+interested in some of the other covariates. It's likely that many of
+these data elements, however, also carry restrictions of varying
+severity. For example, the school may be able to share the student's
+race/ethnicity and gender (provided the student is not otherwise
+identified) with most approved researchers, but can only share
+teachers' names (`tid`) under more tightly restricted scenarios.
+
+This is where our DUA crosswalk file comes in handy.
+
 
 # Deidentify data
 
