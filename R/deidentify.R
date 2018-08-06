@@ -63,7 +63,8 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                             value = TRUE, invert = TRUE)
         cw_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__), value = TRUE)
         ## get id length to match
-        id_length <- max(nchar(cw__[[new_id_name]]))
+        char_length <- nchar(cw__[[new_id_name]])
+        id_length <- ifelse(length(char_length) > 0, max(char_length), id_length)
     }
 
     ## check that id_col matches crosswalk
