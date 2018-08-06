@@ -45,4 +45,5 @@ read_dua_file <- function(file, ...) {
     }
     df <- sreader__(file, ...)
     dua_env[['check_pass']] <- FALSE
+    df
 }
