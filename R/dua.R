@@ -210,7 +210,7 @@ see_dua_level <- function(show_restrictions = FALSE,
     }
 
     ## check if DUA level has been set
-    if (is.null(dua_env[['level_set']])) {
+    if (!dua_env[['level_set']]) {
         messager__('You have not yet set a DUA level.')
     } else {
         if (show_restrictions) {
