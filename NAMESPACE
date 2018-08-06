@@ -3,6 +3,7 @@
 export(check_dua_restrictions)
 export(deid_dua)
 export(make_dua_template)
+export(read_dua_file)
 export(see_dua_level)
 export(see_dua_options)
 export(set_dua_cw)
