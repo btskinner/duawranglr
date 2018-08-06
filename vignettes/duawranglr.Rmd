@@ -255,7 +255,7 @@ necessary by those with the proper clearance to do so.
 ## deidentify data
 tmpdir <- tempdir()
 deid_dua(df, write_crosswalk = TRUE, id_length = 20,
-         crosswalk_name = file.path(tmpdir, 'tmp'))
+         crosswalk_filename = file.path(tmpdir, 'tmp.csv'))
 ```
 ```{r, eval = FALSE}
 ## deidentify data
@@ -265,7 +265,8 @@ Here's what the saved crosswalk looks like:
 
 ```{r, echo = FALSE}
 ## show crosswalk
-cw <- readr::read_csv(file.path(tmpdir, 'tmp.csv'), col_types = cols(.default = 'c'))
+cw <- readr::read_csv(file.path(tmpdir, 'tmp.csv'),
+                      col_types = cols(.default = 'c'))
 cw
 rm(tmpdir)
 ```

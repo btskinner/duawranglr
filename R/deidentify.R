@@ -20,8 +20,8 @@
 #'     given for these values will be ignored.
 #' @param write_crosswalk Write crosswalk between old ID and new hash
 #'     ID to console (unless \code{crosswalk_name} is given value).
-#' @param crosswalk_name Name of crosswalk file with path; defaults to generic
-#'     name with current date (YYYYMMDD) appended.
+#' @param crosswalk_filename Name of crosswalk file with path;
+#'     defaults to generic name with current date (YYYYMMDD) appended.
 #' @examples
 #' \dontrun{
 #'
@@ -34,7 +34,7 @@
 #' @export
 deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                      existing_crosswalk = NULL, write_crosswalk = FALSE,
-                     crosswalk_name = NULL) {
+                     crosswalk_filename = NULL) {
 
     ## get ID column if NULL or error
     if (is.null(id_col)) {
@@ -57,7 +57,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         }
         cw__ <- sreader__(existing_crosswalk)
         write_crosswalk <- TRUE
-        crosswalk_name <- existing_crosswalk
+        crosswalk_filename <- existing_crosswalk
         ## get new name from crosswalk (which is the one that's !id_col)
         new_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__),
                             value = TRUE, invert = TRUE)
@@ -115,10 +115,10 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         new <- new_ids
         tmp_df <- data.frame(old = old, new = new, stringsAsFactors = FALSE)
         colnames(tmp_df) <- c(id_col, new_id_name)
-        if (is.null(crosswalk_name)) {
+        if (is.null(crosswalk_filename)) {
             file <-  paste0('id_crosswalk_', format(Sys.Date(), format='%Y%m%d'))
         } else {
-            file <- paste0(crosswalk_name, '.csv')
+            file <- crosswalk_filename
         }
         utils::write.csv(tmp_df, file, quote = FALSE, row.names = FALSE)
     }

@@ -6,7 +6,7 @@
 \usage{
 deid_dua(df, id_col = NULL, new_id_name = "id", id_length = 64,
   existing_crosswalk = NULL, write_crosswalk = FALSE,
-  crosswalk_name = NULL)
+  crosswalk_filename = NULL)
 }
 \arguments{
 \item{df}{Data frame}
@@ -28,10 +28,10 @@ will be determined by the already existing crosswalk. Arguments
 given for these values will be ignored.}
 
 \item{write_crosswalk}{Write crosswalk between old ID and new hash
-ID to console (unless \code{crosswalk_path} is given value).}
+ID to console (unless \code{crosswalk_name} is given value).}
 
-\item{crosswalk_name}{Name of crosswalk file; defaults to generic
-name with current date (YYYYMMDD) appended.}
+\item{crosswalk_filename}{Name of crosswalk file with path;
+defaults to generic name with current date (YYYYMMDD) appended.}
 }
 \description{
 Convert a column of unique but restricted IDs into a set of new IDs
