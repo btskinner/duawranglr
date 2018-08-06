@@ -26,8 +26,7 @@
 #' with default values, can be modified by adding them to the
 #' top-level \code{read_dua_file()} function.
 #'
-#' @param file Name for administrative file, with or without file type
-#'     ending.
+#' @param file File name to be read into memory
 #' @param path Path for administrative file with the default is the
 #'     working directory.
 #' @param ... Arguments to pass to read function based on the
@@ -35,8 +34,8 @@
 #' @examples
 #' \dontrun{
 #'
-#'  read_dua_file('admin_data')
 #'  read_dua_file('admin_data.csv')
+#'  read_dua_file('admin_data.dta')
 #'  read_dua_file('admin_data.xlsx', sheet = 2)
 #'
 #' }

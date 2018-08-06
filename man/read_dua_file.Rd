@@ -7,8 +7,7 @@
 read_dua_file(file, path = ".", ...)
 }
 \arguments{
-\item{file}{Name for administrative file, with or without file type
-ending.}
+\item{file}{File name to be read into memory}
 
 \item{path}{Path for administrative file with the default is the
 working directory.}
@@ -47,8 +46,8 @@ top-level \code{read_dua_file()} function.
 \examples{
 \dontrun{
 
- read_dua_file('admin_data')
  read_dua_file('admin_data.csv')
+ read_dua_file('admin_data.dta')
  read_dua_file('admin_data.xlsx', sheet = 2)
 
 }
