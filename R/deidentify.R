@@ -19,8 +19,8 @@
 #'     will be determined by the already existing crosswalk. Arguments
 #'     given for these values will be ignored.
 #' @param write_crosswalk Write crosswalk between old ID and new hash
-#'     ID to console (unless \code{crosswalk_path} is given value).
-#' @param crosswalk_name Name of crosswalk file; defaults to generic
+#'     ID to console (unless \code{crosswalk_name} is given value).
+#' @param crosswalk_name Name of crosswalk file with path; defaults to generic
 #'     name with current date (YYYYMMDD) appended.
 #' @examples
 #' \dontrun{
@@ -57,7 +57,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         }
         cw__ <- sreader__(existing_crosswalk)
         write_crosswalk <- TRUE
-        crosswalk_name <- get_basename(existing_crosswalk)
+        crosswalk_name <- existing_crosswalk
         ## get new name from crosswalk (which is the one that's !id_col)
         new_id_name <- grep(paste0('\\b', id_col, '\\b'), names(cw__),
                             value = TRUE, invert = TRUE)
