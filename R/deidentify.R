@@ -22,9 +22,6 @@
 #'     ID to console (unless \code{crosswalk_path} is given value).
 #' @param crosswalk_name Name of crosswalk file; defaults to generic
 #'     name with current date (YYYYMMDD) appended.
-#' @param crosswalk_path Path to \code{existing_crosswalk} or to write
-#'     new crosswalk file (CSV), which is only used if
-#'     \code{write_crosswalk == TRUE}; defaults to current directory.
 #' @examples
 #' \dontrun{
 #'
@@ -37,7 +34,7 @@
 #' @export
 deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                      existing_crosswalk = NULL, write_crosswalk = FALSE,
-                     crosswalk_name = NULL, crosswalk_path = '.') {
+                     crosswalk_name = NULL) {
 
     ## get ID column if NULL or error
     if (is.null(id_col)) {
@@ -53,13 +50,12 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
 
     ## read in existing crosswalk
     if (!is.null(existing_crosswalk)) {
-        if (!file.exists(file.path(crosswalk_path, existing_crosswalk))) {
+        if (!file.exists(existing_crosswalk)) {
             stop(paste0('Crosswalk file given to -existing_crosswalk- argument ',
                         'doesn\'t exist. Check file name and/or path.'),
                  call. = FALSE)
         }
-        cw__ <- utils::read.csv(file.path(crosswalk_path, existing_crosswalk),
-                                header = TRUE, stringsAsFactors = FALSE)
+        cw__ <- sreader__(existing_crosswalk)
         write_crosswalk <- TRUE
         crosswalk_name <- get_basename(existing_crosswalk)
         ## get new name from crosswalk (which is the one that's !id_col)
@@ -123,8 +119,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         } else {
             file <- paste0(crosswalk_name, '.csv')
         }
-        utils::write.csv(tmp_df, file.path(crosswalk_path, file),
-                         quote = FALSE, row.names = FALSE)
+        utils::write.csv(tmp_df, file, quote = FALSE, row.names = FALSE)
     }
 
     ## replace values with hashed values

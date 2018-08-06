@@ -255,7 +255,7 @@ necessary by those with the proper clearance to do so.
 ## deidentify data
 tmpdir <- tempdir()
 deid_dua(df, write_crosswalk = TRUE, id_length = 20,
-         crosswalk_name = 'tmp', crosswalk_path = tmpdir)
+         crosswalk_name = file.path(tmpdir, 'tmp'))
 ```
 ```{r, eval = FALSE}
 ## deidentify data
@@ -307,8 +307,7 @@ deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
 ```
 
 ```{r, echo = FALSE}
-deid_dua(df, existing_crosswalk = 'crosswalk_full.csv',
-         crosswalk_path = tmpdir)
+deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_full.csv'))
 rm(tmpdir)
 ```
 
@@ -348,8 +347,7 @@ deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
 ```
 
 ```{r, echo = FALSE}
-deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv',
-         crosswalk_path = tmpdir)
+deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_partial.csv'))
 
 ```
 Notice that the new IDs for the first five observations match those
