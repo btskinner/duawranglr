@@ -4,13 +4,10 @@
 \alias{read_dua_file}
 \title{Read in raw data file}
 \usage{
-read_dua_file(file, path = ".", ...)
+read_dua_file(file, ...)
 }
 \arguments{
 \item{file}{File name to be read into memory}
-
-\item{path}{Path for administrative file with the default is the
-working directory.}
 
 \item{...}{Arguments to pass to read function based on the
 input type; see details for more information.}

@@ -27,8 +27,6 @@
 #' top-level \code{read_dua_file()} function.
 #'
 #' @param file File name to be read into memory
-#' @param path Path for administrative file with the default is the
-#'     working directory.
 #' @param ... Arguments to pass to read function based on the
 #'     input type; see details for more information.
 #' @examples
@@ -41,10 +39,10 @@
 #' }
 #'
 #' @export
-read_dua_file <- function(file, path = '.', ...) {
+read_dua_file <- function(file, ...) {
     if (!exists('dua_env', mode = 'environment')) {
         stop('Must set DUA first with -set_dua()-.', call. = FALSE)
     }
-    df <- sreader__(file.path(path, file), ...)
+    df <- sreader__(file, ...)
     dua_env[['check_pass']] <- FALSE
 }
