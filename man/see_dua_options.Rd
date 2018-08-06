@@ -4,13 +4,17 @@
 \alias{see_dua_options}
 \title{Show DUA crosswalk options}
 \usage{
-see_dua_options(level = NULL, print_width = getOption("width"))
+see_dua_options(level = NULL, sort_vars = TRUE, ...)
 }
 \arguments{
 \item{level}{String name or vector of string names of levels to
 show.}
 
-\item{print_width}{Defaults to global option for screen width.}
+\item{sort_vars}{Sort variables alphabetically when printing
+restrictions; if \code{FALSE}, prints in the order saved in the
+crosswalk file}
+
+\item{...}{For debugging.}
 }
 \description{
 Once the DUA crosswalk has been loaded, show the available

@@ -135,7 +135,10 @@ set_dua_level <- function(level,
 #'
 #' @param level String name or vector of string names of levels to
 #'     show.
-#' @param print_width Defaults to global option for screen width.
+#' @param sort_vars Sort variables alphabetically when printing
+#'     restrictions; if \code{FALSE}, prints in the order saved in the
+#'     crosswalk file
+#' @param ... For debugging.
 #' @examples
 #' \dontrun{
 #'
@@ -146,8 +149,10 @@ set_dua_level <- function(level,
 #' }
 #'
 #' @export
-see_dua_options <- function(level = NULL,
-                            print_width = getOption('width')) {
+see_dua_options <- function(level = NULL, sort_vars = TRUE, ...) {
+
+    ## set print width
+    print_width = getOption('width')
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
@@ -176,6 +181,7 @@ see_dua_options <- function(level = NULL,
         message(rep('-', print_width))
         message('\nRESTRICTED VARIABLE NAMES:\n')
         vars <- unlist(dua_env[['restrictions']][[lev]])
+        if (sort_vars) { vars <- sort(vars) }
         for (v in vars[!is.na(vars) & vars != '']) {
             message(paste0(' - ', v))
         }
@@ -191,7 +197,10 @@ see_dua_options <- function(level = NULL,
 #'
 #' @param show_restrictions Show the names of the variables that are
 #'     restricted by the current level if \code{TRUE}.
-#' @param print_width Defaults to global option for screen width.
+#' @param sort_vars Sort variables alphabetically when printing
+#'     restrictions; if \code{FALSE}, prints in the order saved in the
+#'     crosswalk file
+#' @param ... For debugging.
 #' @examples
 #' \dontrun{
 #'
@@ -201,8 +210,11 @@ see_dua_options <- function(level = NULL,
 #' }
 #'
 #' @export
-see_dua_level <- function(show_restrictions = FALSE,
-                          print_width = getOption('width')) {
+see_dua_level <- function(show_restrictions = FALSE, sort_vars = TRUE,
+                          ...) {
+
+    ## set print width
+    print_width = getOption('width')
 
     ## check if DUA has been set
     if (!dua_env[['dua_set']]) {
@@ -221,6 +233,7 @@ see_dua_level <- function(show_restrictions = FALSE,
             message(rep('-', print_width))
             message('\nRESTRICTED VARIABLE NAMES:\n')
             vars <- unlist(dua_env[['restrictions']][[dua_env[['dua_level']]]])
+            if (sort_vars) { vars <- sort(vars) }
             for (v in vars) {
                 message(paste0(' - ', v))
             }

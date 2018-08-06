@@ -4,13 +4,17 @@
 \alias{see_dua_level}
 \title{Show current DUA restriction level setting}
 \usage{
-see_dua_level(show_restrictions = FALSE, print_width = getOption("width"))
+see_dua_level(show_restrictions = FALSE, sort_vars = TRUE, ...)
 }
 \arguments{
 \item{show_restrictions}{Show the names of the variables that are
 restricted by the current level if \code{TRUE}.}
 
-\item{print_width}{Defaults to global option for screen width.}
+\item{sort_vars}{Sort variables alphabetically when printing
+restrictions; if \code{FALSE}, prints in the order saved in the
+crosswalk file}
+
+\item{...}{For debugging.}
 }
 \description{
 After setting the DUA restriction level, check the setting and
