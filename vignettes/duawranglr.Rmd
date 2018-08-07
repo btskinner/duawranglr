@@ -254,12 +254,12 @@ necessary by those with the proper clearance to do so.
 ```{r, echo = FALSE}
 ## deidentify data
 tmpdir <- tempdir()
-deid_dua(df, write_crosswalk = TRUE, id_length = 20,
-         crosswalk_filename = file.path(tmpdir, 'tmp.csv'))
+df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20,
+               crosswalk_filename = file.path(tmpdir, 'tmp.csv'))
 ```
 ```{r, eval = FALSE}
 ## deidentify data
-deid_dua(df, write_crosswalk = TRUE, id_length = 20)
+df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20)
 ```
 Here's what the saved crosswalk looks like:
 
@@ -304,11 +304,11 @@ argument to read in and use the new IDs we've already made. Everything
 else works the same as before.    
 
 ```r
-deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
+df <- deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
 ```
 
 ```{r, echo = FALSE}
-deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_full.csv'))
+df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_full.csv'))
 rm(tmpdir)
 ```
 
@@ -344,11 +344,11 @@ then `deid_dua()` will:
 The command is the same for a partial crosswalk as for a complete crosswalk.
 
 ```r
-deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
+df <- deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
 ```
 
 ```{r, echo = FALSE}
-deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_partial.csv'))
+df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_partial.csv'))
 
 ```
 Notice that the new IDs for the first five observations match those
