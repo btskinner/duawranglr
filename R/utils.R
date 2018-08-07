@@ -4,7 +4,7 @@
 utils::globalVariables(c('.getSerializeVersion', 'dua_env'))
 
 ## smart reader
-sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
+sreader__ <- function(file, delimiter = NULL, sheet = NULL, ...) {
 
     ## check to make sure file exists
     if (!file.exists(file)) {
@@ -26,8 +26,8 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
     } else if (ext == 'rda' || ext == 'rdata' || ext == 'rds') {
 
         ## R
-        if (ext == 'rds') { df <- readRDS(file) }
-        else { df <- get(load(file)) }
+        if (ext == 'rds') { df <- readRDS(file, ...) }
+        else { df <- get(load(file, ...)) }
 
     } else if (ext == 'dta') {
 
@@ -37,12 +37,12 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
     } else if (ext == 'sas7bdat') {
 
         ## SAS
-        df <- haven::read_sas(file)
+        df <- haven::read_sas(file, ...)
 
     } else if (ext == 'sav') {
 
         ## SPSS
-        df <- haven::read_spss(file)
+        df <- haven::read_spss(file, ...)
 
     } else {
 
@@ -64,7 +64,8 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL) {
 
         ## delimited
         df <- readr::read_delim(file, delim = delim,
-                                col_types = readr::cols(.default = 'c'))
+                                col_types = readr::cols(.default = 'c'),
+                                ...)
 
     }
 
