@@ -109,22 +109,22 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         new_ids <- c(exist_cw_df[[new_id_name]], new_ids)
     }
 
+    ## combine into data frame
+    id_df <- data.frame('old' = old_ids, 'new' = new_ids, stringsAsFactors = FALSE)
+    colnames(id_df) <- c(id_col, new_id_name)
+
     ## write crosswalk if desired
     if (write_crosswalk) {
-        old <- old_ids
-        new <- new_ids
-        tmp_df <- data.frame(old = old, new = new, stringsAsFactors = FALSE)
-        colnames(tmp_df) <- c(id_col, new_id_name)
         if (is.null(crosswalk_filename)) {
             file <-  paste0('id_crosswalk_', format(Sys.Date(), format='%Y%m%d'))
         } else {
             file <- crosswalk_filename
         }
-        utils::write.csv(tmp_df, file, quote = FALSE, row.names = FALSE)
+        utils::write.csv(id_df, file, quote = FALSE, row.names = FALSE)
     }
 
-    ## replace values with hashed values
-    df[[id_col]] <- new_ids
+    ## replace old values with new or recovered hashed values
+    df[[id_col]] <-id_df[[new_id_name]][match(df[[id_col]], id_df[[id_col]])]
 
     ## change name of id column
     names(df)[names(df) == id_col] <- new_id_name
