@@ -44,6 +44,8 @@ read_dua_file <- function(file, ...) {
         stop('Must set DUA first with -set_dua()-.', call. = FALSE)
     }
     df <- sreader__(file, ...)
+    ## reset so new check has to be performed
+    dua_env[['deidentified']] <- FALSE
     dua_env[['check_pass']] <- FALSE
-    df
+    return(df)
 }
