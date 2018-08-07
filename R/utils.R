@@ -32,7 +32,7 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL, ...) {
     } else if (ext == 'dta') {
 
         ## stata
-        df <- haven::read_stata(file)
+        df <- haven::read_stata(file, ...)
 
     } else if (ext == 'sas7bdat') {
 

@@ -124,12 +124,14 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     }
 
     ## replace values with hashed values
-    df[[id_col]] <<- new_ids
+    df[[id_col]] <- new_ids
 
     ## change name of id column
-    names(df)[names(df) == id_col] <<- new_id_name
+    names(df)[names(df) == id_col] <- new_id_name
 
     ## set check to TRUE
     dua_env[['deidentified']] <- TRUE
 
+    ## return
+    return(df)
 }
