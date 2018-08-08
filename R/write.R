@@ -51,53 +51,41 @@ write_dua_df <- function(df,
                                          'delimited', 'stata', 'sas',
                                          'spss'),
                          ...) {
-
     ## check if DUA has been set
-    if (!dua_env[['dua_set']]) {
+    if (!exists('dua_env', mode = 'environment') || !dua_env[['dua_set']]) {
         stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
-
     ## check if already passed
     if (!dua_env[['check_pass']]) {
         messager__(paste0('Data set has not yet passed check. Run ',
                           '-check_dua_restrictions()- to check status.'))
-
     } else {
-
         ## file extension list
         fe <- list('rds' = 'rds', 'rdata' = 'rdata', 'csv' = 'csv', 'tsv' = 'tsv',
                    'delimited' = 'txt', 'stata' = 'dta', 'sas' = 'sas7bdat',
                    'spss' = 'sav')
-
         ## check for file extension
         ext <- tolower(tools::file_ext(file_name))
         if (ext == '') {
             file_name <- paste(file_name, fe[[output_type]], sep = '.')
         }
-
         ## join name and path
         f <- file.path(path, file_name)
+        ## arguments
+        args <- list(...)
 
         ## -----------------------
         ## write
         ## -----------------------
 
-        ## arguments
-        args <- list(...)
-
-        ## RDS
-        if (output_type == 'rds') {
+        if (output_type == 'rds') {     # rds
             do.call('saveRDS', c(list('object' = df, 'file' = f), args))
         }
-
-        ## Rdata
-        if (output_type == 'rdata') {
+        if (output_type == 'rdata') {   # rdata
             do.call('save', c(list('df', 'file' = f), args))
         }
-
-        ## delimited files
         delims <- c('csv','tsv','delimited')
-        if (output_type %in% delims) {
+        if (output_type %in% delims) {  # delimited (csv, tsv, user-defined)
             if (!'row.names' %in% names(args)) { args[['row.names']] <- FALSE }
             if (output_type == 'csv') {
                 if (!'sep' %in% names(args)) { args[['sep']] <- ',' }
@@ -107,21 +95,15 @@ write_dua_df <- function(df,
             }
             do.call('write.table', c(list(df, 'file' = f), args))
         }
-
-        ## Stata
-        if (output_type == 'stata') {
+        if (output_type == 'stata') {   # Stata
             fun <- get('write_dta', asNamespace('haven'))
             do.call(fun, c(list('data' = df, 'path' = f), args))
         }
-
-        ## SAS
-        if (output_type == 'sas') {
+        if (output_type == 'sas') {     # SAS
             fun <- get('write_sas', asNamespace('haven'))
             do.call(fun, c(list('data' = df, 'path' = f)))
         }
-
-        ## SPSS
-        if (output_type == 'spss') {
+        if (output_type == 'spss') {    # SPSS
             fun <- get('write_sav', asNamespace('haven'))
             do.call(fun, c(list('data' = df, 'path' = f)))
         }

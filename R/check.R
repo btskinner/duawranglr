@@ -6,49 +6,40 @@
 #' \code{write_dua_df()}.
 #'
 #' @param df Data frame to check against set DUA restriction level.
-#' @param remove_protected Will remove protected variables as
-#'     determined by DUA restriction level if set to
-#'     \code{TRUE}; default behavior is to warn only.
 #' @examples
 #' \dontrun{
 #'
 #' check_dua_restrictions(df)
-#' check_dua_restrictions(df, remove_protected = TRUE)
 #'
 #' }
 #'
 #' @export
-check_dua_restrictions <- function(df, remove_protected = FALSE) {
-
+check_dua_restrictions <- function(df) {
     ## check if DUA has been set
-    if (!dua_env[['dua_set']]) {
+    if (!exists('dua_env', mode = 'environment') || !dua_env[['dua_set']]) {
         stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
-
     ## check if already passed
     if (dua_env[['check_pass']]) {
         messager__('Data set has passed check and may be saved.')
     } else {
-
         ## check if DUA level has been set
         if (!dua_env[['level_set']]) {
             stop('Must set DUA level with -set_dua_level()-.', call. = FALSE)
         }
-
         ## check if needs to be deidentified and, if so, if it has
         if (!dua_env[['deidentified']] && dua_env[['deidentify_required']]) {
             if (is.null(dua_env[['deidentify_column']])) {
-                stop(paste0('ID column not set. Set using -set_dua_level()- ',
-                            'or with id_col argument in -deid_dua()-.'),
+                stop('ID column not set. Set using -set_dua_level()- ',
+                     'or with id_col argument in -deid_dua()-.',
                      call. = FALSE)
             } else {
-                stop(paste0('ID column ',
-                            dua_env[['deidentify_column']],
-                            ' has not been deidentified. Use -deid_dua()-.'),
+                stop('ID column ',
+                     dua_env[['deidentify_column']],
+                     ' has not been deidentified. Use -deid_dua()-.',
                      call. = FALSE)
             }
         }
-
         ## check data frame
         col_vec <- vector()
         restrict <- unlist(dua_env[['restrictions']][[dua_env[['dua_level']]]])
@@ -57,21 +48,14 @@ check_dua_restrictions <- function(df, remove_protected = FALSE) {
                 col_vec <- c(col_vec, col)
             }
         }
-
+        ## write message and pass check if true
         if (length(col_vec > 0)) {
-            if (remove_protected) {
-                df <<- df[,-which(names(df) %in% col_vec)]
-                text <- paste('The following variables are not allowed at ',
-                              'the current data usage level  (',
-                              dua_env[['dua_level']],
-                              ') and HAVE BEEN removed: \n\n', sep = '')
-            } else {
-                text <- paste('The following variables are not allowed at ',
-                              'the current data usage level  (',
-                              dua_env[['dua_level']],
-                              ') and STILL MUST be removed: \n\n', sep = '')
-            }
-            messager__(text, col_vec)
+            text <- 'The following variables are not allowed at ' %+%
+                'the current data usage level restriction [ ' %+%
+                dua_env[['dua_level']] %+%
+                ' ] and MUST BE REMOVED before saving:'
+
+            messager__(text, var_vec = col_vec)
         } else {
             dua_env[['check_pass']] <- TRUE
             messager__('Data set has passed check and may be saved.')

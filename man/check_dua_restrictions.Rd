@@ -4,14 +4,10 @@
 \alias{check_dua_restrictions}
 \title{Check data frame columns against currently set restrictions}
 \usage{
-check_dua_restrictions(df, remove_protected = FALSE)
+check_dua_restrictions(df)
 }
 \arguments{
 \item{df}{Data frame to check against set DUA restriction level.}
-
-\item{remove_protected}{Will remove protected variables as
-determined by DUA restriction level if set to
-\code{TRUE}; default behavior is to warn only.}
 }
 \description{
 Once the DUA crosswalk and level have been set, a working data
@@ -23,7 +19,6 @@ data frame must pass before it can be writen using
 \dontrun{
 
 check_dua_restrictions(df)
-check_dua_restrictions(df, remove_protected = TRUE)
 
 }
 

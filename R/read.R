@@ -40,12 +40,11 @@
 #'
 #' @export
 read_dua_file <- function(file, ...) {
-    if (!exists('dua_env', mode = 'environment')) {
-        stop('Must set DUA first with -set_dua()-.', call. = FALSE)
+    if (!exists('dua_env', mode = 'environment') || !dua_env[['dua_set']]) {
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
     }
     df <- sreader__(file, ...)
-    ## reset so new check has to be performed
-    dua_env[['deidentified']] <- FALSE
-    dua_env[['check_pass']] <- FALSE
+    dua_env[['deidentified']] <- FALSE  # reset
+    dua_env[['check_pass']] <- FALSE    # reset
     return(df)
 }
