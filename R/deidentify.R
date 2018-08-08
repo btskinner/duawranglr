@@ -74,8 +74,8 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     if (identical(id_col, new_id_name)) {
         stop('New ID name must be different from old name', call. = FALSE)
     }
-    ## ids to be transformed
-    old_ids <- df[[id_col]]
+    ## uinque IDs to be transformed
+    old_ids <- unique(df[[id_col]])
     ## get existing ids and new ids from crosswalk
     if (exists('cw')) {
         exist_cw_df <- cw[cw[[id_col]] %in% old_ids,]
