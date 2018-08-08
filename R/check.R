@@ -7,7 +7,7 @@
 #'
 #' @param df Data frame to check against set DUA restriction level.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' check_dua_restrictions(df)
 #'

@@ -36,7 +36,7 @@
 #'     be remapped to new names, provide list with mappings from old
 #'     names column to new names column.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' set_dua_cw('dua_cw.csv')
 #' set_dua_cw('dua_cw.dta') # Stata version
@@ -81,7 +81,7 @@ set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
 #' @param id_column Column with unique IDs that must be identified if
 #'     \code{deidentify_required == TRUE}.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' set_dua_level('level_i')
 #' set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
@@ -131,7 +131,7 @@ set_dua_level <- function(level,
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' see_dua_options(level = 'level_i')
 #' see_dua_options(level = c('level_i','level_ii')) # compare two levels
@@ -186,10 +186,11 @@ see_dua_options <- function(level = NULL, sort_vars = TRUE, ...) {
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' see_dua_level() # show level name only
 #' see_dua_level(show_restrictions = TRUE) # show restricted elements
+#' see_dua_level(sort_vars = FALSE)
 #'
 #' }
 #'

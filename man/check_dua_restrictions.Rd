@@ -16,7 +16,7 @@ data frame must pass before it can be writen using
 \code{write_dua_df()}.
 }
 \examples{
-\dontrun{
+\donttest{
 
 check_dua_restrictions(df)
 

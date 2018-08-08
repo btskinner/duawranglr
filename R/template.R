@@ -26,8 +26,7 @@
 #' 2(a), and 2(b) can be left empty since they will be ignored.
 #'
 #' @param file_name Name of template script.
-#' @param path Path for template script with default to working
-#'     directory.
+#' @param path Path for template script with default to \code{tempdir()}.
 #' @param include_notes If \code{TRUE}, the template file will include
 #'     notes and suggestions for completing the script; default value
 #'     is \code{TRUE}.
@@ -37,7 +36,7 @@
 #'     for interactive mode.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' make_dua_template('data_clean.R')
 #' make_dua_template('data_clean.R', include_notes = FALSE)
@@ -46,7 +45,8 @@
 #' }
 #'
 #' @export
-make_dua_template <- function(file_name, path = '.', include_notes = TRUE,
+make_dua_template <- function(file_name, path = tempdir(),
+                              include_notes = TRUE,
                               answer_list = NULL) {
 
     ## -------------------------------------------

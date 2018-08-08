@@ -21,10 +21,11 @@ After setting the DUA restriction level, check the setting and
 restricted data elements.
 }
 \examples{
-\dontrun{
+\donttest{
 
 see_dua_level() # show level name only
 see_dua_level(show_restrictions = TRUE) # show restricted elements
+see_dua_level(sort_vars = FALSE)
 
 }
 

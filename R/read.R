@@ -30,7 +30,7 @@
 #' @param ... Arguments to pass to read function based on the
 #'     input type; see details for more information.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #'  read_dua_file('admin_data.csv')
 #'  read_dua_file('admin_data.dta')

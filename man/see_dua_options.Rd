@@ -21,7 +21,7 @@ Once the DUA crosswalk has been loaded, show the available
 restriction levels with associated data element names.
 }
 \examples{
-\dontrun{
+\donttest{
 
 see_dua_options(level = 'level_i')
 see_dua_options(level = c('level_i','level_ii')) # compare two levels

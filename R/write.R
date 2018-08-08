@@ -27,15 +27,14 @@
 #' @param df Data frame object to save.
 #' @param file_name Name for saved file, with or without file type
 #'     ending.
-#' @param path Path for saved file with the default is the working
-#'     directory.
+#' @param path Path for saved file; default is \code{tempdir()}.
 #' @param output_type Output data file type; options include
 #'     \code{rds} (DEFAULT), \code{rdata}, \code{csv}, \code{tsv},
 #'     \code{delimited}, \code{stata}, \code{sas}, and \code{spss}.
 #' @param ... Arguments to pass to write function based on the
 #'     selected \code{output_type}; see details for more information.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #'  write_dua_df(df, 'clean_data', output_type = 'csv')
 #'  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')
@@ -46,7 +45,7 @@
 #' @export
 write_dua_df <- function(df,
                          file_name,
-                         path = '.',
+                         path = tempdir(),
                          output_type = c('rds', 'rdata', 'csv', 'tsv',
                                          'delimited', 'stata', 'sas',
                                          'spss'),
@@ -57,8 +56,8 @@ write_dua_df <- function(df,
     }
     ## check if already passed
     if (!dua_env[['check_pass']]) {
-        messager__(paste0('Data set has not yet passed check. Run ',
-                          '-check_dua_restrictions()- to check status.'))
+        messager__('Data set has not yet passed check. Run ',
+                   '-check_dua_restrictions()- to check status.')
     } else {
         ## file extension list
         fe <- list('rds' = 'rds', 'rdata' = 'rdata', 'csv' = 'csv', 'tsv' = 'tsv',
@@ -107,6 +106,5 @@ write_dua_df <- function(df,
             fun <- get('write_sav', asNamespace('haven'))
             do.call(fun, c(list('data' = df, 'path' = f)))
         }
-
     }
 }

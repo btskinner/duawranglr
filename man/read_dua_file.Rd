@@ -41,7 +41,7 @@ with default values, can be modified by adding them to the
 top-level \code{read_dua_file()} function.
 }
 \examples{
-\dontrun{
+\donttest{
 
  read_dua_file('admin_data.csv')
  read_dua_file('admin_data.dta')

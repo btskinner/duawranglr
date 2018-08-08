@@ -52,7 +52,7 @@ than the first, use the appropriate arguments to set that correct
 values.
 }
 \examples{
-\dontrun{
+\donttest{
 
 set_dua_cw('dua_cw.csv')
 set_dua_cw('dua_cw.dta') # Stata version

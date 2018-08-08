@@ -23,7 +23,7 @@
 #' @param crosswalk_filename Name of crosswalk file with path;
 #'     defaults to generic name with current date (YYYYMMDD) appended.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' deid_dua(df, id_col = 'sid', id_length = 20)
 #' deid_dua(df, write_crosswalk = TRUE)

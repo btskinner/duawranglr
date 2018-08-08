@@ -4,8 +4,8 @@
 \alias{write_dua_df}
 \title{Write DUA approved data set}
 \usage{
-write_dua_df(df, file_name, path = ".", output_type = c("rds", "rdata",
-  "csv", "tsv", "delimited", "stata", "sas", "spss"), ...)
+write_dua_df(df, file_name, path = tempdir(), output_type = c("rds",
+  "rdata", "csv", "tsv", "delimited", "stata", "sas", "spss"), ...)
 }
 \arguments{
 \item{df}{Data frame object to save.}
@@ -13,8 +13,7 @@ write_dua_df(df, file_name, path = ".", output_type = c("rds", "rdata",
 \item{file_name}{Name for saved file, with or without file type
 ending.}
 
-\item{path}{Path for saved file with the default is the working
-directory.}
+\item{path}{Path for saved file; default is \code{tempdir()}.}
 
 \item{output_type}{Output data file type; options include
 \code{rds} (DEFAULT), \code{rdata}, \code{csv}, \code{tsv},
@@ -50,7 +49,7 @@ with default values, can be modified by adding them to the
 top-level \code{write_dua_df()} function.
 }
 \examples{
-\dontrun{
+\donttest{
 
  write_dua_df(df, 'clean_data', output_type = 'csv')
  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')

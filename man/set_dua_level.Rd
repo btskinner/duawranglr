@@ -19,7 +19,7 @@ changed to protect unique identifier.}
 Set data restrictions to one of the levels in the DUA crosswalk.
 }
 \examples{
-\dontrun{
+\donttest{
 
 set_dua_level('level_i')
 set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
