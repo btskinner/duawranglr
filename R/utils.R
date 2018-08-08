@@ -38,6 +38,7 @@ sreader__ <- function(file, delimiter = NULL, sheet = NULL, ...) {
         }
         df <- readr::read_delim(file, delim = delim,
                                 col_types = readr::cols(.default = 'c'),
+                                progress = FALSE,
                                 ...)
     }
     return(df)
