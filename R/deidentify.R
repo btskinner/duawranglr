@@ -76,10 +76,9 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     }
     ## uinque IDs to be transformed
     old_ids <- unique(df[[id_col]])
-    ## get existing ids and new ids from crosswalk
+    ## subset IDs to those not already in crosswalk
     if (exists('cw')) {
-        exist_cw_df <- cw[cw[[id_col]] %in% old_ids,]
-        old_ids <- old_ids[!(old_ids %in% exist_cw_df[[id_col]])]
+        old_ids <- old_ids[!(old_ids %in% cw[[id_col]])]
         new_ids <- NULL
     }
     ## get new id values for ones that need it
@@ -93,9 +92,9 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     ## reduce size
     new_ids <- substr(new_ids, 1, id_length)
     ## append new to old if they exist
-    if (exists('exist_cw_df')) {
-        old_ids <- c(exist_cw_df[[id_col]], old_ids)
-        new_ids <- c(exist_cw_df[[new_id_name]], new_ids)
+    if (exists('cw')) {
+        old_ids <- c(cw[[id_col]], old_ids)
+        new_ids <- c(cw[[new_id_name]], new_ids)
     }
     ## combine into data frame
     id_df <- data.frame('old' = old_ids, 'new' = new_ids, stringsAsFactors = FALSE)
@@ -110,7 +109,7 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         utils::write.csv(id_df, file, quote = FALSE, row.names = FALSE)
     }
     ## replace old values with new or recovered hashed values
-    df[[id_col]] <-id_df[[new_id_name]][match(df[[id_col]], id_df[[id_col]])]
+    df[[id_col]] <- id_df[[new_id_name]][match(df[[id_col]], id_df[[id_col]])]
     ## change name of id column
     names(df)[names(df) == id_col] <- new_id_name
     ## set check to TRUE
