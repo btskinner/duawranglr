@@ -124,8 +124,8 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     }
     ## append crosswalk if reading a new one and there are new ids to add
     if (append_crosswalk && exists('cw_append')) {
-        utils::write.csv(cw_append, crosswalk_filename, quote = FALSE,
-                         row.names = FALSE, append = TRUE)
+        utils::write.table(cw_append, crosswalk_filename, append = TRUE,
+                           quote = FALSE, sep = ',', row.names = FALSE)
     }
     return(df)
 }

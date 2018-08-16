@@ -1,6 +1,6 @@
 Package: duawranglr
 Title: Securely Wrangle Dataset According to Data Usage Agreement
-Version: 0.6.0
+Version: 0.6.1
 Authors@R: person("Benjamin", "Skinner",
 	          email = "btskinner@virginia.edu",
 		  role = c("aut", "cre"),
