@@ -35,6 +35,8 @@
 deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                      existing_crosswalk = NULL, write_crosswalk = FALSE,
                      crosswalk_filename = NULL) {
+    ## defaults
+    append_crosswalk <- FALSE
     ## get ID column if NULL or error
     if (is.null(id_col)) {
         id_col <- dua_env[['deidentify_column']]
@@ -53,7 +55,8 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                  call. = FALSE)
         }
         cw <- sreader__(existing_crosswalk)
-        write_crosswalk <- TRUE
+        write_crosswalk <- FALSE
+        append_crosswalk <- TRUE
         crosswalk_filename <- existing_crosswalk
         ## get new name from crosswalk (which is the one that's !id_col)
         new_id_name <- grep('\\b' %+% id_col %+% '\\b', names(cw),
@@ -93,12 +96,23 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     new_ids <- substr(new_ids, 1, id_length)
     ## append new to old if they exist
     if (exists('cw')) {
+        if (length(old_ids) > 0) {
+            cw_append <- data.frame('old' = old_ids, 'new' = new_ids,
+                                    stringsAsFactors = FALSE)
+            colnames(cw_append) <- c(id_col, new_id_name)
+        }
         old_ids <- c(cw[[id_col]], old_ids)
         new_ids <- c(cw[[new_id_name]], new_ids)
     }
     ## combine into data frame
     id_df <- data.frame('old' = old_ids, 'new' = new_ids, stringsAsFactors = FALSE)
     colnames(id_df) <- c(id_col, new_id_name)
+    ## replace old values with new or recovered hashed values
+    df[[id_col]] <- id_df[[new_id_name]][match(df[[id_col]], id_df[[id_col]])]
+    ## change name of id column
+    names(df)[names(df) == id_col] <- new_id_name
+    ## set check to TRUE
+    dua_env[['deidentified']] <- TRUE
     ## write crosswalk if desired
     if (write_crosswalk) {
         if (is.null(crosswalk_filename)) {
@@ -108,11 +122,10 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         }
         utils::write.csv(id_df, file, quote = FALSE, row.names = FALSE)
     }
-    ## replace old values with new or recovered hashed values
-    df[[id_col]] <- id_df[[new_id_name]][match(df[[id_col]], id_df[[id_col]])]
-    ## change name of id column
-    names(df)[names(df) == id_col] <- new_id_name
-    ## set check to TRUE
-    dua_env[['deidentified']] <- TRUE
+    ## append crosswalk if reading a new one and there are new ids to add
+    if (append_crosswalk && exists('cw_append')) {
+        utils::write.csv(cw_append, crosswalk_filename, quote = FALSE,
+                         row.names = FALSE, append = TRUE)
+    }
     return(df)
 }
