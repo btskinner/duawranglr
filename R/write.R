@@ -87,9 +87,12 @@ write_dua_df <- function(df,
         if (output_type %in% delims) {  # delimited (csv, tsv, user-defined)
             if (!'row.names' %in% names(args)) { args[['row.names']] <- FALSE }
             if (output_type == 'csv') {
-                if (!'sep' %in% names(args)) { args[['sep']] <- ',' }
+                if (!'sep' %in% names(args)) {
+                    args[['sep']] <- ','
+                    args[['qmethod']] <- 'double'
+                }
             }
-            if (output_type == 'csv') {
+            if (output_type == 'tsv') {
                 if (!'sep' %in% names(args)) { args[['sep']] <- '\t' }
             }
             do.call('write.table', c(list(df, 'file' = f), args))
