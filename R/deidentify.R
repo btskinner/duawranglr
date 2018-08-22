@@ -35,6 +35,10 @@
 deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
                      existing_crosswalk = NULL, write_crosswalk = FALSE,
                      crosswalk_filename = NULL) {
+    ## check if DUA has been set
+    if (!exists('dua_env', mode = 'environment') || !dua_env[['dua_set']]) {
+        stop('Must set DUA first with -set_dua_cw()-.', call. = FALSE)
+    }
     ## defaults
     append_crosswalk <- FALSE
     ## get ID column if NULL or error
@@ -99,7 +103,6 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
         if (length(old_ids) > 0) {
             cw_append <- data.frame('old' = old_ids, 'new' = new_ids,
                                     stringsAsFactors = FALSE)
-            colnames(cw_append) <- c(id_col, new_id_name)
         }
         old_ids <- c(cw[[id_col]], old_ids)
         new_ids <- c(cw[[new_id_name]], new_ids)
@@ -125,7 +128,8 @@ deid_dua <- function(df, id_col = NULL, new_id_name = 'id', id_length = 64,
     ## append crosswalk if reading a new one and there are new ids to add
     if (append_crosswalk && exists('cw_append')) {
         utils::write.table(cw_append, crosswalk_filename, append = TRUE,
-                           quote = FALSE, sep = ',', row.names = FALSE)
+                           quote = FALSE, sep = ',', row.names = FALSE,
+                           col.names = FALSE)
     }
     return(df)
 }
