@@ -36,13 +36,19 @@
 #'     for interactive mode.
 #'
 #' @examples
-#' \donttest{
-#'
+#' \dontrun{
+#' ## run interactively
 #' make_dua_template('data_clean.R')
+#'
+#' ## ...and don't include extra notes
 #' make_dua_template('data_clean.R', include_notes = FALSE)
+#' }
+#'
+#' ## make template to be filled in
 #' make_dua_template('data_clean.R', answer_list = list('No','','No','',''))
 #'
-#' }
+#' ## show
+#' readLines(file.path(tempdir(), 'data_clean.R'))
 #'
 #' @export
 make_dua_template <- function(file_name, path = tempdir(),

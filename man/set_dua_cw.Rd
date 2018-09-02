@@ -4,16 +4,13 @@
 \alias{set_dua_cw}
 \title{Function to set data usage agreement data crosswalk}
 \usage{
-set_dua_cw(dua_cw, path = ".", delimiter = NULL, sheet = NULL,
+set_dua_cw(dua_cw, delimiter = NULL, sheet = NULL,
   ignore_columns = NULL, remap_list = NULL)
 }
 \arguments{
 \item{dua_cw}{Data frame object or file with columns representing
 security levels (header equalling name of level) and rows in
 each column representing restricted variables}
-
-\item{path}{File path to DUA crosswalk file, with default to
-working directory.}
 
 \item{delimiter}{Set the delimiter if reading in a delimited file
 that is neither a comma separated value (CSV) nor tab separated
@@ -52,13 +49,16 @@ than the first, use the appropriate arguments to set that correct
 values.
 }
 \examples{
-\donttest{
+## path to DUA crosswalk file
+dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 
-set_dua_cw('dua_cw.csv')
+## set DUA restrictions using crosswalk file
+set_dua_cw(dua_cw)
+
+\dontrun{
 set_dua_cw('dua_cw.dta') # Stata version
 set_dua_cw('dua_cw.txt', delimiter = '|')
 set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
-
 }
 
 }

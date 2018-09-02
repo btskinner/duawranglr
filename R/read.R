@@ -30,12 +30,20 @@
 #' @param ... Arguments to pass to read function based on the
 #'     input type; see details for more information.
 #' @examples
-#' \donttest{
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
+#' }
+#' file <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+#' df <- read_dua_file(file)
+#' ## show
+#' df
 #'
-#'  read_dua_file('admin_data.csv')
-#'  read_dua_file('admin_data.dta')
-#'  read_dua_file('admin_data.xlsx', sheet = 2)
-#'
+#' \dontrun{
+#' read_dua_file('admin_data.rds')
+#' read_dua_file('admin_data.txt', sep = '|')
+#' read_dua_file('admin_data.dta')
+#' read_dua_file('admin_data.xlsx', sheet = 2)
 #' }
 #'
 #' @export

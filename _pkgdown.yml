@@ -1,0 +1,30 @@
+url: https://www.btskinner.me/duawranglr/
+
+authors:
+  Benjamin Skinner:
+    href: https://www.btskinner.me
+
+development:
+  mode: unreleased
+
+reference:
+  - title: I/O
+    desc: Read and write data files
+    contents:
+    - read_dua_file
+    - write_dua_df
+  - title: Set options
+    contents:
+    - set_dua_cw
+    - set_dua_level
+  - title: Deidentify data
+    contents:
+    - deid_dua
+  - title: Review
+    contents:
+    - see_dua_options
+    - see_dua_level
+    - check_dua_restrictions
+  - title: Template
+    contents:
+    - make_dua_template

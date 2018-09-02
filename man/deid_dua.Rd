@@ -40,12 +40,28 @@ saving a crosswalk between the old and new IDs in case observations
 need to reidentified at a later date.
 }
 \examples{
-\donttest{
+\dontshow{
+dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+set_dua_cw(dua_cw)
+admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+df <- read_dua_file(admin)
+df <- dplyr::select(df, -c(sname,tname,dob,zip))
+}
+## show data
+df
 
-deid_dua(df, id_col = 'sid', id_length = 20)
+## deidentify
+df <- deid_dua(df, id_col = 'sid', new_id_name = 'id', id_length = 12)
+
+## show deidentified data
+df
+
+\dontrun{
+## save crosswalk between old and new ids for future
 deid_dua(df, write_crosswalk = TRUE)
-deid_dua(df, existing_crosswalk = './crosswalk/master_crosswalk.csv')
 
+## use existing crosswalk (good for panel datasets that need link)
+deid_dua(df, existing_crosswalk = './crosswalk/master_crosswalk.csv')
 }
 
 }

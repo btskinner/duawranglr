@@ -23,8 +23,6 @@
 #' @param dua_cw Data frame object or file with columns representing
 #'     security levels (header equalling name of level) and rows in
 #'     each column representing restricted variables
-#' @param path File path to DUA crosswalk file, with default to
-#'     working directory.
 #' @param delimiter Set the delimiter if reading in a delimited file
 #'     that is neither a comma separated value (CSV) nor tab separated
 #'     value (TSV).
@@ -36,24 +34,26 @@
 #'     be remapped to new names, provide list with mappings from old
 #'     names column to new names column.
 #' @examples
-#' \donttest{
+#' ## path to DUA crosswalk file
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #'
-#' set_dua_cw('dua_cw.csv')
+#' ## set DUA restrictions using crosswalk file
+#' set_dua_cw(dua_cw)
+#'
+#' \dontrun{
 #' set_dua_cw('dua_cw.dta') # Stata version
 #' set_dua_cw('dua_cw.txt', delimiter = '|')
 #' set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
-#'
 #' }
 #'
 #' @export
-set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
+set_dua_cw <- function(dua_cw, delimiter = NULL, sheet = NULL,
                        ignore_columns = NULL, remap_list = NULL) {
     ## read in crosswalk
     if (is.object(dua_cw)) {            # ... from working environment
         df <- dua_cw
     } else {                            # ... from file
-        df <- sreader__(file.path(path, dua_cw), delimiter = delimiter,
-                        sheet = sheet)
+        df <- sreader__(dua_cw, delimiter = delimiter, sheet = sheet)
     }
     ## create environment with process indicators
     dua_env <<- new.env(parent = .GlobalEnv)
@@ -81,12 +81,15 @@ set_dua_cw <- function(dua_cw, path = '.', delimiter = NULL, sheet = NULL,
 #' @param id_column Column with unique IDs that must be identified if
 #'     \code{deidentify_required == TRUE}.
 #' @examples
-#' \donttest{
-#'
-#' set_dua_level('level_i')
-#' set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
-#'
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
 #' }
+#' ## set restrictions at first level
+#' set_dua_level('level_i')
+#'
+#' ## ...same, but set unique ID column to be deidentified
+#' set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
 #'
 #' @export
 set_dua_level <- function(level,
@@ -131,13 +134,18 @@ set_dua_level <- function(level,
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \donttest{
-#'
-#' see_dua_options(level = 'level_i')
-#' see_dua_options(level = c('level_i','level_ii')) # compare two levels
-#' see_dua_options() # show all
-#'
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
 #' }
+#' ## see level i options
+#' see_dua_options(level = 'level_i')
+#'
+#' ## compare two levels of options
+#' see_dua_options(level = c('level_i','level_ii'))
+#'
+#' ## show all option levels
+#' see_dua_options()
 #'
 #' @export
 see_dua_options <- function(level = NULL, sort_vars = TRUE, ...) {
@@ -186,13 +194,21 @@ see_dua_options <- function(level = NULL, sort_vars = TRUE, ...) {
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \donttest{
-#'
-#' see_dua_level() # show level name only
-#' see_dua_level(show_restrictions = TRUE) # show restricted elements
-#' see_dua_level(sort_vars = FALSE)
-#'
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
 #' }
+#' ## set restriction level
+#' set_dua_level('level_i')
+#'
+#' ## show name of current restriction level
+#' see_dua_level()
+#'
+#' ## ...include names of restricted elements
+#' see_dua_level(show_restrictions = TRUE)
+#'
+#' ## ...show variable names in order saved in crosswalk file
+#' see_dua_level(show_restrictions = TRUE, sort_vars = FALSE)
 #'
 #' @export
 see_dua_level <- function(show_restrictions = FALSE, sort_vars = TRUE, ...) {

@@ -49,12 +49,18 @@ If answers to questions (1) and (2) are \code{No}, then strings for 1(a),
 2(a), and 2(b) can be left empty since they will be ignored.
 }
 \examples{
-\donttest{
-
+\dontrun{
+## run interactively
 make_dua_template('data_clean.R')
+
+## ...and don't include extra notes
 make_dua_template('data_clean.R', include_notes = FALSE)
+}
+
+## make template to be filled in
 make_dua_template('data_clean.R', answer_list = list('No','','No','',''))
 
-}
+## show
+readLines(file.path(tempdir(), 'data_clean.R'))
 
 }

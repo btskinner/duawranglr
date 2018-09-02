@@ -7,11 +7,27 @@
 #'
 #' @param df Data frame to check against set DUA restriction level.
 #' @examples
-#' \donttest{
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
+#' admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+#' df <- read_dua_file(admin)
+#' }
+#' ## set restriction level
+#' set_dua_level('level_iii')
 #'
+#' ## show restrictions
+#' see_dua_level(show_restrictions = TRUE)
+#'
+#' ## see variables in administrative data file
+#' names(df)
+#'
+#' ## remove restrictive variables
+#' df <- dplyr::select(df, -c(sid,sname,tname))
+#'
+#' ## confirm
 #' check_dua_restrictions(df)
 #'
-#' }
 #'
 #' @export
 check_dua_restrictions <- function(df) {

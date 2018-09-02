@@ -19,11 +19,14 @@ changed to protect unique identifier.}
 Set data restrictions to one of the levels in the DUA crosswalk.
 }
 \examples{
-\donttest{
-
-set_dua_level('level_i')
-set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
-
+\dontshow{
+dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+set_dua_cw(dua_cw)
 }
+## set restrictions at first level
+set_dua_level('level_i')
+
+## ...same, but set unique ID column to be deidentified
+set_dua_level('level_i', deidentify_required = TRUE, id_column = 'sid')
 
 }

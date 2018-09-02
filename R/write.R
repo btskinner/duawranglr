@@ -34,12 +34,26 @@
 #' @param ... Arguments to pass to write function based on the
 #'     selected \code{output_type}; see details for more information.
 #' @examples
-#' \donttest{
+#' \dontshow{
+#' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+#' set_dua_cw(dua_cw)
+#' admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+#' df <- read_dua_file(admin)
+#' ## set restriction level
+#' set_dua_level('level_iii')
+#' ## remove restrictive variables
+#' df <- dplyr::select(df, -c(sid,sname,tname))
+#' }
+#' ## check restrictions
+#' check_dua_restrictions(df)
 #'
-#'  write_dua_df(df, 'clean_data', output_type = 'csv')
+#' ## able to write since restrictions check passed
+#' write_dua_df(df, 'clean_data', output_type = 'csv')
+#'
+#'
+#' \dontrun{
 #'  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')
 #'  write_dua_df(df, 'clean_data', output_type = 'stata', version = 11)
-#'
 #' }
 #'
 #' @export

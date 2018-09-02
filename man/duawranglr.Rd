@@ -6,9 +6,36 @@
 \alias{duawranglr-package}
 \title{duawranglr: Securely Wrangle Dataset According to Data Usage Agreement}
 \description{
-A set of functions to help users create shareable data sets from
-raw data files that contain protected elements. Relying on master
-crosswalk files that list restricted variables, package functions
-warn users about possible violations of data usage agreement and
-prevent writing protected elements.
+The guiding principle behind duawranglr is to make it easier for
+organizations to share data with protected elements and/or
+personally idenfiable information (PII) with researchers. There are
+two key problems this package attempts to solve:
+}
+\details{
+\enumerate{
+\item Data owners and
+reseachers may collaborate on multiple projects under a single data usage
+agreement (DUA), each with a different level of data security required.
+\item Administrators tasked with approving data
+requests do not always have the time or technical proficiency to
+review the code that reads, subsets, filters, and deidentifies data
+files according to a data usage agreement.
+}
+
+The duawranglr package uses a simple crosswalk file that lists
+restricted variables according to security levels prespecified in a
+DUA and a suite of functions that warn users about possible
+violations of data usage agreement to prevent writing protected
+elements. The DUA crosswalk can be an Excel spreadsheet, which
+means that restricted data elements can be easily added and
+approved by administrators.
+
+Functions in the package do not replace existing data wrangling
+functions nor guarantee data security. But if used correctly, data
+administrators can more easily participate in the data sharing
+process and have more surety that data are being properly secured
+before they are transferred to researchers.
+
+See the package vignette for more details about the motivation for
+the package and an extended example use case.
 }

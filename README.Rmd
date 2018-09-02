@@ -1,5 +1,13 @@
-duawranglr
-==========
+---
+title: duawranglr
+output: md_document
+---
+
+# duawranglr
+
+```{r, include = FALSE}
+options(width = 100)
+```
 
 [![Build
 Status](https://travis-ci.org/btskinner/duawranglr.svg?branch=master)](https://travis-ci.org/btskinner/duawranglr)
@@ -10,11 +18,13 @@ This package offers a set of functions to help users create shareable
 data sets from raw data files that contain protected elements. Relying
 on master crosswalk files that list restricted variables, package
 functions warn users about possible violations of data usage agreement
-and prevent writing protected elements.
+and prevent writing protected elements.  
 
-Installation
-------------
+## Installation
 
 Install the latest development version from Github with
 
-    devtools::install_github('btskinner/duawranglr')
+```r
+devtools::install_github('btskinner/duawranglr')
+```
+
