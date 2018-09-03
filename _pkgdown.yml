@@ -34,13 +34,13 @@ navbar:
     - icon: fa-home
       href: index.html
     - text: 'Motivation'
-      href: articles/duawranglr.html
+      href: duawranglr/articles/duawranglr.html
     - text: 'Example usage'
-      href: articles/securing_data.html
+      href: duawranglr/articles/securing_data.html
   right:
     - icon: fa-file-code-o
       text: 'functions'
-      href: reference/index.html
+      href: duawranglr/reference/index.html
     - icon: fa-github fa-lg
       text: 'github'
       href: https://github.com/btskinner/duawranglr
