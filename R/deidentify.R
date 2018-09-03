@@ -23,14 +23,18 @@
 #' @param crosswalk_filename Name of crosswalk file with path;
 #'     defaults to generic name with current date (YYYYMMDD) appended.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
+#' ## read in data
 #' admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 #' df <- read_dua_file(admin)
-#' df <- dplyr::select(df, -c(sname,tname,dob,zip))
-#' }
-#' ## show data
+#' ## --------------
+#'
+#' ## show identified data
 #' df
 #'
 #' ## deidentify

@@ -41,7 +41,8 @@
 #' set_dua_cw(dua_cw)
 #'
 #' \dontrun{
-#' set_dua_cw('dua_cw.dta') # Stata version
+#' ## set using crosswalks stored in other file types
+#' set_dua_cw('dua_cw.dta')
 #' set_dua_cw('dua_cw.txt', delimiter = '|')
 #' set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
 #' }
@@ -81,10 +82,14 @@ set_dua_cw <- function(dua_cw, delimiter = NULL, sheet = NULL,
 #' @param id_column Column with unique IDs that must be identified if
 #'     \code{deidentify_required == TRUE}.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
-#' }
+#' ## --------------
+#'
 #' ## set restrictions at first level
 #' set_dua_level('level_i')
 #'
@@ -134,10 +139,14 @@ set_dua_level <- function(level,
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
-#' }
+#' ## --------------
+#'
 #' ## see level i options
 #' see_dua_options(level = 'level_i')
 #'
@@ -194,10 +203,14 @@ see_dua_options <- function(level = NULL, sort_vars = TRUE, ...) {
 #'     crosswalk file
 #' @param ... For debugging.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
-#' }
+#' ## --------------
+#'
 #' ## set restriction level
 #' set_dua_level('level_i')
 #'

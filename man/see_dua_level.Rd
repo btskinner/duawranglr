@@ -21,10 +21,14 @@ After setting the DUA restriction level, check the setting and
 restricted data elements.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
-}
+## --------------
+
 ## set restriction level
 set_dua_level('level_i')
 

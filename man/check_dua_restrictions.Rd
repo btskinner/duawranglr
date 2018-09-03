@@ -16,12 +16,17 @@ data frame must pass before it can be writen using
 \code{write_dua_df()}.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
+## read in data
 admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 df <- read_dua_file(admin)
-}
+## --------------
+
 ## set restriction level
 set_dua_level('level_iii')
 
@@ -36,6 +41,5 @@ df <- dplyr::select(df, -c(sid,sname,tname))
 
 ## confirm
 check_dua_restrictions(df)
-
 
 }

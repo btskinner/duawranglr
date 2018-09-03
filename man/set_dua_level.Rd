@@ -19,10 +19,14 @@ changed to protect unique identifier.}
 Set data restrictions to one of the levels in the DUA crosswalk.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
-}
+## --------------
+
 ## set restrictions at first level
 set_dua_level('level_i')
 

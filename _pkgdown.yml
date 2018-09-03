@@ -28,3 +28,23 @@ reference:
   - title: Template
     contents:
     - make_dua_template
+
+navbar:
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: 'Motivation'
+      href: articles/duawranglr.html
+    - text: 'Example usage'
+      href: articles/securing_data.html
+  right:
+    - icon: fa-file-code-o
+      text: 'functions'
+      href: reference/index.html
+    - icon: fa-github fa-lg
+      text: 'github'
+      href: https://github.com/btskinner/duawranglr
+    - icon: fab fa-twitter
+      text: 'twitter'
+      href: https://twitter.com/btskinner
+    

@@ -3,6 +3,7 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   duawranglr: duawranglr.html
+  securing_data: securing_data.html
 urls:
   reference: https://www.btskinner.me/duawranglr//reference
   article: https://www.btskinner.me/duawranglr//articles

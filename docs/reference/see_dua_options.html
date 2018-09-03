@@ -62,7 +62,7 @@ restriction levels with associated data element names." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">duawranglr</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.2</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.3</span>
       </span>
     </div>
 
@@ -70,23 +70,38 @@ restriction levels with associated data element names." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/duawranglr.html">Get started</a>
+  <a href="../articles/duawranglr.html">Motivation</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/securing_data.html">Example usage</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="../reference/index.html">
+    <span class="fa fa-file-code-o"></span>
+     
+    functions
+  </a>
+</li>
+<li>
   <a href="https://github.com/btskinner/duawranglr">
     <span class="fa fa-github fa-lg"></span>
      
+    github
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/btskinner">
+    <span class="fab fa fab fa-twitter"></span>
+     
+    twitter
   </a>
 </li>
       </ul>
@@ -137,7 +152,15 @@ crosswalk file</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## see level i options</span>
+    <pre class="examples"><div class='input'><span class='co'>## --------------</span>
+<span class='co'>## Setup</span>
+<span class='co'>## --------------</span>
+<span class='co'>## set DUA crosswalk</span>
+<span class='no'>dua_cw</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>'extdata'</span>, <span class='st'>'dua_cw.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'duawranglr'</span>)
+<span class='fu'><a href='set_dua_cw.html'>set_dua_cw</a></span>(<span class='no'>dua_cw</span>)</div><div class='output co'>#&gt; <span class='message'>-- duawranglr note -------------------------------------------------------------</span>
+#&gt; <span class='message'>DUA crosswalk has been set!</span></div><div class='input'><span class='co'>## --------------</span>
+
+<span class='co'>## see level i options</span>
 <span class='fu'>see_dua_options</span>(<span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>'level_i'</span>)</div><div class='output co'>#&gt; <span class='message'>--------------------------------------------------------------------------------</span></div><div class='output co'>#&gt; <span class='message'>LEVEL NAME: level_i</span></div><div class='output co'>#&gt; <span class='message'>--------------------------------------------------------------------------------</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>RESTRICTED VARIABLE NAMES:</span></div><div class='output co'>#&gt; <span class='message'> - dob</span></div><div class='output co'>#&gt; <span class='message'> - gender</span></div><div class='output co'>#&gt; <span class='message'> - raceeth</span></div><div class='output co'>#&gt; <span class='message'> - sid</span></div><div class='output co'>#&gt; <span class='message'> - sname</span></div><div class='output co'>#&gt; <span class='message'> - tid</span></div><div class='output co'>#&gt; <span class='message'> - tname</span></div><div class='output co'>#&gt; <span class='message'> - zip</span></div><div class='output co'>#&gt; <span class='message'> </span></div><div class='output co'>#&gt; <span class='message'>--------------------------------------------------------------------------------</span></div><div class='input'>
 <span class='co'>## compare two levels of options</span>

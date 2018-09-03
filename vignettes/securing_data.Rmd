@@ -1,0 +1,395 @@
+---
+title: Securing data with duawranglr
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Securing data with duawranglr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+options(width = 90)
+knitr::opts_chunk$set(collapse = TRUE, comment = NA)
+```
+
+This vignette walks through the process for using duawranglr. It
+assumes that the data administrator and researcher have executed a
+data usage agreement (DUA) with three potential levels of data
+restrictions and created a crosswalk spreadsheet in Excel.
+
+## Administrative file to be wrangled
+
+The raw administrative data file that needs to be processed looks like
+this:  
+
+|sid|sname|dob|gender|raceeth|tid|tname|zip|mathscr|readscr|
+|:-:|:---:|:-:|:----:|:-----:|:-:|:---:|:-:|:-----:|:-----:|
+|000-00-0001|Schaefer|19900114|0|2|1|Smith|22906|515|496|
+|000-00-0002|Hodges|19900225|0|1|1|Smith|22906|488|489|
+|000-00-0003|Kirby|19900305|0|4|1|Smith|22906|522|498|
+|000-00-0004|Estrada|19900419|0|3|1|Smith|22906|516|524|
+|000-00-0005|Nielsen|19900530|1|2|1|Smith|22906|483|509|
+|000-00-0006|Dean|19900621|1|1|2|Brown|22906|503|523|
+|000-00-0007|Hickman|19900712|1|1|2|Brown|22906|539|509|
+|000-00-0008|Bryant|19900826|0|2|2|Brown|22906|499|490|
+|000-00-0009|Lynch|19900902|1|3|2|Brown|22906|499|493|
+
+And we have a codebook:  
+
+* `sid`: Student social security number  
+* `sname`: Student's last name  
+* `dob`: Student's date of birth  
+* `gender`: Indicator for student gender identification  
+* `raceeth`: Factor variable indicatings student's racial/ethnic
+  identification  
+* `tid`: ID variable for student's teacher  
+* `tname`: Last name of student's teacher  
+* `zip`: Student's home address zip code  
+* `mathscr`: Student's end-of-year test math score  
+* `readscr`: Student's end-of-year test reading score  
+
+The `admin_data.csv` file contains observations for 9 students and has 10
+variables associated with each observation. Of these, 1 uniquely
+identifies each student, 6 are associated with the student's personal
+characteristics, 2 with each student's teacher, and 2 with the
+student's test scores in reading and math. 
+
+It appears that the school uses the student's social security number
+to uniquely identify each student. As researchers interested in test
+scores, we have no need for this highly protected data element other
+than for its ability to uniquely identify a student or allow linking
+to other records. Since we do not need to link to other records at the
+moment, any unique number or string will work for our
+purposes. Similarly, we don't really need the student's last name.
+
+Besides math (`mathscr`) and reading (`readscr`) scores, we may be
+interested in some of the other covariates. It's likely that many of
+these data elements, however, also carry restrictions of varying
+severity. For example, the school may be able to share the student's
+race/ethnicity and gender (provided the student is not otherwise
+identified) with most approved researchers, but can only share
+teachers' names (`tid`) under more tightly restricted scenarios.
+
+This is where our DUA crosswalk file comes in handy.
+
+## Set DUA
+
+The first step in the process is to set the DUA crosswalk file. The
+crosswalk file can be in many different formats and, in most cases,
+will be read in automatically no matter the type. (If using a
+delimited file that isn't a comma- or tab-separated value format, give
+the `delimiter` argument the delimiter string; if using an Excel file
+with more than one sheet, give the `sheet` argument the sheet name or
+number.) If successful, you will get message telling you so.
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(duawranglr)
+
+## set the DUA crosswalk
+set_dua_cw('dua_cw.xlsx')
+```
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(readr))
+library(duawranglr)
+set_dua_cw('../tests/testthat/testdata/dua_one.xlsx')
+```
+## Check DUA options
+
+In case you've forgotten the data elements that are restricted at a
+particular level, you can check them using the `see_dua_options()`
+function with the `level` argument set to the appropriate level. If you
+want to compare restrictions across more than one level, you can give
+the `level` argument a vector.
+
+```{r}
+## compare level II and III restrictions
+see_dua_options(level = c('level_ii', 'level_iii'))
+```
+Alternately, you can see restrictions at all levels if you leave the
+`level` argument at its default `NULL` value.
+
+```{r}
+## check all level restrictions
+see_dua_options()
+```
+
+## Set DUA level
+
+After consultation with our data partner, we've decided that data for
+this project need to be set at Level II. Because no level allows us to
+use the current unique ID, `sid`, we also need to deidentify the
+data. We could just delete the `sid` column, but for reasons discussed
+below, it will be better if we use it to make new, non-identifiable
+but unique IDs. Therefore, we use additional arguments in
+`set_dua_level()` to note that deidentification is required and set the
+targeted ID column.
+
+```{r}
+## set DUA level
+set_dua_level('level_ii', deidentify_required = TRUE, id_column = 'sid')
+```
+
+## Check DUA level
+
+As we're preparing the data, we can check our restriction level and
+the data element names it restricts using `see_dua_level()`. 
+
+```{r}
+## see set DUA level 
+see_dua_level(show_restrictions = TRUE)
+```
+
+# Administrative data
+
+After loading some libraries, we'll first read in the raw
+administrative data file and confirm that it has nine observations and
+the data elements we expect.
+
+```{r, eval = FALSE}
+## read in raw administrative data
+df <- read_dua_file('./admin_data.csv')
+df
+```
+
+```{r, echo = FALSE}
+## read in raw administrative data
+df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
+                      col_types = cols(sid = col_character(),
+                                       sname = col_character(),
+                                       dob = col_character(),
+                                       gender = col_integer(),
+                                       raceeth = col_integer(),
+                                       tid = col_integer(),
+                                       tname = col_character(),
+                                       zip = col_integer(),
+                                       mathscr = col_integer(),
+                                       readscr = col_integer()
+                                       )
+                      )
+df
+```	
+
+# Deidentify data
+
+## Single file or no existing crosswalk
+```{r, echo = FALSE}
+dff <- df
+```
+
+We indicated that the data need to be deidentified, so a good first
+step in cleaning the raw data is to convert unique student id, `sid`,
+into a similarly unique, but unidentifiable value. 
+
+Why not just generate some random string for each value? Though we
+don't care to merge these data with other files, we may need to do so
+in the future. If we randomly generate new IDs, discarding the old
+ones in the process, we will be stuck.
+
+The `deid_dua()` function does two things:
+
+1. It uses a secure `SHA-2` algorithm to convert sensitive IDs into
+   unique hexadecimal strings that cannot be reverted back to the
+   originial IDs (important in the case such as ours when the unique
+   ID is the student's social security number);
+2. It has the option to save a crosswalk file that links the old
+   secure IDs to the new IDs.
+   
+Clearly, it defeats the purpose of deidentifying IDs if a crosswalk
+between old and new travels with the new data. But if the crosswalk
+file is keep in a secure location, perhaps on the same server that
+hosts the raw administrative data, then old IDs can be retrieved if
+necessary by those with the proper clearance to do so.
+
+```{r, echo = FALSE}
+## deidentify data
+tmpdir <- tempdir()
+df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20,
+               crosswalk_filename = file.path(tmpdir, 'tmp.csv'))
+```
+```{r, eval = FALSE}
+## deidentify data
+df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20)
+```
+Here's what the saved crosswalk looks like:
+
+```{r, echo = FALSE}
+## show crosswalk
+cw <- readr::read_csv(file.path(tmpdir, 'tmp.csv'),
+                      col_types = cols(.default = 'c'))
+cw
+rm(tmpdir)
+```
+And here now is the data frame:
+
+```{r}
+## show data frame
+df
+```
+
+## Links across multiple files with existing crosswalk
+
+```{r, echo = FALSE}
+df <- dff
+```
+
+If the deidentified data frame is built from multiple files (*e.g.*, a
+panel data set of observations across years), then we'll want to reuse
+an existing crosswalk. Otherwise, the same original ID will end up
+with multiple new IDs and we won't be able to link observations across
+data sets.
+
+Let's say we already have master crosswalk file that looks like this:
+
+```{r, echo = FALSE}
+tmpdir <- tempdir()
+cw2 <- readr::read_csv('../tests/testthat/testdata/crosswalk_full.csv',
+                       col_types = cols(.default = 'c'))
+readr::write_csv(cw2, file.path(tmpdir, 'crosswalk_full.csv'))
+cw2
+```
+
+Rather than create new IDs, we can use the `existing_crosswalk`
+argument to read in and use the new IDs we've already made. Everything
+else works the same as before.    
+
+```r
+df <- deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
+```
+
+```{r, echo = FALSE}
+df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_full.csv'))
+rm(tmpdir)
+```
+
+The new ID values now match those from the crosswalk.
+```{r}
+df
+```
+```{r, echo = FALSE}
+df <- dff
+```
+## Updates to existing crosswalk
+
+In our example, we have nine students in the current file. Let's say
+that though we have a crosswalk, it only has new IDs for the first
+five observations:
+
+```{r, echo = FALSE}
+tmpdir <- tempdir()
+cw3 <- readr::read_csv('../tests/testthat/testdata/crosswalk_partial.csv',
+                       col_types = cols(.default = 'c'))
+readr::write_csv(cw3, file.path(tmpdir, 'crosswalk_partial.csv'))
+cw3
+```
+
+If the existing crosswalk doesn't have values for all observations,
+then `deid_dua()` will:  
+
+1. Match old IDs with new IDs that **do** exist in the crosswalk
+2. Generate new IDs for the old IDs that **don't** exist in the
+   crosswalk
+3. Update and save the crosswalk
+
+The command is the same for a partial crosswalk as for a complete crosswalk.
+
+```r
+df <- deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
+```
+
+```{r, echo = FALSE}
+df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_partial.csv'))
+
+```
+Notice that the new IDs for the first five observations match those
+that were already in the existing crosswalk. The last four are new.
+```{r}
+df
+```
+Looking at the partial crosswalk, we see that it now has four new rows
+with new IDs each for the observations it didn't have before. 
+```{r, echo = FALSE}
+cw4 <- readr::read_csv(file.path(tmpdir, 'crosswalk_partial.csv'),
+                       col_types = cols(.default = 'c'))
+rm(tmpdir)
+cw4
+```
+
+Should we encounter those students in future files, `deid_dua()` will
+use the new IDs we just created.
+
+
+# Check data frame
+
+If we try to write the data frame using the `write_dua_df()` function,
+we get an error.
+
+```{r}
+## write data to disk with one last check
+write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
+```
+
+Right, we haven't removed all the restricted data elements. Following
+the directions, we can check to see what still needs to be removed
+using the `check_dua_restrictions()` function.
+
+```{r}
+## check
+check_dua_restrictions(df)
+```
+
+We've successfully removed `sid` already (when we deidentified the
+data frame), but still have to remove the student's last name, date of
+birth, teacher's name, and zip code to meet level II
+restrictions. Once we remove those columns, we can check again.
+
+```{r}
+## remove restricted columns
+df <- df %>% select(-c(sname, dob, tname, zip))
+
+## check again
+check_dua_restrictions(df)
+```
+Success! And to be sure, here's what our data frame looks like now:
+
+```{r}
+df
+```
+
+# Write cleaned data frame to disk
+
+Now that we've passed our check, we can write the level II secure data
+frame to disk. Just like the `set_dua_cw()` function, which automates
+reading in many types of files, `write_dua_df()` will write many types
+of files. See `?write_dua_df` for options.
+
+```{r, eval = FALSE}
+## write data to disk 
+write_dua_df(df, 'cleaned_data_lev_ii.csv', output_type = 'csv')
+```
+
+# Interactive template
+
+Particularly for the first few times you use this package, you may
+need help remembering the steps. To help the process, the interactive
+`make_dua_template()` function will help you make a template script
+that you can then modify to meet your data cleaning needs. When
+called, the function will ask you a few yes or no questions and, based
+on your answers, build a template script that pre-fills some function
+arguments. 
+
+An example template script is printed below.
+
+```{r, eval = FALSE}
+## save template to disk
+make_dua_template('clean_data.R')
+```
+#### EXAMPLE
+
+```{r, echo = FALSE}
+file <- file.path(tempdir(), 'clean_data.R')
+make_dua_template(file, answer_list = list('N','','N','',''))
+writeLines(readLines(file))
+```
+

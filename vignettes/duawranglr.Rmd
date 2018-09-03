@@ -1,51 +1,52 @@
 ---
-title: Data usage agreements and R
+title: Motivation for duawranglr
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Data usage agreements and R}
+  %\VignetteIndexEntry{Motivation for duawranglr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
 options(width = 90)
-
 knitr::opts_chunk$set(collapse = TRUE, comment = NA)
-
 ```
 
-# DUAs and `duawranglr`
+The guiding principle behind duawranglr is to make it easier for
+organizations to share data that contain protected elements and/or
+personally idenfiable information (PII) with researchers. There are
+two key problems this package attempts to solve:
 
-The `duawranglr` package is designed with the idea that rather than
-setting a new data usage agreement (DUA) for each project in an
-ongoing collaboration between researchers and data partners, two
-things will happen instead:  
+1. Data owners and reseachers may wish to collaborate on multiple
+projects, each with a different level of data security required;
+executing a unique data usage agreement (DUA) for each project can be
+time consuming and inefficient.  
+2. Administrators tasked with approving data requests do not always
+have the time or technical proficiency to closely review the code that
+reads, subsets, filters, and deidentifies data files according to a
+DUA.  
 
-1. A master DUA will be signed that establishes a general framework
-   for collaboration alongside multiple levels of data restriction;
-   for each new project, these levels (*e.g.*, I, II, & III) can then be
-   invoked and used to determine which variables may be shared, with
-   whom, and under what conditions.  
-2. A associated crosswalk file will list the names of data elements
-   that are restricted at each level and be used with this package to
-   easily and clearly transform raw restricted data files into those
-   that can be shared under the conditions of the master DUA.
+## Data usage agreements
 
-This vignette goes through the process of using `duawranglr` functions
-to create a sharable data set from a raw administrative file. Though
-no two projects are alike, users should generally follow the steps
-below.
+The duawranglr package is designed with the idea that rather than
+setting a new DUA for each project in an ongoing collaboration between
+researchers and data partners, two things will happen instead:  
 
-**Important upfront caveat:** using `duawranglr` does not guarantee data
-security. It goes without saying, but users, of course, can simply *not
-use* the package when attempting to secure restricted data. What this
-package does is offer a framework and a set of useful functions that,
-when followed, help users secure data in a clear and replicable
-manner.
+1. An overarching DUA will be signed that establishes a general
+   framework for collaboration with multiple pre-established levels of
+   data restriction; for each new project, these levels (*e.g.*, I, II,
+   & III) are invoked and used to determine which variables may be
+   shared, with whom, and under what conditions according to the DUA.  
+2. An associated crosswalk file---which can be an easy-to-modify and
+   share spreadsheet---will list the names of data elements that are
+   restricted at each level. This crosswalk is then used to clearly
+   transform raw restricted data files into those that can be shared
+   under the conditions of the DUA.
 
-## The DUA crosswalk
+## An example DUA crosswalk
 
-The crosswalk file, `dua_cw.csv`, for the current DUA looks like this:
+An example crosswalk file (*e.g.* a CSV file or Excel spreadsheet)
+might look like this:  
 
 |level\_i|level\_ii|level\_iii|
 |:------:|:-------:|:--------:|
@@ -58,388 +59,55 @@ The crosswalk file, `dua_cw.csv`, for the current DUA looks like this:
 |tname|tname|tname|
 |zip|zip|
 
-Each column represents a level, `level_i`, `level_ii`, or `level_iii`, along
-with the corresponding data element names that are restricted at that
-level. The names are arbitrary as far as the package goes, but in
-conjunction with the master DUA, they have meaning:
+Each column represents a restriction level---`level_i`, `level_ii`, or
+`level_iii`---along with the corresponding data element names that are
+restricted at that level. In this crosswalk, like variable names have
+been aligned so that they are easier to compare, but the elements can
+be included in whichever way makes most sense to the data
+administrator.
+
+The restriction level names are arbitrary as far as the package goes,
+but in conjunction with a DUA, they have meaning:
 
 * **Level I**: The first level produces data sets that can be shared more
-  widely, but at the cost of losing access to most data elements in
-  the final data set. Only math and reading scores can be shared at
-  this level.
+  widely, but at the cost of losing access to many data elements in
+  the final data set.
 * **Level II:** The second level has slightly fewer data element
   restrictions, making it better for more research projects. Data
   produced at this level likely come with more sharing and storage
   restrictions than those produced at the first level.
 * **Level III:** The third level has the fewest restrictions: only names
-  and the student's id cannot be contained in the final data set. Data
+  and the student's ID cannot be contained in the final data set. Data
   produced at this level will have the strongest restrictions on who
-  can use it an how it is stored.
+  can use it an how it is stored by the research team.
   
 The benefit of this level-plus-crosswalk system is two-fold:
 
 1. Data element restrictions are clearly defined for each level, which
-   in turn has it's own clearly defined scope for data storage and
-   sharing. When starting a new project under the scope of the master
-   DUA, researchers and data partners need only to assign it a proper
-   level based on the needs of the analyses.
+   in turn has its own clearly defined scope for data storage and
+   sharing. When starting a new project under the scope of the DUA,
+   researchers and data partners need only to assign a proper level
+   based on the needs of the analyses.
 2. Because the crosswalk is a simple tabular file, data element names
    can easily be added or deleted by data partners who do not
    typically use data analysis software. This helps keep the process
    transparent for all team members.
 
-## Set DUA
-
-Before reading in the administrative data, the first step is to set the
-DUA crosswalk file. The crosswalk file can be in many different
-formats and, in most cases, will be read in automatically no matter
-the type. (If using a delimited file that isn't a comma- or
-tab-separated value format, give the `delimiter` argument the delimiter
-string; if using an Excel file with more than one sheet, give the
-`sheet` argument the sheet name or number.) If successful, you will get
-message telling you so.
-
-```{r, eval = FALSE}
-library(tidyverse)
-library(duawranglr)
-
-## set the DUA crosswalk
-set_dua_cw('dua_cw.csv')
-```
-```{r, echo = FALSE}
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(readr))
-library(duawranglr)
-set_dua_cw('../tests/testthat/testdata/dua_one.csv')
-```
-## Check DUA options
-
-In case you've forgotten the data elements that are restricted at a
-particular level, you can check them using the `see_dua_options()`
-function with the `level` argument set to the appropriate level. If you
-want to compare restrictions across more than one level, you can give
-the `level` argument a vector.
-
-```{r}
-## compare level II and III restrictions
-see_dua_options(level = c('level_ii', 'level_iii'))
-```
-Alternately, you can see restrictions at all levels if you leave the
-`level` argument at its default `NULL` value.
-
-```{r}
-## check all level restrictions
-see_dua_options()
-```
-
-## Set DUA level
-
-After consultation with our data partner, we've decided that data for
-this project need to be set at Level II. Because no level allows us to
-use the current unique ID, `sid`, we also need to deidentify the
-data. We could just delete the `sid` column, but for reasons discussed
-below, it will be better if we use it to make new, non-identifiable
-but unique IDs. Therefore, we use additional arguments in
-`set_dua_level()` to note that deidentification is required and set the
-targeted ID column.
-
-```{r}
-## set DUA level
-set_dua_level('level_ii', deidentify_required = TRUE, id_column = 'sid')
-```
-
-## Check DUA level
-
-As we're preparing the data, we can check our restriction level and
-the data element names it restricts using `see_dua_level()`. 
-
-```{r}
-## see set DUA level 
-see_dua_level(show_restrictions = TRUE)
-```
-
-# Administrative data
-
-After loading some libraries, we'll first read in the raw
-administrative data file and take a look.
-
-```{r, eval = FALSE}
-## read in raw administrative data
-df <- read_dua_file('./admin_data.csv')
-df
-```
-
-```{r, echo = FALSE}
-## read in raw administrative data
-df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
-                      col_types = cols(sid = col_character(),
-                                       sname = col_character(),
-                                       dob = col_character(),
-                                       gender = col_integer(),
-                                       raceeth = col_integer(),
-                                       tid = col_integer(),
-                                       tname = col_character(),
-                                       zip = col_integer(),
-                                       mathscr = col_integer(),
-                                       readscr = col_integer()
-                                       )
-                      )
-df
-```	
-
-The `admin_data.csv` file contains observations for 9 students and has 10
-variables associated with each observation. Of these, 1 uniquely
-identifies each student, 6 are associated with the student's personal
-characteristics, 2 with each student's teacher, and 2 with the
-student's test scores in reading and math. 
-
-Though there is no codebook, it appears that the identifier for each
-student, `sid`, may be the student's social security number. As
-researchers interested in test scores, we have no need for this highly
-protected data element other than for its ability to uniquely identify
-a student or allow linking to other records. Since we do not need to
-link to other records at the moment, any unique number or string will
-work for our purposes. Similarly, we don't really need the student's
-last name.
-
-Besides math (`mathscr`) and reading (`readscr`) scores, we may be
-interested in some of the other covariates. It's likely that many of
-these data elements, however, also carry restrictions of varying
-severity. For example, the school may be able to share the student's
-race/ethnicity and gender (provided the student is not otherwise
-identified) with most approved researchers, but can only share
-teachers' names (`tid`) under more tightly restricted scenarios.
-
-This is where our DUA crosswalk file comes in handy.
-
-
-# Deidentify data
-
-## Single file or no existing crosswalk
-
-So far, we have set the DUA crosswalk as well as the restriction level
-we will abide by. But our underlying data has not changed at all:
-
-```{r}
-## show administrative data has not changed
-df
-```
-
-```{r, echo = FALSE}
-dff <- df
-```
-
-We indicated that the data need to be deidentified, so a good first
-step in cleaning the raw data is to convert unique student id, `sid`,
-into a similarly unique, but unidentifiable value. 
-
-Why not just generate some random string for each value? Though we
-don't care to merge these data with other files, we may need to do so
-in the future. If we randomly generate new IDs, discarding the old
-ones in the process, we will be stuck.
-
-The `deid_dua()` function does two things:
-
-1. It uses a secure `SHA-2` algorithm to convert sensitive IDs into
-   unique hexadecimal strings that are almost impossible back convert;
-2. It has the option to save a crosswalk file that links the old
-   secure IDs to the new IDs.
-   
-Clearly, it defeats the purpose of deidentifying IDs if a crosswalk
-between old and new travels with the new data. But if the crosswalk
-file is keep in a secure location, perhaps on the same server that
-hosts the raw administrative data, then old IDs can be retrieved if
-necessary by those with the proper clearance to do so.
-
-```{r, echo = FALSE}
-## deidentify data
-tmpdir <- tempdir()
-df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20,
-               crosswalk_filename = file.path(tmpdir, 'tmp.csv'))
-```
-```{r, eval = FALSE}
-## deidentify data
-df <- deid_dua(df, write_crosswalk = TRUE, id_length = 20)
-```
-Here's what the saved crosswalk looks like:
-
-```{r, echo = FALSE}
-## show crosswalk
-cw <- readr::read_csv(file.path(tmpdir, 'tmp.csv'),
-                      col_types = cols(.default = 'c'))
-cw
-rm(tmpdir)
-```
-And here now is the data frame:
-
-```{r}
-## show data frame
-df
-```
-
-## Links across multiple files with existing crosswalk
-
-```{r, echo = FALSE}
-df <- dff
-```
-
-If the deidentified data frame is built from multiple files (*e.g.*, a
-panel data set of observations across years), then we'll want to reuse
-an existing crosswalk. Otherwise, the same original ID will end up
-with multiple new IDs and we won't be able to link observations across
-data sets.
-
-Let's say we already have master crosswalk file that looks like this:
-
-```{r, echo = FALSE}
-tmpdir <- tempdir()
-cw2 <- readr::read_csv('../tests/testthat/testdata/crosswalk_full.csv',
-                       col_types = cols(.default = 'c'))
-readr::write_csv(cw2, file.path(tmpdir, 'crosswalk_full.csv'))
-cw2
-```
-
-Rather than create new IDs, we can use the `existing_crosswalk`
-argument to read in and use the new IDs we've already made. Everything
-else works the same as before.    
-
-```r
-df <- deid_dua(df, existing_crosswalk = 'master_crosswalk.csv')
-```
-
-```{r, echo = FALSE}
-df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_full.csv'))
-rm(tmpdir)
-```
-
-The new ID values now match those from the crosswalk.
-```{r}
-df
-```
-```{r, echo = FALSE}
-df <- dff
-```
-## Updates to existing crosswalk
-
-In our example, we have nine students in the current file. Let's say
-that though we have a crosswalk, it only has new IDs for the first
-five observations:
-
-```{r, echo = FALSE}
-tmpdir <- tempdir()
-cw3 <- readr::read_csv('../tests/testthat/testdata/crosswalk_partial.csv',
-                       col_types = cols(.default = 'c'))
-readr::write_csv(cw3, file.path(tmpdir, 'crosswalk_partial.csv'))
-cw3
-```
-
-If the existing crosswalk doesn't have values for all observations,
-then `deid_dua()` will:  
-
-1. Match old IDs with new IDs that **do** exist in the crosswalk
-2. Generate new IDs for the old IDs that **don't** exist in the
-   crosswalk
-3. Update and save the crosswalk
-
-The command is the same for a partial crosswalk as for a complete crosswalk.
-
-```r
-df <- deid_dua(df, existing_crosswalk = 'crosswalk_partial.csv')
-```
-
-```{r, echo = FALSE}
-df <- deid_dua(df, existing_crosswalk = file.path(tmpdir, 'crosswalk_partial.csv'))
-
-```
-Notice that the new IDs for the first five observations match those
-that were already in the existing crosswalk. The last four are new.
-```{r}
-df
-```
-Looking at the partial crosswalk, we see that it now has four new rows
-with new IDs each for the observations it didn't have before. 
-```{r, echo = FALSE}
-cw4 <- readr::read_csv(file.path(tmpdir, 'crosswalk_partial.csv'),
-                       col_types = cols(.default = 'c'))
-rm(tmpdir)
-cw4
-```
-
-Should we encounter those students in future files, `deid_dua()` will
-use the new IDs we just created.
-
-
-# Check data frame
-
-If we try to write the data frame using the `write_dua_df()` function,
-we get an error.
-
-```{r}
-## write data to disk with one last check
-write_dua_df(df, 'cleaned_data.csv', output_type = 'csv')
-```
-
-Right, we haven't removed all the restricted data elements. Following
-the directions, we can check to see what still needs to be removed
-using the `check_dua_restrictions()` function.
-
-```{r}
-## check
-check_dua_restrictions(df)
-```
-
-We've successfully removed `sid` already (when we deidentified the
-data frame), but still have to remove the student's last name, date of
-birth, teacher's name, and zip code to meet level II
-restrictions. Once we remove those columns, we can check again.
-
-```{r}
-## remove restricted columns
-df <- df %>% select(-c(sname, dob, tname, zip))
-
-## check again
-check_dua_restrictions(df)
-```
-Success! And to be sure, here's what our data frame looks like now:
-
-```{r}
-df
-```
-
-# Write cleaned data frame to disk
-
-Now that we've passed our check, we can write the level II secure data
-frame to disk. Just like the `set_dua_cw()` function, which automates
-reading in many types of files, `write_dua_df()` will write many types
-of files. See `?write_dua_df` for options.
-
-```{r, eval = FALSE}
-## write data to disk 
-write_dua_df(df, 'cleaned_data_lev_ii.csv', output_type = 'csv')
-```
-
-# Interactive template
-
-Particularly for the first few times you use this package, you may
-need help remembering the steps. To help the process, the interactive
-`make_dua_template()` function will help you make a template script
-that you can then modify to meet your data cleaning needs. When
-called, the function will ask you a few yes or no questions and, based
-on your answers, build a template script that pre-fills some function
-arguments. 
-
-An example template script is printed below.
-
-```{r, eval = FALSE}
-## save template to disk
-make_dua_template('clean_data.R')
-```
-#### EXAMPLE
-
-```{r, echo = FALSE}
-tmpdir <- tempdir()
-make_dua_template('clean_data.R', tmpdir, answer_list = list('N','','N','',''))
-writeLines(readLines(file.path(tmpdir,'clean_data.R')))
-rm(tmpdir)
-```
-
+## What duawranglr does **not** do
+
+Functions in the package do not  
+
+1. Replace existing data wrangling functions  
+2. Guarantee data security  
+
+There are many packages, such as those in the
+[tidyverse](https://www.tidyverse.org) suite, that are already well
+suited to data wrangling tasks. There is no need to replicate those
+functions in this package.
+
+It also should go without saying, but users can simply *not use*
+functions in this package when attempting to secure restricted
+data. What this package does is offer a framework and a set of useful
+functions that, when followed, help users secure data in a clear and
+replicable manner that allows data administrators to more easily
+participate in the process.

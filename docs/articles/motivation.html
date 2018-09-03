@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motivation for duawranglr • duawranglr</title>
+<title>Motivation • duawranglr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Motivation for duawranglr">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Motivation">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">duawranglr</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.3</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.2</span>
       </span>
     </div>
 
@@ -37,37 +37,34 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/duawranglr.html">Motivation</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/securing_data.html">Example usage</a>
+      <a href="../articles/motivation.html">Motivation</a>
+    </li>
+    <li>
+      <a href="../articles/securing_data.html">Securing data with duawranglr</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
-     
-    functions
-  </a>
-</li>
-<li>
   <a href="https://github.com/btskinner/duawranglr">
     <span class="fa fa-github fa-lg"></span>
      
-    github
-  </a>
-</li>
-<li>
-  <a href="https://twitter.com/btskinner">
-    <span class="fab fa fab fa-twitter"></span>
-     
-    twitter
   </a>
 </li>
       </ul>
@@ -82,36 +79,36 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Motivation for duawranglr</h1>
+      <h1>Motivation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/btskinner/duawranglr/blob/master/vignettes/duawranglr.Rmd"><code>vignettes/duawranglr.Rmd</code></a></small>
-      <div class="hidden name"><code>duawranglr.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/btskinner/duawranglr/blob/master/vignettes/motivation.Rmd"><code>vignettes/motivation.Rmd</code></a></small>
+      <div class="hidden name"><code>motivation.Rmd</code></div>
 
     </div>
 
     
     
-<p>The guiding principle behind duawranglr is to make it easier for organizations to share data that contain protected elements and/or personally idenfiable information (PII) with researchers. There are two key problems this package attempts to solve:</p>
+<p>The <code>duawranglr</code> package is designed with the idea that rather than setting a new data usage agreement (DUA) for each project in an ongoing collaboration between researchers and data partners, two things will happen instead:</p>
 <ol style="list-style-type: decimal">
-<li>Data owners and reseachers may wish to collaborate on multiple projects, each with a different level of data security required; executing a unique data usage agreement (DUA) for each project can be time consuming and inefficient.<br>
+<li>A master DUA will be signed that establishes a general framework for collaboration alongside multiple levels of data restriction; for each new project, these levels (<em>e.g.</em>, I, II, &amp; III) can then be invoked and used to determine which variables may be shared, with whom, and under what conditions.<br>
 </li>
-<li>Administrators tasked with approving data requests do not always have the time or technical proficiency to closely review the code that reads, subsets, filters, and deidentifies data files according to a DUA.</li>
+<li>A associated crosswalk file will list the names of data elements that are restricted at each level and be used with this package to easily and clearly transform raw restricted data files into those that can be shared under the conditions of the master DUA.</li>
 </ol>
-<div id="data-usage-agreements" class="section level2">
+<p>This vignette goes through the process of using <code>duawranglr</code> functions to create a sharable data set from a raw administrative file. Though no two projects are alike, users should generally follow the steps below.</p>
+<div id="what-duawranglr-does" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-usage-agreements" class="anchor"></a>Data usage agreements</h2>
-<p>The duawranglr package is designed with the idea that rather than setting a new DUA for each project in an ongoing collaboration between researchers and data partners, two things will happen instead:</p>
-<ol style="list-style-type: decimal">
-<li>An overarching DUA will be signed that establishes a general framework for collaboration with multiple pre-established levels of data restriction; for each new project, these levels (<em>e.g.</em>, I, II, &amp; III) are invoked and used to determine which variables may be shared, with whom, and under what conditions according to the DUA.<br>
-</li>
-<li>An associated crosswalk file—which can be an easy-to-modify and share spreadsheet—will list the names of data elements that are restricted at each level. This crosswalk is then used to clearly transform raw restricted data files into those that can be shared under the conditions of the DUA.</li>
-</ol>
+<a href="#what-duawranglr-does" class="anchor"></a>What <code>duawranglr</code> does</h2>
 </div>
-<div id="an-example-dua-crosswalk" class="section level2">
+<div id="what-duawranglr-does-not-do" class="section level2">
 <h2 class="hasAnchor">
-<a href="#an-example-dua-crosswalk" class="anchor"></a>An example DUA crosswalk</h2>
-<p>An example crosswalk file (<em>e.g.</em> a CSV file or Excel spreadsheet) might look like this:</p>
+<a href="#what-duawranglr-does-not-do" class="anchor"></a>What <code>duawranglr</code> does not do</h2>
+<p>Using <code>duawranglr</code> does not guarantee data security. It goes without saying, but users, of course, can simply <em>not use</em> the package when attempting to secure restricted data. What this package does is offer a framework and a set of useful functions that, when followed, help users secure data in a clear and replicable manner.</p>
+</div>
+<div id="the-dua-crosswalk" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-dua-crosswalk" class="anchor"></a>The DUA crosswalk</h2>
+<p>The crosswalk file, <code>dua_cw.csv</code>, for the current DUA looks like this:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="center">level_i</th>
@@ -161,33 +158,20 @@
 </tr>
 </tbody>
 </table>
-<p>Each column represents a restriction level—<code>level_i</code>, <code>level_ii</code>, or <code>level_iii</code>—along with the corresponding data element names that are restricted at that level. In this crosswalk, like variable names have been aligned so that they are easier to compare, but the elements can be included in whichever way makes most sense to the data administrator.</p>
-<p>The restriction level names are arbitrary as far as the package goes, but in conjunction with a DUA, they have meaning:</p>
+<p>Each column represents a level, <code>level_i</code>, <code>level_ii</code>, or <code>level_iii</code>, along with the corresponding data element names that are restricted at that level. The names are arbitrary as far as the package goes, but in conjunction with the master DUA, they have meaning:</p>
 <ul>
 <li>
-<strong>Level I</strong>: The first level produces data sets that can be shared more widely, but at the cost of losing access to many data elements in the final data set.</li>
+<strong>Level I</strong>: The first level produces data sets that can be shared more widely, but at the cost of losing access to most data elements in the final data set. Only math and reading scores can be shared at this level.</li>
 <li>
 <strong>Level II:</strong> The second level has slightly fewer data element restrictions, making it better for more research projects. Data produced at this level likely come with more sharing and storage restrictions than those produced at the first level.</li>
 <li>
-<strong>Level III:</strong> The third level has the fewest restrictions: only names and the student’s ID cannot be contained in the final data set. Data produced at this level will have the strongest restrictions on who can use it an how it is stored by the research team.</li>
+<strong>Level III:</strong> The third level has the fewest restrictions: only names and the student’s id cannot be contained in the final data set. Data produced at this level will have the strongest restrictions on who can use it an how it is stored.</li>
 </ul>
 <p>The benefit of this level-plus-crosswalk system is two-fold:</p>
 <ol style="list-style-type: decimal">
-<li>Data element restrictions are clearly defined for each level, which in turn has its own clearly defined scope for data storage and sharing. When starting a new project under the scope of the DUA, researchers and data partners need only to assign a proper level based on the needs of the analyses.</li>
+<li>Data element restrictions are clearly defined for each level, which in turn has it’s own clearly defined scope for data storage and sharing. When starting a new project under the scope of the master DUA, researchers and data partners need only to assign it a proper level based on the needs of the analyses.</li>
 <li>Because the crosswalk is a simple tabular file, data element names can easily be added or deleted by data partners who do not typically use data analysis software. This helps keep the process transparent for all team members.</li>
 </ol>
-</div>
-<div id="what-duawranglr-does-not-do" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-duawranglr-does-not-do" class="anchor"></a>What duawranglr does <strong>not</strong> do</h2>
-<p>Functions in the package do not</p>
-<ol style="list-style-type: decimal">
-<li>Replace existing data wrangling functions<br>
-</li>
-<li>Guarantee data security</li>
-</ol>
-<p>There are many packages, such as those in the <a href="https://www.tidyverse.org">tidyverse</a> suite, that are already well suited to data wrangling tasks. There is no need to replicate those functions in this package.</p>
-<p>It also should go without saying, but users can simply <em>not use</em> functions in this package when attempting to secure restricted data. What this package does is offer a framework and a set of useful functions that, when followed, help users secure data in a clear and replicable manner that allows data administrators to more easily participate in the process.</p>
 </div>
   </div>
 
@@ -196,9 +180,9 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#data-usage-agreements">Data usage agreements</a></li>
-      <li><a href="#an-example-dua-crosswalk">An example DUA crosswalk</a></li>
-      <li><a href="#what-duawranglr-does-not-do">What duawranglr does <strong>not</strong> do</a></li>
+<li><a href="#what-duawranglr-does">What <code>duawranglr</code> does</a></li>
+      <li><a href="#what-duawranglr-does-not-do">What <code>duawranglr</code> does not do</a></li>
+      <li><a href="#the-dua-crosswalk">The DUA crosswalk</a></li>
       </ul>
 </div>
       </div>

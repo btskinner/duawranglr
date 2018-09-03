@@ -4,16 +4,14 @@
 \alias{write_dua_df}
 \title{Write DUA approved data set}
 \usage{
-write_dua_df(df, file_name, path = tempdir(), output_type = c("rds",
-  "rdata", "csv", "tsv", "delimited", "stata", "sas", "spss"), ...)
+write_dua_df(df, file_name, output_type = c("rds", "rdata", "csv", "tsv",
+  "delimited", "stata", "sas", "spss"), ...)
 }
 \arguments{
 \item{df}{Data frame object to save.}
 
-\item{file_name}{Name for saved file, with or without file type
-ending.}
-
-\item{path}{Path for saved file; default is \code{tempdir()}.}
+\item{file_name}{Name and path for saved file, with or without file
+type ending.}
 
 \item{output_type}{Output data file type; options include
 \code{rds} (DEFAULT), \code{rdata}, \code{csv}, \code{tsv},
@@ -49,22 +47,26 @@ with default values, can be modified by adding them to the
 top-level \code{write_dua_df()} function.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
+## read in data
 admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 df <- read_dua_file(admin)
 ## set restriction level
 set_dua_level('level_iii')
 ## remove restrictive variables
 df <- dplyr::select(df, -c(sid,sname,tname))
-}
+## --------------
+
 ## check restrictions
 check_dua_restrictions(df)
 
 ## able to write since restrictions check passed
 write_dua_df(df, 'clean_data', output_type = 'csv')
-
 
 \dontrun{
  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')

@@ -30,16 +30,23 @@
 #' @param ... Arguments to pass to read function based on the
 #'     input type; see details for more information.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
-#' }
+#' ## --------------
+#'
+#' ## read in data
 #' file <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 #' df <- read_dua_file(file)
+#'
 #' ## show
 #' df
 #'
 #' \dontrun{
+#' ## read in other file types
 #' read_dua_file('admin_data.rds')
 #' read_dua_file('admin_data.txt', sep = '|')
 #' read_dua_file('admin_data.dta')

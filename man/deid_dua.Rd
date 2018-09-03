@@ -40,14 +40,18 @@ saving a crosswalk between the old and new IDs in case observations
 need to reidentified at a later date.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
+## read in data
 admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 df <- read_dua_file(admin)
-df <- dplyr::select(df, -c(sname,tname,dob,zip))
-}
-## show data
+## --------------
+
+## show identified data
 df
 
 ## deidentify

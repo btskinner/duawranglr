@@ -4,13 +4,10 @@
 \alias{make_dua_template}
 \title{Interactive function to create template file}
 \usage{
-make_dua_template(file_name, path = tempdir(), include_notes = TRUE,
-  answer_list = NULL)
+make_dua_template(file_name, include_notes = TRUE, answer_list = NULL)
 }
 \arguments{
-\item{file_name}{Name of template script.}
-
-\item{path}{Path for template script with default to \code{tempdir()}.}
+\item{file_name}{Name with path of template script.}
 
 \item{include_notes}{If \code{TRUE}, the template file will include
 notes and suggestions for completing the script; default value
@@ -58,9 +55,10 @@ make_dua_template('data_clean.R', include_notes = FALSE)
 }
 
 ## make template to be filled in
-make_dua_template('data_clean.R', answer_list = list('No','','No','',''))
+file <- file.path(tempdir(), 'data_clean.R')
+make_dua_template(file, answer_list = list('No','','No','',''))
 
 ## show
-readLines(file.path(tempdir(), 'data_clean.R'))
+readLines(file)
 
 }

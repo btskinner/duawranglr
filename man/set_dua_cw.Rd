@@ -56,7 +56,8 @@ dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
 
 \dontrun{
-set_dua_cw('dua_cw.dta') # Stata version
+## set using crosswalks stored in other file types
+set_dua_cw('dua_cw.dta')
 set_dua_cw('dua_cw.txt', delimiter = '|')
 set_dua_cw('dua_cw.csv', remap_list = list('level_i_new' = 'level_i_old'))
 }

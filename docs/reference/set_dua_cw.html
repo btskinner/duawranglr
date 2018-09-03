@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">duawranglr</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.2</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.6.3</span>
       </span>
     </div>
 
@@ -69,23 +69,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/duawranglr.html">Get started</a>
+  <a href="../articles/duawranglr.html">Motivation</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/securing_data.html">Example usage</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="../reference/index.html">
+    <span class="fa fa-file-code-o"></span>
+     
+    functions
+  </a>
+</li>
+<li>
   <a href="https://github.com/btskinner/duawranglr">
     <span class="fa fa-github fa-lg"></span>
      
+    github
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/btskinner">
+    <span class="fab fa fab fa-twitter"></span>
+     
+    twitter
   </a>
 </li>
       </ul>
@@ -174,7 +189,8 @@ values.</p>
 <span class='fu'>set_dua_cw</span>(<span class='no'>dua_cw</span>)</div><div class='output co'>#&gt; <span class='message'>-- duawranglr note -------------------------------------------------------------</span>
 #&gt; <span class='message'>DUA crosswalk has been set!</span></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'>set_dua_cw</span>(<span class='st'>'dua_cw.dta'</span>) <span class='co'># Stata version</span>
+<span class='co'>## set using crosswalks stored in other file types</span>
+<span class='fu'>set_dua_cw</span>(<span class='st'>'dua_cw.dta'</span>)
 <span class='fu'>set_dua_cw</span>(<span class='st'>'dua_cw.txt'</span>, <span class='kw'>delimiter</span> <span class='kw'>=</span> <span class='st'>'|'</span>)
 <span class='fu'>set_dua_cw</span>(<span class='st'>'dua_cw.csv'</span>, <span class='kw'>remap_list</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>'level_i_new'</span> <span class='kw'>=</span> <span class='st'>'level_i_old'</span>))
 <span class='co'># }</span><div class='input'>

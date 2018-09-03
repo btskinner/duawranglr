@@ -25,8 +25,7 @@
 #' If answers to questions (1) and (2) are \code{No}, then strings for 1(a),
 #' 2(a), and 2(b) can be left empty since they will be ignored.
 #'
-#' @param file_name Name of template script.
-#' @param path Path for template script with default to \code{tempdir()}.
+#' @param file_name Name with path of template script.
 #' @param include_notes If \code{TRUE}, the template file will include
 #'     notes and suggestions for completing the script; default value
 #'     is \code{TRUE}.
@@ -45,14 +44,14 @@
 #' }
 #'
 #' ## make template to be filled in
-#' make_dua_template('data_clean.R', answer_list = list('No','','No','',''))
+#' file <- file.path(tempdir(), 'data_clean.R')
+#' make_dua_template(file, answer_list = list('No','','No','',''))
 #'
 #' ## show
-#' readLines(file.path(tempdir(), 'data_clean.R'))
+#' readLines(file)
 #'
 #' @export
-make_dua_template <- function(file_name, path = tempdir(),
-                              include_notes = TRUE,
+make_dua_template <- function(file_name, include_notes = TRUE,
                               answer_list = NULL) {
 
     ## -------------------------------------------
@@ -297,6 +296,5 @@ make_dua_template <- function(file_name, path = tempdir(),
                       spacer(1),
                       footer)
 
-    writeLines(template_obj, con = file.path(path, file_name))
-
+    writeLines(template_obj, con = file_name)
 }

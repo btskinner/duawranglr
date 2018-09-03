@@ -21,10 +21,14 @@ Once the DUA crosswalk has been loaded, show the available
 restriction levels with associated data element names.
 }
 \examples{
-\dontshow{
+## --------------
+## Setup
+## --------------
+## set DUA crosswalk
 dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 set_dua_cw(dua_cw)
-}
+## --------------
+
 ## see level i options
 see_dua_options(level = 'level_i')
 

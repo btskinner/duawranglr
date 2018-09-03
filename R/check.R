@@ -7,12 +7,17 @@
 #'
 #' @param df Data frame to check against set DUA restriction level.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
+#' ## read in data
 #' admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 #' df <- read_dua_file(admin)
-#' }
+#' ## --------------
+#'
 #' ## set restriction level
 #' set_dua_level('level_iii')
 #'
@@ -27,7 +32,6 @@
 #'
 #' ## confirm
 #' check_dua_restrictions(df)
-#'
 #'
 #' @export
 check_dua_restrictions <- function(df) {

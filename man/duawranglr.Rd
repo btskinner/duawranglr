@@ -6,8 +6,8 @@
 \alias{duawranglr-package}
 \title{duawranglr: Securely Wrangle Dataset According to Data Usage Agreement}
 \description{
-The guiding principle behind duawranglr is to make it easier for
-organizations to share data with protected elements and/or
+The guiding principle behind \code{duawranglr} is to make it easier
+for organizations to share data with protected elements and/or
 personally idenfiable information (PII) with researchers. There are
 two key problems this package attempts to solve:
 }

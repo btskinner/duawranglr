@@ -25,31 +25,34 @@
 #' top-level \code{write_dua_df()} function.
 #'
 #' @param df Data frame object to save.
-#' @param file_name Name for saved file, with or without file type
-#'     ending.
-#' @param path Path for saved file; default is \code{tempdir()}.
+#' @param file_name Name and path for saved file, with or without file
+#'     type ending.
 #' @param output_type Output data file type; options include
 #'     \code{rds} (DEFAULT), \code{rdata}, \code{csv}, \code{tsv},
 #'     \code{delimited}, \code{stata}, \code{sas}, and \code{spss}.
 #' @param ... Arguments to pass to write function based on the
 #'     selected \code{output_type}; see details for more information.
 #' @examples
-#' \dontshow{
+#' ## --------------
+#' ## Setup
+#' ## --------------
+#' ## set DUA crosswalk
 #' dua_cw <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
 #' set_dua_cw(dua_cw)
+#' ## read in data
 #' admin <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
 #' df <- read_dua_file(admin)
 #' ## set restriction level
 #' set_dua_level('level_iii')
 #' ## remove restrictive variables
 #' df <- dplyr::select(df, -c(sid,sname,tname))
-#' }
+#' ## --------------
+#'
 #' ## check restrictions
 #' check_dua_restrictions(df)
 #'
 #' ## able to write since restrictions check passed
 #' write_dua_df(df, 'clean_data', output_type = 'csv')
-#'
 #'
 #' \dontrun{
 #'  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')
@@ -59,7 +62,6 @@
 #' @export
 write_dua_df <- function(df,
                          file_name,
-                         path = tempdir(),
                          output_type = c('rds', 'rdata', 'csv', 'tsv',
                                          'delimited', 'stata', 'sas',
                                          'spss'),
@@ -82,8 +84,8 @@ write_dua_df <- function(df,
         if (ext == '') {
             file_name <- paste(file_name, fe[[output_type]], sep = '.')
         }
-        ## join name and path
-        f <- file.path(path, file_name)
+        ## shorten name
+        f <- file_name
         ## arguments
         args <- list(...)
 
