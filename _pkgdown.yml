@@ -34,13 +34,13 @@ navbar:
     - icon: fa-home
       href: index.html
     - text: 'Motivation'
-      href: duawranglr/articles/duawranglr.html
+      href: articles/duawranglr.html
     - text: 'Example usage'
-      href: duawranglr/articles/securing_data.html
+      href: articles/securing_data.html
   right:
     - icon: fa-file-code-o
       text: 'functions'
-      href: duawranglr/reference/index.html
+      href: reference/index.html
     - icon: fa-newspaper-o	
       text: 'news'		
       href: news/index.html
