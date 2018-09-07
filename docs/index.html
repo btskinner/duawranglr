@@ -46,18 +46,25 @@
   </a>
 </li>
 <li>
-  <a href="articles/duawranglr.html">Motivation</a>
+  <a href="duawranglr/articles/duawranglr.html">Motivation</a>
 </li>
 <li>
-  <a href="articles/securing_data.html">Example usage</a>
+  <a href="duawranglr/articles/securing_data.html">Example usage</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="reference/index.html">
+  <a href="duawranglr/reference/index.html">
     <span class="fa fa-file-code-o"></span>
      
     functions
+  </a>
+</li>
+<li>
+  <a href="news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    news
   </a>
 </li>
 <li>
@@ -93,12 +100,23 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#duawranglr" class="anchor"></a>duawranglr</h1></div>
 
+<p>The guiding principle behind duawranglr is to make it easier for organizations to share data that contain protected elements and/or personally idenfiable information (PII) with researchers. There are two key problems this package attempts to solve:</p>
+<ol style="list-style-type: decimal">
+<li>Data owners and reseachers may wish to collaborate on multiple projects, each with a different level of data security required; executing a unique data usage agreement (DUA) for each project can be time consuming and inefficient.<br>
+</li>
+<li>Administrators tasked with approving data requests do not always have the time or technical proficiency to closely review the code that reads, subsets, filters, and deidentifies data files according to a DUA.</li>
+</ol>
 <p>This package offers a set of functions to help users create shareable data sets from raw data files that contain protected elements. Relying on master crosswalk files that list restricted variables, package functions warn users about possible violations of data usage agreement and prevent writing protected elements.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the latest development version from Github with</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'btskinner/duawranglr'</span>)</a></code></pre></div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>See vignettes or <a href="https://btskinner.me/duawranglr">documentation site</a> for package motivation and an example use case.</p>
 </div>
 </div>
   </div>

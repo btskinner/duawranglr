@@ -41,6 +41,9 @@ navbar:
     - icon: fa-file-code-o
       text: 'functions'
       href: duawranglr/reference/index.html
+    - icon: fa-newspaper-o	
+      text: 'news'		
+      href: news/index.html
     - icon: fa-github fa-lg
       text: 'github'
       href: https://github.com/btskinner/duawranglr
