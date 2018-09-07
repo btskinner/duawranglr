@@ -86,14 +86,20 @@ number.) If successful, you will get message telling you so.
 library(tidyverse)
 library(duawranglr)
 
+## get crosswalk and admin data files
+dua_cw_file <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+admin_file <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+
 ## set the DUA crosswalk
-set_dua_cw('dua_cw.xlsx')
+set_dua_cw(dua_cw_file)
 ```
 ```{r, echo = FALSE}
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(readr))
 library(duawranglr)
-set_dua_cw('../tests/testthat/testdata/dua_one.xlsx')
+dua_cw_file <- system.file('extdata', 'dua_cw.csv', package = 'duawranglr')
+admin_file <- system.file('extdata', 'admin_data.csv', package = 'duawranglr')
+set_dua_cw(dua_cw_file)
 ```
 ## Check DUA options
 
@@ -149,13 +155,13 @@ the data elements we expect.
 
 ```{r, eval = FALSE}
 ## read in raw administrative data
-df <- read_dua_file('./admin_data.csv')
+df <- read_dua_file(admin_file)
 df
 ```
 
 ```{r, echo = FALSE}
 ## read in raw administrative data
-df <- readr::read_csv('../tests/testthat/testdata/admin_data.csv',
+df <- readr::read_csv(admin_file,
                       col_types = cols(sid = col_character(),
                                        sname = col_character(),
                                        dob = col_character(),
