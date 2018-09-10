@@ -59,6 +59,6 @@ file <- file.path(tempdir(), 'data_clean.R')
 make_dua_template(file, answer_list = list('No','','No','',''))
 
 ## show
-readLines(file)
+writeLines(readLines(file))
 
 }

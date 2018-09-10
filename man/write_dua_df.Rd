@@ -66,7 +66,8 @@ df <- dplyr::select(df, -c(sid,sname,tname))
 check_dua_restrictions(df)
 
 ## able to write since restrictions check passed
-write_dua_df(df, 'clean_data', output_type = 'csv')
+file <- file.path(tempdir(), 'clean_data.csv')
+write_dua_df(df, file_name = file, output_type = 'csv')
 
 \dontrun{
  write_dua_df(df, 'clean_data', output_type = 'delimited', sep = '|')

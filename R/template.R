@@ -48,7 +48,7 @@
 #' make_dua_template(file, answer_list = list('No','','No','',''))
 #'
 #' ## show
-#' readLines(file)
+#' writeLines(readLines(file))
 #'
 #' @export
 make_dua_template <- function(file_name, include_notes = TRUE,

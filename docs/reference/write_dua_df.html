@@ -208,7 +208,8 @@ top-level <code>write_dua_df()</code> function.</p>
 <span class='fu'><a href='check_dua_restrictions.html'>check_dua_restrictions</a></span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; <span class='message'>-- duawranglr note -------------------------------------------------------------</span>
 #&gt; <span class='message'>Data set has passed check and may be saved.</span></div><div class='input'>
 <span class='co'>## able to write since restrictions check passed</span>
-<span class='fu'>write_dua_df</span>(<span class='no'>df</span>, <span class='st'>'clean_data'</span>, <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='st'>'csv'</span>)</div><span class='co'># NOT RUN {</span>
+<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>'clean_data.csv'</span>)
+<span class='fu'>write_dua_df</span>(<span class='no'>df</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='no'>file</span>, <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='st'>'csv'</span>)</div><span class='co'># NOT RUN {</span>
  <span class='fu'>write_dua_df</span>(<span class='no'>df</span>, <span class='st'>'clean_data'</span>, <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='st'>'delimited'</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>'|'</span>)
  <span class='fu'>write_dua_df</span>(<span class='no'>df</span>, <span class='st'>'clean_data'</span>, <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='st'>'stata'</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fl'>11</span>)
 <span class='co'># }</span><div class='input'>
