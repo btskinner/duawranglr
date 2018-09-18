@@ -1,3 +1,7 @@
+# duawranglr 0.6.3
+
+- First release on CRAN
+
 # duawranglr 0.6.2
 
 ## Bug fix
