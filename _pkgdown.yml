@@ -4,9 +4,6 @@ authors:
   Benjamin Skinner:
     href: https://www.btskinner.me
 
-development:
-  mode: unreleased
-
 reference:
   - title: I/O
     desc: Read and write data files

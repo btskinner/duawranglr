@@ -5,6 +5,7 @@ duawranglr
 Status](https://travis-ci.org/btskinner/duawranglr.svg?branch=master)](https://travis-ci.org/btskinner/duawranglr)
 [![GitHub
 release](https://img.shields.io/github/release/btskinner/duawranglr.svg)](https://github.com/btskinner/duawranglr)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/duawranglr)](https://CRAN.R-project.org/package=duawranglr)
 
 The guiding principle behind duawranglr is to make it easier for
 organizations to share data that contain protected elements and/or
@@ -28,6 +29,10 @@ and prevent writing protected elements.
 
 Installation
 ------------
+
+Install the latest released version from CRAN with
+
+    install.packages('duawranglr')
 
 Install the latest development version from Github with
 
