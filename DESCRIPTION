@@ -1,8 +1,8 @@
 Package: duawranglr
 Title: Securely Wrangle Dataset According to Data Usage Agreement
-Version: 0.6.3
+Version: 0.6.4
 Authors@R: person("Benjamin", "Skinner",
-	          email = "btskinner@virginia.edu",
+	          email = "btskinner@coe.ufl.edu",
 		  role = c("aut", "cre"),
 		  comment = c(ORCID = "0000-0002-0337-7415"))
 URL: https://github.com/btskinner/duawranglr	
@@ -21,8 +21,9 @@ Imports: haven,
     readr,
     digest,
     dplyr
-RoxygenNote: 6.1.0
-Suggests: testthat,
+RoxygenNote: 6.1.1
+Suggests: tidyverse,
+    testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

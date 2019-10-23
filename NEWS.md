@@ -1,3 +1,7 @@
+# duawranglr 0.6.4
+
+- Increment to change contact information
+
 # duawranglr 0.6.3
 
 - First release on CRAN

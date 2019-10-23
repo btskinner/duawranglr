@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set data restriction level — set_dua_level • duawranglr</title>
+<title>Page not found (404) • duawranglr</title>
 
 
 <!-- jquery -->
@@ -29,15 +29,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="https://www.btskinner.me/duawranglr//pkgdown.css" rel="stylesheet">
+<script src="https://www.btskinner.me/duawranglr//pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Set data restriction level — set_dua_level" />
-<meta property="og:description" content="Set data restrictions to one of the levels in the DUA crosswalk." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Page not found (404)" />
 
 
 
@@ -56,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -68,7 +66,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">duawranglr</a>
+        <a class="navbar-link" href="https://www.btskinner.me/duawranglr//index.html">duawranglr</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
       </span>
     </div>
@@ -76,28 +74,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/duawranglr.html">Motivation</a>
+  <a href="articles/duawranglr.html">Motivation</a>
 </li>
 <li>
-  <a href="../articles/securing_data.html">Example usage</a>
+  <a href="articles/securing_data.html">Example usage</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">
+  <a href="reference/index.html">
     <span class="fa fa-file-code-o"></span>
      
     functions
   </a>
 </li>
 <li>
-  <a href="../news/index.html">
+  <a href="news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     news
@@ -128,65 +126,17 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Set data restriction level</h1>
-    <small class="dont-index">Source: <a href='https://github.com/btskinner/duawranglr/blob/master/R/dua.R'><code>R/dua.R</code></a></small>
-    <div class="hidden name"><code>set_dua_level.Rd</code></div>
+      <h1>Page not found (404)</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Set data restrictions to one of the levels in the DUA crosswalk.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>set_dua_level</span>(<span class='no'>level</span>, <span class='kw'>deidentify_required</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>id_column</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>level</th>
-      <td><p>String value of the data restriction level</p></td>
-    </tr>
-    <tr>
-      <th>deidentify_required</th>
-      <td><p>Set to <code>TRUE</code> if ID column must be
-changed to protect unique identifier.</p></td>
-    </tr>
-    <tr>
-      <th>id_column</th>
-      <td><p>Column with unique IDs that must be identified if
-<code>deidentify_required == TRUE</code>.</p></td>
-    </tr>
-    </table>
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## --------------</span>
-<span class='co'>## Setup</span>
-<span class='co'>## --------------</span>
-<span class='co'>## set DUA crosswalk</span>
-<span class='no'>dua_cw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'dua_cw.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'duawranglr'</span>)
-<span class='fu'><a href='set_dua_cw.html'>set_dua_cw</a></span>(<span class='no'>dua_cw</span>)</div><div class='output co'>#&gt; <span class='message'>-- duawranglr note -------------------------------------------------------------</span>
-#&gt; <span class='message'>DUA crosswalk has been set!</span></div><div class='input'><span class='co'>## --------------</span>
-
-<span class='co'>## set restrictions at first level</span>
-<span class='fu'>set_dua_level</span>(<span class='st'>'level_i'</span>)
-
-<span class='co'>## ...same, but set unique ID column to be deidentified</span>
-<span class='fu'>set_dua_level</span>(<span class='st'>'level_i'</span>, <span class='kw'>deidentify_required</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>id_column</span> <span class='kw'>=</span> <span class='st'>'sid'</span>)</div><div class='output co'>#&gt; <span class='message'>-- duawranglr note -------------------------------------------------------------</span>
-#&gt; <span class='message'>Unique IDs in [ sid ] must be deidentified; use -deid_dua()-.</span></div><div class='input'>
-</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+Content not found. Please use links in the navbar.
 
   </div>
+
 </div>
+
 
 
       <footer>

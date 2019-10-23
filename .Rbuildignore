@@ -11,4 +11,7 @@
 ^.DS_Store$
 ^site$
 ^docs$
+^pkgdown$
 ^_pkgdown\.yml$
+^sticker$
+^CODE_OF_CONDUCT\.md$
