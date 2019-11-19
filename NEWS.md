@@ -1,3 +1,7 @@
+# duawranglr 0.6.5
+
+- Removed {tidyverse} package from `Suggests` in `DESCRIPTION` to improve load time
+
 # duawranglr 0.6.4
 
 - Increment to change contact information
