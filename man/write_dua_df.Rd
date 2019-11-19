@@ -4,8 +4,12 @@
 \alias{write_dua_df}
 \title{Write DUA approved data set}
 \usage{
-write_dua_df(df, file_name, output_type = c("rds", "rdata", "csv", "tsv",
-  "delimited", "stata", "sas", "spss"), ...)
+write_dua_df(
+  df,
+  file_name,
+  output_type = c("rds", "rdata", "csv", "tsv", "delimited", "stata", "sas", "spss"),
+  ...
+)
 }
 \arguments{
 \item{df}{Data frame object to save.}

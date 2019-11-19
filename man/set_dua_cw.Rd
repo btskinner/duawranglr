@@ -4,8 +4,13 @@
 \alias{set_dua_cw}
 \title{Function to set data usage agreement data crosswalk}
 \usage{
-set_dua_cw(dua_cw, delimiter = NULL, sheet = NULL,
-  ignore_columns = NULL, remap_list = NULL)
+set_dua_cw(
+  dua_cw,
+  delimiter = NULL,
+  sheet = NULL,
+  ignore_columns = NULL,
+  remap_list = NULL
+)
 }
 \arguments{
 \item{dua_cw}{Data frame object or file with columns representing

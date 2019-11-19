@@ -73,7 +73,7 @@ and will not write the data set." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">duawranglr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.5</span>
       </span>
     </div>
 
@@ -147,8 +147,12 @@ variables remain in the data set, the function will return an error
 and will not write the data set.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_dua_df</span>(<span class='no'>df</span>, <span class='no'>file_name</span>, <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"rds"</span>, <span class='st'>"rdata"</span>, <span class='st'>"csv"</span>, <span class='st'>"tsv"</span>,
-  <span class='st'>"delimited"</span>, <span class='st'>"stata"</span>, <span class='st'>"sas"</span>, <span class='st'>"spss"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>write_dua_df</span>(
+  <span class='no'>df</span>,
+  <span class='no'>file_name</span>,
+  <span class='kw'>output_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"rds"</span>, <span class='st'>"rdata"</span>, <span class='st'>"csv"</span>, <span class='st'>"tsv"</span>, <span class='st'>"delimited"</span>, <span class='st'>"stata"</span>, <span class='st'>"sas"</span>, <span class='st'>"spss"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

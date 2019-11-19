@@ -3,7 +3,6 @@
 \docType{package}
 \name{duawranglr}
 \alias{duawranglr}
-\alias{duawranglr-package}
 \title{duawranglr: Securely Wrangle Dataset According to Data Usage Agreement}
 \description{
 The guiding principle behind \code{duawranglr} is to make it easier

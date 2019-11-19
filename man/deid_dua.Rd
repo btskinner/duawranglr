@@ -4,9 +4,15 @@
 \alias{deid_dua}
 \title{Convert identifying variable to unique hash}
 \usage{
-deid_dua(df, id_col = NULL, new_id_name = "id", id_length = 64,
-  existing_crosswalk = NULL, write_crosswalk = FALSE,
-  crosswalk_filename = NULL)
+deid_dua(
+  df,
+  id_col = NULL,
+  new_id_name = "id",
+  id_length = 64,
+  existing_crosswalk = NULL,
+  write_crosswalk = FALSE,
+  crosswalk_filename = NULL
+)
 }
 \arguments{
 \item{df}{Data frame}

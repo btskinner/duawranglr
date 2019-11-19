@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Securing data with duawranglr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{tidyverse}
+  %\VignetteDepends{dplyr, readr}
 ---
 
 ```{r setup, include = FALSE}
