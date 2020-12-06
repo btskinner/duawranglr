@@ -1,8 +1,7 @@
-duawranglr
-==========
+# duawranglr
 
-[![Build
-Status](https://travis-ci.org/btskinner/duawranglr.svg?branch=master)](https://travis-ci.org/btskinner/duawranglr)
+[![R build
+status](https://github.com/btskinner/duawranglr/workflows/R-CMD-check/badge.svg)](https://github.com/btskinner/duawranglr/actions)
 [![GitHub
 release](https://img.shields.io/github/release/btskinner/duawranglr.svg)](https://github.com/btskinner/duawranglr)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/duawranglr)](https://CRAN.R-project.org/package=duawranglr)
@@ -27,19 +26,17 @@ on master crosswalk files that list restricted variables, package
 functions warn users about possible violations of data usage agreement
 and prevent writing protected elements.
 
-Installation
-------------
+## Installation
 
 Install the latest released version from CRAN with
 
-    install.packages('duawranglr')
+    install.packages("duawranglr")
 
 Install the latest development version from Github with
 
-    devtools::install_github('btskinner/duawranglr')
+    devtools::install_github("btskinner/duawranglr")
 
-Usage
------
+## Usage
 
-See vignettes or [documentation site](https://btskinner.me/duawranglr)
+See vignettes or [documentation site](https://btskinner.io/duawranglr)
 for package motivation and an example use case.

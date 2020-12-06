@@ -5,7 +5,6 @@
 ^README\.Rmd$
 ^README\.md$
 ^cran-comments\.md$
-^\.travis\.yml$
 ^.git$
 ^.gitignore$
 ^.DS_Store$
@@ -15,3 +14,4 @@
 ^_pkgdown\.yml$
 ^sticker$
 ^CODE_OF_CONDUCT\.md$
+^\.github$
