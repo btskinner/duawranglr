@@ -1,0 +1,11 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  duawranglr: duawranglr.html
+  securing_data: securing_data.html
+last_built: 2020-12-06T19:00Z
+urls:
+  reference: https://www.btskinner.me/duawranglr//reference
+  article: https://www.btskinner.me/duawranglr//articles
+
