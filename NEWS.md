@@ -1,3 +1,7 @@
+# duawranglr 0.6.6
+
+- Removed SAS test files and tests due to changes in {haven}
+
 # duawranglr 0.6.5
 
 - Removed {tidyverse} package from `Suggests` in `DESCRIPTION` to improve load time
