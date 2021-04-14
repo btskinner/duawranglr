@@ -1,6 +1,6 @@
 Package: duawranglr
 Title: Securely Wrangle Dataset According to Data Usage Agreement
-Version: 0.6.6
+Version: 0.6.7
 Authors@R: person("Benjamin", "Skinner",
 	          email = "btskinner@coe.ufl.edu",
 		  role = c("aut", "cre"),
@@ -15,7 +15,6 @@ Description: Create shareable data sets from raw data files that
 Depends: R (>= 3.1.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Imports: haven,
     readxl,
     readr,

@@ -1,3 +1,7 @@
+# duawranglr 0.6.7
+
+- Removed LazyData: true from DESCRIPTION file
+
 # duawranglr 0.6.6
 
 - Removed SAS test files and tests due to changes in {haven}
