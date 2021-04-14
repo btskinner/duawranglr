@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">duawranglr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.7</span>
       </span>
     </div>
 
@@ -421,30 +421,30 @@ DUA crosswalk has been set!</code></pre>
 <pre><code># A tibble: 9 x 2
   sid         id                  
   &lt;chr&gt;       &lt;chr&gt;               
-1 000-00-0001 2f43b79fc0af46b7be9d
-2 000-00-0002 161bd76d30d86f5f69dc
-3 000-00-0003 e5e7d588a5f0305d6940
-4 000-00-0004 ca11ef32181395edbec7
-5 000-00-0005 f2322e6b117082ebce1e
-6 000-00-0006 fdd99ee5fac23147dc3f
-7 000-00-0007 0ea2365803794f3098b9
-8 000-00-0008 17697047c49021e27d97
-9 000-00-0009 1f8354b9b82f6a6b136c</code></pre>
+1 000-00-0001 eb168eca67b4e30127ae
+2 000-00-0002 06d4aef346de908812e8
+3 000-00-0003 4be74b835681e042e610
+4 000-00-0004 4a67102b30e6fb950064
+5 000-00-0005 3c7d685c7753b218c988
+6 000-00-0006 a6e2e87f6b43c492e674
+7 000-00-0007 3087e6d424f2288541e0
+8 000-00-0008 8f8faa83e769656c54dd
+9 000-00-0009 94f67cc60e7338287c35</code></pre>
 <p>And here now is the data frame:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## show data frame</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 9 x 10</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  id                   sname    dob      gender raceeth   tid tname   zip mathscr readscr</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> 2f43b79fc0af46b7be9d Schaefer <span class="dv">19900114</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">515</span>     <span class="dv">496</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> 161bd76d30d86f5f69dc Hodges   <span class="dv">19900225</span>      <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">488</span>     <span class="dv">489</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> e5e7d588a5f0305d6940 Kirby    <span class="dv">19900305</span>      <span class="dv">0</span>       <span class="dv">4</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">522</span>     <span class="dv">498</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> ca11ef32181395edbec7 Estrada  <span class="dv">19900419</span>      <span class="dv">0</span>       <span class="dv">3</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">516</span>     <span class="dv">524</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> f2322e6b117082ebce1e Nielsen  <span class="dv">19900530</span>      <span class="dv">1</span>       <span class="dv">2</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">483</span>     <span class="dv">509</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> fdd99ee5fac23147dc3f Dean     <span class="dv">19900621</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> 0ea2365803794f3098b9 Hickman  <span class="dv">19900712</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 17697047c49021e27d97 Bryant   <span class="dv">19900826</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 1f8354b9b82f6a6b136c Lynch    <span class="dv">19900902</span>      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> eb168eca67b4e30127ae Schaefer <span class="dv">19900114</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">515</span>     <span class="dv">496</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> 06d4aef346de908812e8 Hodges   <span class="dv">19900225</span>      <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">488</span>     <span class="dv">489</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> 4be74b835681e042e610 Kirby    <span class="dv">19900305</span>      <span class="dv">0</span>       <span class="dv">4</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">522</span>     <span class="dv">498</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> 4a67102b30e6fb950064 Estrada  <span class="dv">19900419</span>      <span class="dv">0</span>       <span class="dv">3</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">516</span>     <span class="dv">524</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> 3c7d685c7753b218c988 Nielsen  <span class="dv">19900530</span>      <span class="dv">1</span>       <span class="dv">2</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">483</span>     <span class="dv">509</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> a6e2e87f6b43c492e674 Dean     <span class="dv">19900621</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="fl">3087e6</span>d424f2288541e0 Hickman  <span class="dv">19900712</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 8f8faa83e769656c54dd Bryant   <span class="dv">19900826</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 94f67cc60e7338287c35 Lynch    <span class="dv">19900902</span>      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
 </div>
 <div id="links-across-multiple-files-with-existing-crosswalk" class="section level2">
 <h2 class="hasAnchor">
@@ -512,10 +512,10 @@ DUA crosswalk has been set!</code></pre>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> 2c7f2f98f9ee0e3b69ba Kirby    <span class="dv">19900305</span>      <span class="dv">0</span>       <span class="dv">4</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">522</span>     <span class="dv">498</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> ed7041ab2076a84fe611 Estrada  <span class="dv">19900419</span>      <span class="dv">0</span>       <span class="dv">3</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">516</span>     <span class="dv">524</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> d4180e00af840a7a8e29 Nielsen  <span class="dv">19900530</span>      <span class="dv">1</span>       <span class="dv">2</span>     <span class="dv">1</span> Smith <span class="dv">22906</span>     <span class="dv">483</span>     <span class="dv">509</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> 74b242e915755c41d700 Dean     <span class="dv">19900621</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> 1ab30b835e0f30bad8ce Hickman  <span class="dv">19900712</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 7b1a3631a3ab2d87d233 Bryant   <span class="dv">19900826</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 41d9ff08afae20144d1c Lynch    <span class="dv">19900902</span>      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> fa46e065903e0e4d189a Dean     <span class="dv">19900621</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> 0ef3a1b0dc0b7d3c0773 Hickman  <span class="dv">19900712</span>      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 24ed809d2fd2ddb15ac3 Bryant   <span class="dv">19900826</span>      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 195b0cc0f9fb53369b92 Lynch    <span class="dv">19900902</span>      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span> Brown <span class="dv">22906</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
 <p>Looking at the partial crosswalk, we see that it now has four new rows with new IDs each for the observations it didn’t have before.</p>
 <pre><code># A tibble: 9 x 2
   sid         id                  
@@ -525,10 +525,10 @@ DUA crosswalk has been set!</code></pre>
 3 000-00-0003 2c7f2f98f9ee0e3b69ba
 4 000-00-0004 ed7041ab2076a84fe611
 5 000-00-0005 d4180e00af840a7a8e29
-6 000-00-0006 74b242e915755c41d700
-7 000-00-0007 1ab30b835e0f30bad8ce
-8 000-00-0008 7b1a3631a3ab2d87d233
-9 000-00-0009 41d9ff08afae20144d1c</code></pre>
+6 000-00-0006 fa46e065903e0e4d189a
+7 000-00-0007 0ef3a1b0dc0b7d3c0773
+8 000-00-0008 24ed809d2fd2ddb15ac3
+9 000-00-0009 195b0cc0f9fb53369b92</code></pre>
 <p>Should we encounter those students in future files, <code><a href="../reference/deid_dua.html">deid_dua()</a></code> will use the new IDs we just created.</p>
 </div>
 </div>
@@ -568,10 +568,10 @@ DUA crosswalk has been set!</code></pre>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> 2c7f2f98f9ee0e3b69ba      <span class="dv">0</span>       <span class="dv">4</span>     <span class="dv">1</span>     <span class="dv">522</span>     <span class="dv">498</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> ed7041ab2076a84fe611      <span class="dv">0</span>       <span class="dv">3</span>     <span class="dv">1</span>     <span class="dv">516</span>     <span class="dv">524</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> d4180e00af840a7a8e29      <span class="dv">1</span>       <span class="dv">2</span>     <span class="dv">1</span>     <span class="dv">483</span>     <span class="dv">509</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> 74b242e915755c41d700      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> 1ab30b835e0f30bad8ce      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 7b1a3631a3ab2d87d233      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 41d9ff08afae20144d1c      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> fa46e065903e0e4d189a      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">503</span>     <span class="dv">523</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> 0ef3a1b0dc0b7d3c0773      <span class="dv">1</span>       <span class="dv">1</span>     <span class="dv">2</span>     <span class="dv">539</span>     <span class="dv">509</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> 24ed809d2fd2ddb15ac3      <span class="dv">0</span>       <span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">490</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> 195b0cc0f9fb53369b92      <span class="dv">1</span>       <span class="dv">3</span>     <span class="dv">2</span>     <span class="dv">499</span>     <span class="dv">493</span></span></code></pre></div>
 </div>
 <div id="write-cleaned-data-frame-to-disk" class="section level1">
 <h1 class="hasAnchor">
