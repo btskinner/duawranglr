@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   duawranglr: duawranglr.html
   securing_data: securing_data.html
-last_built: 2021-04-14T14:14Z
+last_built: 2021-04-14T14:16Z
 urls:
   reference: https://www.btskinner.io/duawranglr//reference
   article: https://www.btskinner.io/duawranglr//articles
