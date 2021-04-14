@@ -57,15 +57,6 @@ test_that('Failed to read admin file of type: Stata (DTA)', {
 
 })
 
-## SAS
-test_that('Failed to read admin file of type: SAS (sas7bdat)', {
-
-    admin_data <- sreader__('./testdata/admin_data.sas7bdat')
-    expect_is(admin_data, 'data.frame')
-    expect_identical(names(admin_data), colnames)
-
-})
-
 ## SPSS
 test_that('Failed to read admin file of type: SPSS (sav)', {
 
