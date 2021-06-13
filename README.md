@@ -8,7 +8,7 @@ release](https://img.shields.io/github/release/btskinner/duawranglr.svg)](https:
 
 The guiding principle behind duawranglr is to make it easier for
 organizations to share data that contain protected elements and/or
-personally idenfiable information (PII) with researchers. There are two
+personally identifiable information (PII) with researchers. There are two
 key problems this package attempts to solve:
 
 1.  Data owners and reseachers may wish to collaborate on multiple
