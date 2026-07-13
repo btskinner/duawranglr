@@ -32,6 +32,7 @@
 #' See the package vignette for more details about the motivation for
 #' the package and an extended example use case.
 #'
-#' @docType package
 #' @name duawranglr
-NULL
+#' @aliases duawranglr-package
+#' @keywords internal
+"_PACKAGE"

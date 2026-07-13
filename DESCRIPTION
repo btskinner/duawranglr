@@ -2,26 +2,26 @@ Package: duawranglr
 Title: Securely Wrangle Dataset According to Data Usage Agreement
 Version: 0.6.8
 Authors@R: person("Benjamin", "Skinner",
-	          email = "ben@btskinner.io",
-		  role = c("aut", "cre"),
-		  comment = c(ORCID = "0000-0002-0337-7415"))
+           email = "ben@btskinner.io",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0337-7415"))
 URL: https://github.com/btskinner/duawranglr	
 BugReports: https://github.com/btskinner/duawranglr/issues
 Description: Create shareable data sets from raw data files that
-	     contain protected elements. Relying on master crosswalk
-	     files that list restricted variables, package functions
-	     warn users about possible violations of data usage
-	     agreement and prevent writing protected elements.
+             contain protected elements. Relying on master crosswalk
+             files that list restricted variables, package functions
+             warn users about possible violations of data usage
+             agreement and prevent writing protected elements.
 Depends: R (>= 3.1.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: haven,
     readxl,
     readr,
-    digest,
-    dplyr
-RoxygenNote: 7.1.1
+    digest
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0

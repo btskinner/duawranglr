@@ -3,6 +3,7 @@
 \docType{package}
 \name{duawranglr}
 \alias{duawranglr}
+\alias{duawranglr-package}
 \title{duawranglr: Securely Wrangle Dataset According to Data Usage Agreement}
 \description{
 The guiding principle behind \code{duawranglr} is to make it easier
@@ -38,3 +39,21 @@ before they are transferred to researchers.
 See the package vignette for more details about the motivation for
 the package and an extended example use case.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/btskinner/duawranglr}
+  \item Report bugs at \url{https://github.com/btskinner/duawranglr/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Benjamin Skinner \email{ben@btskinner.io} (\href{https://orcid.org/0000-0002-0337-7415}{ORCID})
+
+Authors:
+\itemize{
+  \item Benjamin Skinner \email{ben@btskinner.io} (\href{https://orcid.org/0000-0002-0337-7415}{ORCID})
+}
+
+}
+\keyword{internal}
