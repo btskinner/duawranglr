@@ -101,7 +101,7 @@ Functions in the package do not
 2. Guarantee data security  
 
 There are many packages, such as those in the
-[tidyverse](https://www.tidyverse.org) suite, that are already well
+[tidyverse](https://tidyverse.org) suite, that are already well
 suited to data wrangling tasks. There is no need to replicate those
 functions in this package.
 

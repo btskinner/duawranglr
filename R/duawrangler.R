@@ -32,6 +32,7 @@
 #' See the package vignette for more details about the motivation for
 #' the package and an extended example use case.
 #'
+#' @importFrom digest digest
 #' @name duawranglr
 #' @aliases duawranglr-package
 #' @keywords internal
