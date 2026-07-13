@@ -1,3 +1,7 @@
+# duawranglr 0.6.8
+
+- New email
+
 # duawranglr 0.6.7
 
 - Removed LazyData: true from DESCRIPTION file
