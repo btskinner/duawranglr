@@ -5,6 +5,9 @@ authors:
     href: https://www.btskinner.io
 
 reference:
+  - title: General
+    contents:
+    - duawranglr
   - title: I/O
     desc: Read and write data files
     contents:
