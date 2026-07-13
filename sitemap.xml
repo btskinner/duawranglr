@@ -1,42 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//index.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/check_dua_restrictions.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/deid_dua.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/duawranglr.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/make_dua_template.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/read_dua_file.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/see_dua_level.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/see_dua_options.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/set_dua_cw.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/set_dua_level.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//reference/write_dua_df.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//articles/duawranglr.html</loc>
-  </url>
-  <url>
-    <loc>https://www.btskinner.io/duawranglr//articles/securing_data.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://www.btskinner.io/duawranglr/404.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/LICENSE-text.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/articles/duawranglr.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/articles/index.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/articles/securing_data.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/authors.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/index.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/news/index.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/check_dua_restrictions.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/deid_dua.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/duawranglr.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/index.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/make_dua_template.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/read_dua_file.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/see_dua_level.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/see_dua_options.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/set_dua_cw.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/set_dua_level.html</loc></url>
+<url><loc>https://www.btskinner.io/duawranglr/reference/write_dua_df.html</loc></url>
 </urlset>
+
